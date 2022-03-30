@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0073ResizeObserver</title>
+
+    <style>
+      #content {
+        width: 60%;
+        height: 60vh;
+        margin: 100px auto;
+        border: 1px solid #d00;
+        overflow: auto;
+      }
+      .content-inner {
+        width: 300px;
+        height: 200px;
+        margin: 70px 0 0 10px;
+        border: 1px solid #666;
+        background-color: #87ceeb;
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="content">
+        <div class="content-inner">
+        </div>
+      </div>
+    </div>
+    <script>
+      function handleResize() {
+        console.log("resize");
+      };
+      const theResizeObserver = new ResizeObserver( handleResize ); // 创建一个observer实例
+      const theElement = document.getElementById("content");
+
+      theResizeObserver.observe(theElement);
+
+      window.onbeforeunload = function() {
+        console.err("---------------close--------------");
+        theResizeObserver.unobserve(theElement);
+        theResizeObserver = null;
+      };
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0068IntersectionObserver</title>
+
+    <style>
+      #observer {
+        width: 60%;
+        height: 600px;
+        margin: 100px auto;
+        border: 1px solid #d00;
+        overflow: auto;
+      }
+      .ob-inner {
+        width: 300px;
+        height: 200px;
+        margin: 70px 0 0 10px;
+        border: 1px solid #666;
+        background-color: #87ceeb;
+        position: relative;
+      }
+      .top20 {
+        height: 20%;
+        border-bottom: 1px solid #333;
+      }
+      .bottom20 {
+        width: 100%;
+        height: 20%;
+        border-top: 1px solid #333;
+        position: absolute;
+        bottom: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="observer">
+        <div class="ob-inner">
+          <div class="top20">#1</div>
+          <div class="bottom20">#1</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#2</div>
+          <div class="bottom20">#2</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#3</div>
+          <div class="bottom20">#3</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#4</div>
+          <div class="bottom20">#4</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#5</div>
+          <div class="bottom20">#5</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#6</div>
+          <div class="bottom20">#6</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#7</div>
+          <div class="bottom20">#7</div>
+        </div>
+        <div class="ob-inner">
+          <div class="top20">#8</div>
+          <div class="bottom20">#8</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const options = {
+        root: document.getElementById("observer"),
+        rootMargin: "0px",
+        threshold: 0.2,
+      };
+      const observer = new IntersectionObserver((entries) => {
+        console.log("↓--------------↓");
+        console.log("entry->", entries[0].target.innerHTML);
+        console.log("isIntersecting->", entries[0].isIntersecting);
+        console.log("entries->", entries);
+      }, options);
+
+      const obInnerArr = document.querySelectorAll(".ob-inner");
+      obInnerArr.forEach((item) => {
+        observer.observe(item);
+      });
+    </script>
+  </body>
+</html>

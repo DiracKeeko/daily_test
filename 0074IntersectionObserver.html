@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <title>0068IntersectionObserver</title>
+    <title>0074IntersectionObserver</title>
 
     <style>
       #observer {
@@ -45,7 +45,7 @@
           <div class="top20">#2</div>
           <div class="bottom20">#2</div>
         </div>
-        <div class="ob-inner">
+        <div class="ob-inner ob-inner-3">
           <div class="top20">#3</div>
           <div class="bottom20">#3</div>
         </div>
@@ -72,22 +72,37 @@
       </div>
     </div>
     <script>
+      // 1.option
       const options = {
         root: document.getElementById("observer"),
         rootMargin: "0px",
         threshold: 0.2,
       };
-      const observer = new IntersectionObserver((entries) => {
-        console.log("↓--------------↓");
-        console.log("entry->", entries[0].target.innerHTML);
-        console.log("isIntersecting->", entries[0].isIntersecting);
-        console.log("entries->", entries);
-      }, options);
 
-      const obInnerArr = document.querySelectorAll(".ob-inner");
-      obInnerArr.forEach((item) => {
-        observer.observe(item);
-      });
+      // 2.function
+      function handleChange(entries) {
+        console.log("↓--------------↓");
+        console.log("element innerHTML->", entries[0].target.innerHTML);
+        console.log("isIntersecting->", entries[0].isIntersecting);
+        // console.log("entries->", entries);
+      }
+
+      // 3.element
+      const obInner3 = document.querySelector(".ob-inner-3");
+
+      const intersectionObserver = new IntersectionObserver(handleChange, options);
+      intersectionObserver.observe(obInner3);
+      
+      // 关闭页面时销毁
+      window.onbeforeunload = function() {
+        intersectionObserver.unobserve(obInner3);
+        intersectionObserver = null;
+      };
+
+      // const obInnerArr = document.querySelectorAll(".ob-inner");
+      // obInnerArr.forEach((item) => {
+      //   intersectionObserver.observe(item);
+      // });
     </script>
   </body>
 </html>

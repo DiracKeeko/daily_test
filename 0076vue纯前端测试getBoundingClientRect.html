@@ -1,0 +1,72 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0076</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <link rel="stylesheet" href="./lib/pretty-checkbox.css" />
+
+    <style>
+      .container {
+        width: 300px;
+        height: 200px;
+        background-color: #bfa;
+        margin: 10px auto;
+      }
+      #button {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-for="item in itemList" :key="item" class="container">{{ base }} -> {{ item }}</div>
+      <buttton id="button" @click="handleClick">点击</buttton>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          base: "base 1", // v-for中也能获取data中的base
+          itemList: [0, 1, 2, 3, 4, 5, 6],
+        },
+        mounted() {
+          console.log("mounted in component");
+        },
+        methods: {
+          handleClick() {
+            const element1 = document.querySelectorAll(".container");
+            // console.log("element1->", element1);
+            const eleRectObj = element1[2].getBoundingClientRect();
+            console.log("eleRectObj->", eleRectObj);
+            /* 
+              使用 element.getBoundingClientRect() 返回一个对象(DOMRect)，对象的key为
+
+              x，y，top，bottom，left，right，width，height。
+
+              其中
+                width、height: 表示元素的框和高（= text 的高度 + border + padding）
+                
+                // ↓ 下面六个属性在发生横向||纵向滑动时会变化
+
+                x: 表示元素左上角距离window左上角的横向距离
+                y: 表示元素左上角距离window左上角的纵向距离
+
+                top: 元素上边框距离视窗顶部的的距离
+                bottom: 元素下边框距离视窗顶部的的距离
+                left: 元素左边框距离视窗左边的的距离
+                right: 元素右边框距离视窗左部的的距离
+            */
+          }
+        },
+        watch: {},
+      });
+    </script>
+  </body>
+</html>

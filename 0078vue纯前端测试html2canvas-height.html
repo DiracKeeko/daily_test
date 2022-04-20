@@ -1,0 +1,200 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0078</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <script src="./lib/html2canvas.min.js"></script>
+    <script src="./lib/jspdf.umd.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <link rel="stylesheet" href="./lib/pretty-checkbox.css" />
+
+    <style>
+      .container {
+        width: 300px;
+        height: 500px;
+        background-color: #bfa;
+        margin: 0 auto;
+      }
+      .container:nth-of-type(3n + 1) {
+        background-color: #fba;
+      }
+      .container:nth-of-type(3n + 2) {
+        background-color: #eee;
+      }
+      #button {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+      }
+      #button2 {
+        position: fixed;
+        top: 40px;
+        left: 10px;
+        cursor: pointer;
+      }
+      #button3 {
+        position: fixed;
+        top: 70px;
+        left: 10px;
+        cursor: pointer;
+      }
+      img {
+        margin: 0 auto;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="test">
+        <div v-for="(item, index) in itemList" :key="item" class="container">
+          {{ item }}
+          <div v-if="index===0">
+            (offset) y = 500 * i 情况如下
+            <pre>
+                  1
+                1 2
+            ---------------------
+              1 2 3
+              2 3 4
+              3 4 5
+              4 5 6
+            ---------------------
+              5 6 7
+              6 7 
+              7
+
+  最终有多少高度的HTML被转为图片
+  由canvas中height决定
+                1
+                2
+                3
+                4
+            ---------------------
+              1 5         ↑ height 
+              2 6             ↓
+            =====================
+              3 7
+              4
+            ---------------------
+              5
+              6
+              7
+
+            </pre>
+          </div>
+        </div>
+      </div>
+      <div id="imgContent" v-if="isContentShow">
+        <div v-for="(item, index) in imgArr" :key="index" >
+          <img :src="item"/>
+        </div>
+      </div>
+      <buttton id="button" @click="handleClick('#test')">点击生成</buttton>
+      <buttton id="button2" @click="handleShow">点击展示</buttton>
+      <buttton id="button3" @click="handleClickStand('#imgContent')">点击下载图像区</buttton>
+    </div>
+    <script>
+      const { jsPDF } = jspdf;
+      const maxCanvasHeight = 2000;
+      const canvasScale = 1;
+      const html2canvasDefaultOption = {
+        allowTaint: true,
+        useCORS: true,
+        scale: canvasScale,
+        logging: false,
+      };
+      var app = new Vue({
+        el: "#app",
+        data: {
+          itemList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          isContentShow: false,
+          imgArr: []
+        },
+        mounted() {},
+        methods: {
+          handleClick(querySign) {
+            const appElement = document.querySelector(querySign);
+            this.handleCanvas("test", appElement);
+          },
+          handleClickStand(querySign) {
+            const appElement = document.querySelector(querySign);
+            this.handleCanvasStand("test", appElement);
+          },
+          handleShow() {
+            this.isContentShow = !this.isContentShow;
+          },
+          handleCanvasStand(title, element) {
+            const canvasPromiseArr = [];
+            const { scrollHeight } = element;
+            const bottomBufferHeight = 20;
+            canvasPromiseArr.push(
+              html2canvas(element, html2canvasDefaultOption)
+            );
+            return Promise.all(canvasPromiseArr).then((canvas) => {
+              const pdf = new jsPDF("", "pt", [
+                element.scrollWidth,
+                scrollHeight + bottomBufferHeight,
+              ]);
+              let totalHeight = 0;
+              for (let i = 0; i < canvas.length; i++) {
+                const contentWidth = canvas[i].width / canvasScale;
+                const contentHeight = canvas[i].height / canvasScale;
+                const pageData = canvas[i].toDataURL("image/jpeg", 1.0);
+                pdf.addImage(
+                  pageData,
+                  "jpeg",
+                  0,
+                  totalHeight,
+                  contentWidth,
+                  contentHeight
+                );
+                totalHeight += contentHeight;
+              }
+              return pdf.save(`${title}.pdf`);
+            });
+          },
+          handleCanvas(title, element) {
+            const canvasPromiseArr = [];
+            const { scrollHeight } = element;
+            const bottomBufferHeight = 20;
+            if (scrollHeight > maxCanvasHeight) {
+              const eleRectObj = element.getBoundingClientRect();
+              const size = Math.ceil(scrollHeight / maxCanvasHeight);
+              for (let i = 0; i < size; i++) {
+                const y = maxCanvasHeight * i;
+                // 大部分情况下scrollY没有用 (在没有position: fixed的时候没有用)
+                const scrollY = 0;
+                canvasPromiseArr.push(
+                  html2canvas(element, {
+                    ...html2canvasDefaultOption,
+                    y,
+                    scrollY,
+                    height: maxCanvasHeight / 2
+                  })
+                );
+              }
+            } else {
+              canvasPromiseArr.push(
+                html2canvas(element, html2canvasDefaultOption)
+              );
+            }
+            return Promise.all(canvasPromiseArr).then((canvas) => {
+              for (let i = 0; i < canvas.length; i++) {
+                const contentWidth = canvas[i].width / canvasScale;
+                const contentHeight = canvas[i].height / canvasScale;
+                const pageData = canvas[i].toDataURL("image/jpeg", 1.0);
+                this.imgArr.push(pageData);
+              }
+              console.log("done");
+            });
+          },
+        },
+        watch: {},
+      });
+    </script>
+  </body>
+</html>

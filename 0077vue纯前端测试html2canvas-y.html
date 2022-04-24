@@ -166,6 +166,10 @@ canvas 每次都把虚线间的html保存为图片
               const eleRectObj = element.getBoundingClientRect();
               const size = Math.ceil(scrollHeight / maxCanvasHeight);
               for (let i = 0; i < size; i++) {
+                /* 
+                  y -> 控制offset
+                  scrollY -> 在有fixed元素时 scrollY决定fixed元素的y坐标位置
+                */
                 const y = 500 * i;
                 console.log("y->", y);
                 // 大部分情况下scrollY没有用 (在没有position: fixed的时候没有用)

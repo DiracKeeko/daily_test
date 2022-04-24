@@ -1,0 +1,108 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0080</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <link rel="stylesheet" href="./lib/pretty-checkbox.css" />
+
+    <style>
+      .container {
+        width: 300px;
+        height: 500px;
+        background-color: #bfa;
+        margin: 0 auto;
+      }
+      .container:nth-of-type(3n + 1) {
+        background-color: #fba;
+      }
+      .container:nth-of-type(3n + 2) {
+        background-color: #eee;
+      }
+      #button {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+      }
+      #button2 {
+        position: fixed;
+        top: 40px;
+        left: 10px;
+        cursor: pointer;
+      }
+      #button3 {
+        position: fixed;
+        top: 70px;
+        left: 10px;
+        cursor: pointer;
+      }
+      img {
+        margin: 0 auto;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="test">
+        <div v-for="(item, index) in itemList" :key="item" class="container">
+          {{ item }}
+          <div v-if="index===0">
+            y = maxCanvasHeight * i
+            <pre>
+            </pre>
+          </div>
+        </div>
+        <buttton id="button" @click="handleClick('#test')">点击to Top</buttton>
+      </div>
+      <div id="imgContent" v-if="isContentShow">
+        <div v-for="(item, index) in imgArr" :key="index" >
+          <img :src="item"/>
+        </div>
+      </div>
+    </div>
+    <script>
+      function scrollTo(top, callback) {
+        let scrollTop = document.scrollingElement.scrollTop;
+        const rate = 2;
+
+        function move() {
+            scrollTop = scrollTop + (top - scrollTop) / rate;
+
+            // 临界判断，终止动画
+            if (Math.abs(scrollTop - top) <= 1) {
+                document.scrollingElement.scrollTop = top;
+                callback && callback();
+                return;
+            }
+            document.scrollingElement.scrollTop = scrollTop;
+            
+            // ↓ 动画
+            window.requestAnimationFrame(move);
+        };
+        move();
+      }
+      var app = new Vue({
+        el: "#app",
+        data: {
+          itemList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          isContentShow: false,
+          imgArr: []
+        },
+        mounted() {},
+        methods: {
+          handleClick(querySign) {
+            scrollTo(0, this.alert);
+          },
+          alert() {
+            window.alert("to top");
+          },
+        },
+        watch: {},
+      });
+    </script>
+  </body>
+</html>

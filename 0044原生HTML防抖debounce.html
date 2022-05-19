@@ -1,0 +1,43 @@
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0044防抖</title>
+  <input type="button" value="付款"></input>
+  <script>
+    const button = document.querySelector("input");
+
+    function debounce(func, delay) {
+      // let that = this;
+      // console.log("that->", that);  // window
+      let timer;
+      return function() {
+        let _this = this;
+        let _arguments = arguments;
+        // console.log("_this->", _this); // button
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(_this, _arguments);
+        }, delay);
+      }
+    }
+    function payMoney() {
+      console.log("pay money");
+      console.log("this in payMoney->", this);
+    }
+
+    button.addEventListener("click", debounce(payMoney, 500));
+    // button.addEventListener("click", payMoney);
+
+    
+  </script>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>

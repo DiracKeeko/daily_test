@@ -31,8 +31,11 @@
       </div>
     </div>
     <script>
-      function handleResize() {
+      function handleResize(entries) {
         console.log("resize");
+        for (let entry of entries) {
+          console.log("entry", entry); // a decimal
+        }
       };
       const theResizeObserver = new ResizeObserver( handleResize ); // 创建一个observer实例
       const theElement = document.getElementById("content");

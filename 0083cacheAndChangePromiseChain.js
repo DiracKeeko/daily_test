@@ -23,10 +23,10 @@ function state() {
 
 
 const mutations = {
-  SET_ONCE_INVEST_RES(s, { httpParamhash, resPromise }) {
+  SET_HTTP_RES(s, { httpParamhash, resPromise }) {
     s.httpRes[`${httpParamhash}`] = resPromise;
   },
-  DELETE_ONCE_INVEST_RES(s, { httpParamhash }) {
+  DELETE_HTTP_RES(s, { httpParamhash }) {
     delete s.httpRes[`${httpParamhash}`];
   }
 };
@@ -49,10 +49,10 @@ const actions = {
             reject(err);
           });
       });
-      commit("SET_ONCE_INVEST_RES", { httpParamhash, resPromise });
+      commit("SET_HTTP_RES", { httpParamhash, resPromise });
       return await resPromise;
     } catch (err) {
-      commit("DELETE_ONCE_INVEST_RES", { httpParamhash });
+      commit("DELETE_HTTP_RES", { httpParamhash });
     }
     return null;
   }

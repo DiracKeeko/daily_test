@@ -1,0 +1,42 @@
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0045节流</title>
+  <input type="button" value="付款"></input>
+  <script>
+    const button = document.querySelector("input");
+
+    function throttle(func, delay) {
+      let timer;
+      return function() {
+        let _this = this;
+        let _arguments = arguments;
+        if(timer) {
+          return;
+        }
+        timer = setTimeout(() => {
+          func.apply(_this, _arguments);
+          timer = null;
+        }, delay);
+      }
+    }
+    function payMoney() {
+      console.log("pay money");
+      console.log("this in payMoney->", this);
+    }
+
+    button.addEventListener("click", throttle(payMoney, 1000));
+
+    
+  </script>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>

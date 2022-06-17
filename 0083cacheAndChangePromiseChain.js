@@ -23,22 +23,21 @@ function state() {
 
 
 const mutations = {
-  SET_HTTP_RES(s, { httpParamhash, resPromise }) {
-    s.httpRes[`${httpParamhash}`] = resPromise;
+  SET_HTTP_RES(s, { httpParamHash, resPromise }) {
+    s.httpRes[`${httpParamHash}`] = resPromise;
   },
-  DELETE_HTTP_RES(s, { httpParamhash }) {
-    delete s.httpRes[`${httpParamhash}`];
+  DELETE_HTTP_RES(s, { httpParamHash }) {
+    delete s.httpRes[`${httpParamHash}`];
   }
 };
 
 const actions = {
   async ASYNC_GET_ONCE_REQ({ state, commit }, param) {
-    const httpParamhash = getHash(param);
+    const httpParamHash = getHash(param);
     try {
-      if (state.httpRes[`${httpParamhash}`]) {
-        return await state.httpRes[`${httpParamhash}`];
+      if (state.httpRes[`${httpParamHash}`]) {
+        return await state.httpRes[`${httpParamHash}`];
       }
-      
       const resPromise = new Promise((resolve, reject) => {
         postFormInfo(param)
           .then(resData => {
@@ -49,10 +48,10 @@ const actions = {
             reject(err);
           });
       });
-      commit("SET_HTTP_RES", { httpParamhash, resPromise });
+      commit("SET_HTTP_RES", { httpParamHash, resPromise });
       return await resPromise;
     } catch (err) {
-      commit("DELETE_HTTP_RES", { httpParamhash });
+      commit("DELETE_HTTP_RES", { httpParamHash });
     }
     return null;
   }

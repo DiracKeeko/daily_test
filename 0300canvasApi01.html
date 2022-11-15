@@ -1,0 +1,27 @@
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0300canvas Api 01</title>
+  
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="400" height="300"></canvas>
+
+  <script type="text/javascript">
+      const c = document.getElementById("myCanvas");
+      const ctx = c.getContext("2d");
+      ctx.strokeStyle = "#f28";
+
+      ctx.moveTo(0, 20);
+      ctx.lineTo(100, 20);
+      ctx.stroke();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>position: sticky case</title>
+    <style>
+      .sticky1 {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 20px;
+        background-color: green;
+        height: 60px;
+      }
+      .sticky2 {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 20px;
+        background-color: lightblue;
+        height: 60px;
+      }
+
+      .container-lv1 {
+        /* height: 50px; */
+        /* overflow: scroll; */
+        /* overflow: hidden; */
+        /* overflow: auto; */
+        position: relative;
+      }
+      .container-lv2 {
+        /* overflow: scroll; */
+        /* overflow: hidden; */
+        /* overflow: auto; */
+      }
+      .body-class {
+        overflow: scroll;
+        background-color: #eee;
+      }
+      li {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body class="body-class">
+    <div class="container-lv2">
+      <div class="container-lv1">
+        sticky 粘性定位 <br />
+        position: sticky; 基于用户的滚动位置来定位。<br />
+        粘性定位元素的样式表现，会在 position: relative 与 position: fixed
+        之间切换。<br />
+        是否满足阈值条件决定粘性定位元素的样式表现。<br />
+
+        在这个案例中，当stiky元素的未到达阈值位置(top: 20;)<br />
+        它的行为就像 position: relative;<br />
+        而当页面滚动超出目标区域时，它的表现就像 position: fixed;<br />
+        会固定在目标位置。
+
+        <!-- <div class="sticky1" style="z-index: 11;">show sticky 1</div> -->
+        <!-- ↑  -->
+        <div class="sticky1">show sticky 1</div>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+        </ul>
+        <div class="sticky2">show sticky 2</div>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

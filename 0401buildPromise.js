@@ -15,14 +15,14 @@ class Commitment {
     }
   }
   resolve(result) {
-    console.log("result in resolve->", result);
+    // console.log("result in resolve->", result);
     if (this.status === Commitment.PENDING) {
       this.status = Commitment.FULFILLED;
       this.result = result;
     }
   }
   reject(result) {
-    console.log("result in reject->", result);
+    // console.log("result in reject->", result);
     if (this.status === Commitment.PENDING) {
       this.status = Commitment.REJECTED;
       this.result = result;
@@ -33,25 +33,31 @@ class Commitment {
     onFULFILLED = typeof onFULFILLED === "function" ? onFULFILLED : () => {}; // 如果不是function则
     onREJECTED = typeof onREJECTED === "function" ? onREJECTED : () => {};
     if (this.status === Commitment.FULFILLED) {
-      onFULFILLED(this.result);
+      setTimeout(() => {
+        onFULFILLED(this.result);
+      })
     }
     if (this.status === Commitment.REJECTED) {
-      onREJECTED(this.result);
+      setTimeout(() => {
+        onREJECTED(this.result);
+      })
     }
   }
 }
 
+console.log("01");
 let commitment = new Commitment((resolve, reject) => {
+  console.log("02");
   resolve("这次一定");
   // throw new Error("洗洗睡吧");
 });
 
 commitment.then(
-  // (result) => {
-  //   console.log(result);
-  // },
-  undefined,
+  (result) => {
+    console.log(result);
+  },
   (result) => {
     console.log(result.message);
   }
 );
+console.log("03");

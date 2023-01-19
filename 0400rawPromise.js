@@ -1,7 +1,10 @@
 console.log("01");
 let promise = new Promise((resolve, reject) => {
   console.log("02");
-  resolve("这次一定");
+  setTimeout(() => {
+    resolve("这次一定");
+    console.log("04");
+  })
   // reject("下次一定");
   // throw new Error("洗洗睡吧");
 });

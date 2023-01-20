@@ -17,20 +17,25 @@ class Commitment {
     }
   }
   resolve(result) {
-    // console.log("result in resolve->", result);
-    if (this.status === Commitment.PENDING) {
-      this.status = Commitment.FULFILLED;
-      this.result = result;
-      this.resolveCallbacks.forEach((callback) => callback(result));
-    }
+    // 06 resolve 和 reject要在事件循环末尾执行
+    setTimeout(() => {
+      // console.log("result in resolve->", result);
+      if (this.status === Commitment.PENDING) {
+        this.status = Commitment.FULFILLED;
+        this.result = result;
+        this.resolveCallbacks.forEach((callback) => callback(result));
+      }
+    });
   }
   reject(result) {
-    // console.log("result in reject->", result);
-    if (this.status === Commitment.PENDING) {
-      this.status = Commitment.REJECTED;
-      this.result = result;
-      this.rejectCallbacks.forEach((callback) => callback(result));
-    }
+    setTimeout(() => {
+      // console.log("result in reject->", result);
+      if (this.status === Commitment.PENDING) {
+        this.status = Commitment.REJECTED;
+        this.result = result;
+        this.rejectCallbacks.forEach((callback) => callback(result));
+      }
+    });
   }
   then(onFULFILLED, onREJECTED) {
     // 03 处理then的参数不是function的情况

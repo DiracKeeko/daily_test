@@ -38,23 +38,27 @@ class Commitment {
     });
   }
   then(onFULFILLED, onREJECTED) {
-    // 03 处理then的参数不是function的情况
-    onFULFILLED = typeof onFULFILLED === "function" ? onFULFILLED : () => {}; // 如果不是function则将赋值一个空函数
-    onREJECTED = typeof onREJECTED === "function" ? onREJECTED : () => {};
-    if (this.status === Commitment.PENDING) {
-      this.resolveCallbacks.push(onFULFILLED);
-      this.rejectCallbacks.push(onREJECTED);
-    }
-    if (this.status === Commitment.FULFILLED) {
-      setTimeout(() => {
-        onFULFILLED(this.result);
-      });
-    }
-    if (this.status === Commitment.REJECTED) {
-      setTimeout(() => {
-        onREJECTED(this.result);
-      });
-    }
+    return new Commitment((resolve, reject) => {
+
+      // 03 处理then的参数不是function的情况
+      onFULFILLED = typeof onFULFILLED === "function" ? onFULFILLED : () => {}; // 如果不是function则将赋值一个空函数
+      onREJECTED = typeof onREJECTED === "function" ? onREJECTED : () => {};
+      if (this.status === Commitment.PENDING) {
+        this.resolveCallbacks.push(onFULFILLED);
+        this.rejectCallbacks.push(onREJECTED);
+      }
+      if (this.status === Commitment.FULFILLED) {
+        setTimeout(() => {
+          onFULFILLED(this.result);
+        });
+      }
+      if (this.status === Commitment.REJECTED) {
+        setTimeout(() => {
+          onREJECTED(this.result);
+        });
+      }
+
+    })
   }
 }
 
@@ -70,13 +74,13 @@ let commitment = new Commitment((resolve, reject) => {
   // throw new Error("洗洗睡吧");
 });
 
-commitment.then(
-  (result) => {
-    console.log(commitment.status);
-    console.log(result);
-  },
-  (result) => {
-    console.log(result.message);
-  }
-);
+commitment
+  .then((result) => {
+    console.log(result),
+    console.log(result.message)
+  })
+  .then((result) => {
+    console.log(result),
+    console.log(result.message)
+  });
 console.log("03");

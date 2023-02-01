@@ -19,13 +19,31 @@
 
     .row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-around;
       margin: 40px 0 0 0;
     }
 
+    /* 图片资源的真实尺寸 1024px 1024px */
     .common-size {
       width: 35vw;
       height: 40vh;
+
+      /* ↓ 图片尺寸比容器尺寸大 图片被裁剪 */
+      /* width: 800px; */
+      /* height: 800px; */
+
+      /* ↓ 图片尺寸比容器尺寸小 图片不拉伸、也不缩放，在容器中居中放置 */
+      /* width: 1500px; */
+      /* height: 1500px; */
+     
+      /* ↓ 观察bg-02 cover的情况*/
+      /* width: 180px; */
+      /* height: 80px; */
+
+      /* ↓ 观察bg-02 cover的情况*/
+      /* width: 1800px; */
+      /* height: 800px; */
     }
 
     .bg-url {
@@ -39,7 +57,6 @@
     .bg-02 {
       background-size: cover;
     }
-
     .bg-03 {
       background-size: 100% 100%;
     }
@@ -54,7 +71,7 @@
 <body>
   <div id="outer">
     <div>1、缩放网页(ctrl + 鼠标滚轮); 2、将网页变为小窗口，改变窗口尺寸(改变窗口的长宽比); 查看bg-url和img的表现</div>
-
+    <div>图片资源的真实尺寸 1024px 1024px</div>
     <div class="row">
       <div class="common-size bg-url bg-01"></div>
       <div class="common-size bg-url bg-02"></div>
@@ -64,7 +81,6 @@
       <div class="common-size bg-url bg-03"></div>
   
       <img src="./img/umi-image.jpg" class="common-size case-img"/>
-
     </div>
   </div>
 </body>

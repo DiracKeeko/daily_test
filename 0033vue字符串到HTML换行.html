@@ -1,0 +1,47 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0033</title>
+  <script src="./lib/vue2.6.12.min.js"></script>
+  <script src="./lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="./lib/element-ui2.14.1.css">
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <pre> {{ testStr }} </pre>
+    </div>
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        testStr: "aaa    bbb"  // 不换行
+        // testStr: "aaa  \n  bbb"  // 实测这种写法在页面中， \n消失 换行
+        // testStr: "aaa \\n bbb"  // 实测这种写法在页面中， 显示\n, 且不换行
+        // testStr: "aaa <br/> bbb"  // 实测这种写法在页面中，显示<br/> 且不换行
+        /* 解决方式: 1、css属性实现  设置 white-space: pre-wrap
+                    2、使用v-html实现 将字符串里的\n替换为<br>，然后用v-html指令渲染字符串为innerHTML。
+                    3、直接使用<pre>标签  <pre> {{ testStr}} </pre>  这种方式会导致样式失效，变为默认的pre标签样式
+                    4、testStrArr = testStr.split("\n")  在页面中 v-for渲染arr中的每个元素
+
+              https://blog.csdn.net/qq_35393869/article/details/99563426
+        */
+      },
+      methods: {
+        
+      },
+      computed: {
+        
+      }
+    });
+  </script>
+</body>
+
+</html>

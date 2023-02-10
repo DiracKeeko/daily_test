@@ -1,0 +1,42 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0082</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <link rel="stylesheet" href="./lib/pretty-checkbox.css" />
+
+    <style>
+      #iframe-container {
+        width: 90vw;
+        height: 90vh;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <iframe id="iframe-container" src="http://dict.youdao.com/"> </iframe>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {},
+        mounted() {
+          window.addEventListener("message", this.handleIframeMessage);
+          this.$once("hook:beforeDestroy", () => {
+            window.removeEventListener("message", this.handleIframeMessage);
+          });
+        },
+        methods: {
+          handleIframeMessage(message) {
+            console.log("message->", message);
+          }
+        },
+        watch: {},
+      });
+    </script>
+  </body>
+</html>

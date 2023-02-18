@@ -42,3 +42,14 @@ let [notExist1 = '数组为空'] = arr2;
 console.log('notExist1->', notExist1); // notExist1-> 数组为空
 
 
+
+const arr3= ['蛋同学', '鸡同学', '鸭同学', '鹅同学', '牛同学', '羊同学'];
+const [st1, st2, ...resSt] = arr3; // 把不定元素放入resSt数组
+console.log("resSt->", resSt);
+// 注意： 不定元素一定要放在后面 
+// 即不能写const [...resSt, st1, st2] = arr3
+
+// 嵌套的数组解构赋值
+const arr4= ['1', '2', ['3', '4'], ['5', '6', '7'], '8'];
+const [n1, , [, n2], [, , n3]] = arr4;
+console.log(n1, n2, n3);

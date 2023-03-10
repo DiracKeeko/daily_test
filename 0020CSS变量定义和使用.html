@@ -1,0 +1,25 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0020CSS变量定义和使用</title>
+    <style>
+      body {
+        --danger-color: #f53948;
+        --width-middle: 500px;
+        --height: 280px;
+      }
+      .c01 {
+        color: var(--danger-color);
+      }
+      .c02 {
+        width: var(--width-middle);
+        height: var(--height);
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="c01">danger</div>
+    <div class="c02">square</div>
+  </body>
+</html>

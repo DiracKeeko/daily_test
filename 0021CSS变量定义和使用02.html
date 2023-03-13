@@ -1,0 +1,45 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0021CSS变量定义和使用02</title>
+    <style>
+      body {
+        --danger-color: #f53948;
+        --width-middle: 500px;
+        --height: 280px;
+        --margin-top: calc(2vh + 20px);
+      }
+      .c01 {
+        color: var(--danger-color);
+        margin-top: var(--margin-top);
+      }
+      .c02 {
+        width: var(--width-middle);
+        height: var(--height);
+        border: 1px solid black;
+
+        /*
+          var(param1[, param2])
+          var()函数可以使用第二个参数，表示默认值。
+          如果param1指向的变量不存在，就会使用param2所声明的默认值。
+
+            注: 第二个参数位置的逗号或空格都视作第二个参数的整体。
+         */
+        
+        /* 不存在--happy-color, 使用#bfa作为默认值*/
+        background-color: var(--happy-color, #fba); 
+        
+        /* "Microsoft Yahei", "Consolas"作为第二个参数整体 */
+        font-family: var(--font-stack, "Microsoft Yahei", "Consolas"); 
+
+        /* 20px 15px 0作为第二个参数整体 */
+        padding: var(--pad, 20px 30px 0);
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="c01">danger</div>
+    <div class="c02">square</div>
+  </body>
+</html>

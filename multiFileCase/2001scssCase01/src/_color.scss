@@ -1,0 +1,18 @@
+
+// ↓ $colors中的变量会在theme.scss中生成css变量 (用 var(--key)来使用)
+$colors: (
+  'dark': #333333,
+  'balck': #000000,
+  'white': #ffffff,
+  'success':#00bf30,
+  'failed': #e64141
+);
+
+:export {
+  @each $key, $val in $colors {
+    #{unquote($key)}: $val;
+  }
+}
+
+$warning-color: #f18241;
+$danger-color: #df2720;

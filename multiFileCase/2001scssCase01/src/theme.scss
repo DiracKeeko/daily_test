@@ -1,0 +1,8 @@
+@import "./color.scss";
+
+body {
+  // 遍历_color.scss中的$colors,生成css变量, 如 --success-color: #00bf30;
+  @each $colorKey, $colorVal in $colors {
+    --#{$colorKey}-color: #{$colorVal};
+  }
+}

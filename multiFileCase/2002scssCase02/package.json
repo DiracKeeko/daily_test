@@ -1,0 +1,12 @@
+{
+  "name": "scss",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "sass src/:dist"
+  },
+  "devDependencies": {
+    "sass": "^1.33.0",
+    "sass-loader": "^8.0.2"
+  }
+}

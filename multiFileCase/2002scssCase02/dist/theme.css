@@ -1,0 +1,47 @@
+:export {
+  dark: #333333;
+  balck: #000000;
+  white: #ffffff;
+  success: #00bf30;
+  failed: #e64141;
+}
+
+body {
+  --dark-color: #333333;
+  --balck-color: #000000;
+  --white-color: #ffffff;
+  --success-color: #00bf30;
+  --failed-color: #e64141;
+}
+body .text-dark {
+  color: #333333;
+}
+body .bg-dark {
+  background-color: #333333;
+}
+body .text-balck {
+  color: #000000;
+}
+body .bg-balck {
+  background-color: #000000;
+}
+body .text-white {
+  color: #ffffff;
+}
+body .bg-white {
+  background-color: #ffffff;
+}
+body .text-success {
+  color: #00bf30;
+}
+body .bg-success {
+  background-color: #00bf30;
+}
+body .text-failed {
+  color: #e64141;
+}
+body .bg-failed {
+  background-color: #e64141;
+}
+
+/*# sourceMappingURL=theme.css.map */

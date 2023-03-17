@@ -1,0 +1,50 @@
+# compiled output
+/dist
+
+# development products
+node_modules
+dist-ssr
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - directories and files
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea
+*.iml
+
+# local env files
+.env.local
+.env.*.local
+
+# invalid files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

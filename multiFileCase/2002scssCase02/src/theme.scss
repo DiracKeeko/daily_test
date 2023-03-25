@@ -1,4 +1,5 @@
 @import './color.scss';
+@import './variable.scss';
 
 body {
   // 遍历_color.scss中的$colors,生成css变量, 如 --success-color: #00bf30;
@@ -7,12 +8,67 @@ body {
   }
 
   // 遍历_color.scss中的$colors,生成class, 如 .text-dark { color: #333333; }
-  @each $colorKey, $color in $colors {
+  @each $colorKey, $colorVal in $colors {
     .text-#{$colorKey} {
-      color: $color;
+      color: $colorVal;
     }
     .bg-#{$colorKey} {
-      background-color: $color;
+      background-color: $colorVal;
     }
   }
+
+  // 嵌套循环的 @each
+  @each $typeKey, $typeVal in $spacing-types {
+    // .m-1 { margin: 0.25rem }
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}-#{$sizeKey} {
+        #{$typeVal}: $size * $base-spacing-size;
+      }
+    }
+    // 左右间距mx; 上下间距my; .mx-1 { margin-left: 0.25rem, margin-right: 0.25rem }
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}x-#{$sizeKey} {
+        #{$typeVal}-left: $size * $base-spacing-size;
+        #{$typeVal}-right: $size * $base-spacing-size;
+      }
+    }
+    // my
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}y-#{$sizeKey} {
+        #{$typeVal}-top: $size * $base-spacing-size;
+        #{$typeVal}-bottom: $size * $base-spacing-size;
+      }
+    }
+    // 单向间距 mt-1, mr-1, mb-1, ml-1
+    @each $dirKey, $dir in $spacing-direction {
+      @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}#{$dirKey}-#{$sizeKey} {
+          #{$typeVal}-#{$dir}: $size * $base-spacing-size;
+        }
+      }
+    }
+  }
+
+  // @extend
+  .base-border {
+    border: 1px solid var(--dark-color);
+  }
+  .shadow-border {
+    @extend .base-border;
+    box-shadow: 0 0 5px #999;
+  }
+
+  // @mixin + @include
+  @mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+  }
+  .box-with-radius {
+    border: 1px solid #999;
+    @include border-radius(5px);
+  }
+
 }

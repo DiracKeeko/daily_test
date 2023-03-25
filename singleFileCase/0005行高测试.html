@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0005行高测试</title>
+    <script></script>
+    <style>
+      .container {
+        width: 90vw;
+        height: 100px;
+        background-color: #bfa;
+        margin: 0 auto;
+      }
+      .container img {
+        width: 40px;
+        vertical-align: middle;
+      }
+      .span01 {
+        background-color: #ba705d;
+      }
+      .span02 {
+        line-height: 80px;
+        vertical-align: top;
+        background-color: #fba;
+      }
+      .span03 {
+        line-height: 40px;
+        display: block;
+        background-color: #dbb320;
+      }
+      .div01 {
+        line-height: 40px;
+        vertical-align: middle;
+        background-color: #efa;
+      }
+      .div02 {
+        font: 20px/40px;
+        vertical-align: middle;
+        background-color: olivedrab;
+      }
+      .div03 {
+        font: 20px/40px "microsoft yahei";
+        vertical-align: middle;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="img/dahuangmao.png" alt="大黄猫" /> <br />
+    </div>
+
+    <span class="span01">是span01</span><br>
+    <span class="span02">是span02(给span设置line-height: 80px; 不会撑开span的高度，但span标签在Y方向所占位置增加了)</span><br>
+    <span class="span03">是span03(给span设置line-height + display: block; 其表现和block元素一样)</span>
+    <div class="div01">是div01</div>
+    <div class="div02">是div02(仅设置font: 20px/40px; (没写font-family) 行高不生效)</div>
+    <div class="div03">是div03</div>
+  </body>
+</html>

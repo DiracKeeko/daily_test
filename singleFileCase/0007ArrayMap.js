@@ -1,4 +1,4 @@
-// 0005 ArrayMap
+// 0007 ArrayMap
 let arr1 = [];
 let arr11 = arr1.map((item) => {
   console.log('001');

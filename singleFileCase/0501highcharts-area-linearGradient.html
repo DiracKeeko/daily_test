@@ -1,0 +1,331 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0501highcharts-area-linearGradient</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/highcharts.js"></script>
+    <script src="./lib/highcharts-more.js"></script>
+    <script src="./lib/highcharts-vue.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <highcharts :options="chartOptions" style="width: 1000px; height: 600px"></highcharts>
+    </div>
+    <script>
+      // Vue.use(HighchartsVue.default); // 全局注册
+      // HighchartsMore(Highcharts); //没法这么写
+      let app = new Vue({
+        el: '#app',
+        components: {
+          highcharts: HighchartsVue.Chart //局部注册
+        },
+        data() {
+          let chart = {
+            type: 'area'
+          };
+          let title = {
+            text: 'UR两国中产阶级人均收入'
+          };
+          let xAxis = {
+            allowDecimals: false,
+            labels: {
+              formatter: function () {
+                return this.value; // clean, unformatted number for year
+              }
+            },
+            title: {
+              enabled: false // 是否开启x轴title, 如果为true则开启
+            }
+          };
+          let yAxis = {
+            title: {
+              text: '年收入'
+            },
+            labels: {
+              formatter: function () {
+                return this.value / 1000 + 'k';
+              }
+            }
+          };
+          let plotOptions = {
+            area: {
+              pointStart: 1940,
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          };
+          let tooltip = {
+            formatter: function () {
+              return `Year: ${this.point.x}<br/> Income: ${this.point.y}`;
+            }
+          };
+          let series = [
+            {
+              name: 'U国',
+              fillColor: {
+                /**
+                 * linearGradient中 x1、x2 都为 0 表示横向上没有渐变。
+                 *    -> 实测 只要x1 === x2 (如 x1: 1, x2: 1 或者 x1: 0, x2: 0) 横向上都不会有渐变。
+                 *    -> 实测 只要y1 === y2 纵向上都不会有渐变。
+                 * 
+                 *        特殊情况 x1 === x2, y1 === y2 此时会使用stops中 [1, colorValueA] 这个colorValueA值
+                 *  
+                 *  我们可以把 linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 }想象成二维平面中的两个点
+                              (x1, y1)
+
+                                              (x2, y2)
+                 * 
+                 */
+                linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 }, 
+                
+                // stops: [[step1, value1], [step2, value2], [step3, value3], ..., [stepN, valueN]] 
+                // 其中step取值范围为[0, 1]
+                /**
+                 * 1、当 x1 === x2 && y1 === y2时，整个图像不渐变，图像的颜色取值为stops数组的最后一项的颜色
+                 * 
+                 * 2、当 !(x1 === x2 && y1 === y2)时，也就是(x1, y1) (x2, y2)不重合，此时stop数组的序，会影响渐变效果
+                 *    - 对 stops: [[1, colorValueA], [0, colorValueB]] 这种情况，渐变不生效，整个图使用的是colorValueA颜色
+                 *      stops: [
+                          [1, "#ff0000"],
+                          [0, "#0000ff"]
+                        ]
+
+                      - 对 stops: [[0, colorValueA], [1, colorValueB]]，这种情况下才会渐变。
+                        - 渐变时, (x1, y1) 的值对应stops里的一个颜色，(x2, y2)对应stops里的一个颜色
+                          如: 上面的linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 }
+                              分解成两个点 左上点(x1: 0, y1: 0)  右下点(x2: 0, y2: 1)
+                              左上点对应的颜色是colorValueA (stops中step为0的颜色, [0, colorValueA])
+                              右上点对应的颜色是colorValueB (stops中step为1的颜色)
+                
+                 */ 
+                stops: [
+                  [0, "#0000ff"],
+                  [0.5, "#00ff00"],
+                  [1, "#ff0000"]
+                ]
+              },
+              data: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                2,
+                9,
+                13,
+                50,
+                170,
+                299,
+                438,
+                841,
+                1169,
+                1703,
+                2422,
+                3692,
+                5543,
+                7345,
+                12298,
+                18638,
+                22229,
+                25540,
+                28133,
+                29463,
+                31139,
+                31175,
+                31255,
+                29561,
+                27552,
+                26008,
+                25830,
+                26516,
+                27835,
+                28537,
+                27519,
+                25914,
+                25542,
+                24418,
+                24138,
+                24104,
+                23208,
+                22886,
+                23305,
+                23459,
+                23368,
+                23317,
+                23575,
+                23205,
+                22217,
+                21392,
+                19008,
+                13708,
+                11511,
+                10979,
+                31139,
+                31175,
+                31255,
+                29561,
+                27552,
+                26008,
+                25830,
+                26516,
+                27835,
+                28537,
+                27519,
+                25914,
+                25542,
+                24418,
+                24138,
+                24104,
+                23208,
+                22886,
+                23305,
+                23459,
+                23368,
+                23317,
+                23575,
+                23205,
+                5113,
+                5066,
+                4897,
+                4881,
+                4804,
+                4717,
+                4571,
+                4018,
+                3822,
+                3785,
+                3805,
+                3750,
+                3708,
+                3708
+              ]
+            },
+            {
+              name: 'R国',
+              fillOpacity: 0,
+              data: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                1,
+                5,
+                25,
+                50,
+                120,
+                150,
+                200,
+                426,
+                660,
+                863,
+                1048,
+                1627,
+                2492,
+                3346,
+                4259,
+                5242,
+                6144,
+                7091,
+                8400,
+                9490,
+                10671,
+                11736,
+                13279,
+                14600,
+                15878,
+                17286,
+                19235,
+                22165,
+                24281,
+                26169,
+                28258,
+                30665,
+                32146,
+                33486,
+                35130,
+                36825,
+                38582,
+                40159,
+                38107,
+                36538,
+                35078,
+                32980,
+                29154,
+                26734,
+                24403,
+                21339,
+                18179,
+                15942,
+                15442,
+                14368,
+                13188,
+                12188,
+                11152,
+                10114,
+                9076,
+                8038,
+                7000,
+                6643,
+                6286,
+                5929,
+                5527,
+                5215,
+                4858,
+                4750,
+                4650,
+                4600,
+                4500,
+                4490,
+                4300,
+                4350,
+                4330,
+                4310,
+                4495,
+                4477
+              ]
+            }
+          ];
+          return {
+            chartOptions: {
+              chart,
+              title,
+              xAxis,
+              yAxis,
+              tooltip,
+              series,
+              plotOptions,
+              credits: {
+                enabled: false
+              },
+              legend: {
+                enabled: true
+              }
+            }
+          };
+        },
+        methods: {},
+        watch: {},
+        computed: {},
+        mounted() {}
+      });
+    </script>
+  </body>
+</html>

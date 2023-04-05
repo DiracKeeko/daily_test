@@ -18,13 +18,15 @@ function getHexOpacityColor(color, percent) {
  *
  * 如果用vscode浏览本js文件，并安装了Color Highlight插件，则可以看到color
  */
-const testColor = '#1BFFCD';
-const resColor1 = '#1BFFCDFF'; // 颜色最亮，等同于 #1BFFCD
+
+// 这样记, opacity越小，越接近背景色。
+const testColor = '#1BFFCD'; // 默认的情况下 opacity: 1; 即尾部添加FF
+const resColor1 = '#1BFFCDFF'; // 不透明度最高，等同于 #1BFFCD
 const resColor2 = '#1BFFCDDD';
 const resColor3 = '#1BFFCD88';
 const resColor4 = '#1BFFCD33';
-const resColor5 = '#1BFFCD11'; // 颜色最深，基本黑色了
-const resColor6 = '#1BFFCD11'; // 颜色最深，基本黑色了
+const resColor5 = '#1BFFCD11'; // 不透明度很低，基本黑色了(因为黑色背景)
+const resColor6 = '#1BFFCD00'; // 不透明度最低，等同于背景色(黑色)
 // const resColor7 = '#1BFFCD0'; // 不是一个HEX颜色
 
 const resByTest1 = getHexOpacityColor(testColor, 1);

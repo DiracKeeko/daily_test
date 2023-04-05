@@ -1,0 +1,81 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0203vue纯前端测试cssOpacity</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <style>
+      .opacity-container {
+        padding: 10px;
+        background-color: #ccc;
+        width: 600px;
+      }
+      .base-style {
+        width: 200px;
+        height: 50px;
+        margin: 0 0 10px 0;
+        border: 3px solid black;
+      }
+      .bg {
+        background-color: #1b5fc5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <template>
+        <div class="opacity-container">
+          使用css的opacity属性 (不透明度) 来给元素设置不透明度，可以发现opacity越小，颜色越接近背景色
+          <div
+            v-for="(op, index) in opacityArr"
+            :key="index"
+            class="base-style bg"
+            :style="{opacity: op}"
+          >
+            <div>CSS-opacity: {{ op }}</div>
+            index: {{index}}
+          </div>
+          其中不透明度为0的元素直接消失不见了(连边框也消失不见了)
+        </div>
+        <div>------------------------------------------</div>
+        <div class="opacity-container">
+          而使用getHexOpacity的方式先制作透明色，再给背景填充透明色
+          这种方式在颜色本身与css opacity的实现基本相同。
+          <div
+            v-for="(op, index) in opacityArr"
+            :key="index"
+            class="base-style"
+            :style="{'background-color': getHexOpacityColor(`#1b5fc5`, op)}"
+          >
+            <div>getHex-opacity: {{ op }}</div>
+            index: {{index}}
+          </div>
+          但有区别的是，其中不透明度为0的元素边框还在
+        </div>
+      </template>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          opacityArr: [0, 0.2, 0.5, 0.8, 1]
+        },
+        methods: {
+          getHexOpacityColor(color, percent) {
+            const colorUpperCase = color.toUpperCase();
+            let opacity = parseInt(255 * percent, 10)
+              .toString(16)
+              .toUpperCase(); // 转出的十六进制默认小写,转为大写
+            if (opacity === '0') {
+              opacity = '00';
+            }
+            return `${colorUpperCase}${opacity}`;
+          }
+        },
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

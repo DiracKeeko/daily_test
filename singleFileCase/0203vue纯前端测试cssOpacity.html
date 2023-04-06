@@ -27,7 +27,8 @@
     <div id="app">
       <template>
         <div class="opacity-container">
-          使用css的opacity属性 (不透明度) 来给元素设置不透明度，可以发现opacity越小，颜色越接近背景色
+          使用css的opacity属性 (不透明度)
+          来给元素设置不透明度，可以发现opacity越小，颜色越接近背景色
           <div
             v-for="(op, index) in opacityArr"
             :key="index"
@@ -41,8 +42,8 @@
         </div>
         <div>------------------------------------------</div>
         <div class="opacity-container">
-          而使用getHexOpacity的方式先制作透明色，再给背景填充透明色
-          这种方式在颜色本身与css opacity的实现基本相同。
+          而使用getHexOpacity的方式先制作透明色，再给背景填充透明色 这种方式在颜色本身与css
+          opacity的实现基本相同。
           <div
             v-for="(op, index) in opacityArr"
             :key="index"
@@ -68,8 +69,8 @@
             let opacity = parseInt(255 * percent, 10)
               .toString(16)
               .toUpperCase(); // 转出的十六进制默认小写,转为大写
-            if (opacity === '0') {
-              opacity = '00';
+            if (opacity.length < 2) {
+              opacity = '0' + opacity;
             }
             return `${colorUpperCase}${opacity}`;
           }

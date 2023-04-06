@@ -3,9 +3,9 @@ function getHexOpacityColor(color, percent) {
   let opacity = parseInt(255 * percent, 10)
     .toString(16)
     .toUpperCase(); // 转出的十六进制默认小写,转为大写
-  if (opacity === '0') {
-    opacity = '00';
-  }
+    if (opacity.length < 2) {
+      opacity = '0' + opacity;
+    }
   return `${colorUpperCase}${opacity}`;
 }
 
@@ -39,5 +39,7 @@ console.log('getHexOpacityColor 0.5->', resByTest2);
 // getHexOpacityColor-> #1BFFCD7F
 console.log('getHexOpacityColor 0.1->', resByTest3);
 // getHexOpacityColor-> #1BFFCD19
+console.log('getHexOpacityColor 0.05->', getHexOpacityColor(testColor, 0.05));
+// getHexOpacityColor-> #1BFFCD02
 console.log('getHexOpacityColor 0->', resByTest4);
 // getHexOpacityColor-> #1BFFCD00

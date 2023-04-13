@@ -3,9 +3,9 @@ function getHexOpacityColor(color, percent) {
   let opacity = parseInt(255 * percent, 10)
     .toString(16)
     .toUpperCase(); // 转出的十六进制默认小写,转为大写
-    if (opacity.length < 2) {
-      opacity = '0' + opacity;
-    }
+  if (opacity.length < 2) {
+    opacity = '0' + opacity;
+  }
   return `${colorUpperCase}${opacity}`;
 }
 

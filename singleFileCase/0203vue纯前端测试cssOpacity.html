@@ -11,6 +11,9 @@
         background-color: #ccc;
         width: 600px;
       }
+      .intro {
+        margin: 0 0 10px 0;
+      }
       .base-style {
         width: 200px;
         height: 50px;
@@ -27,8 +30,10 @@
     <div id="app">
       <template>
         <div class="opacity-container">
-          使用css的opacity属性 (不透明度)
-          来给元素设置不透明度，可以发现opacity越小，颜色越接近背景色
+          <div class="intro">
+            使用css的opacity属性 (不透明度)
+            来给元素设置不透明度，可以发现opacity越小，颜色越接近背景色
+          </div>
           <div
             v-for="(op, index) in opacityArr"
             :key="index"
@@ -42,8 +47,10 @@
         </div>
         <div>------------------------------------------</div>
         <div class="opacity-container">
-          而使用getHexOpacity的方式先制作透明色，再给背景填充透明色 这种方式在颜色本身与css
-          opacity的实现基本相同。
+          <div class="intro">
+            而使用getHexOpacity的方式先制作透明色，再给背景填充透明色 这种方式在颜色本身与css
+            opacity的实现视觉上无区别。
+          </div>
           <div
             v-for="(op, index) in opacityArr"
             :key="index"
@@ -53,7 +60,7 @@
             <div>getHex-opacity: {{ op }}</div>
             index: {{index}}
           </div>
-          但有区别的是，其中不透明度为0的元素边框还在
+          但有区别的是，其中不透明度为0的元素边框不会发生变化，内容区(如文字)也不会发生变化。
         </div>
       </template>
     </div>

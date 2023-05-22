@@ -1,5 +1,31 @@
+// 将hexColor变更为非缩写形式 #abc => #aabbcc 不改变大小写
+function expandHexColor(hexColor) {
+  // 检查是否为缩写形式（4个字符 如#abc）
+  if (hexColor.length === 4) {
+    // 如果是缩写形式，进行转换
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const result = hexColor.replace(shorthandRegex, function (_, r, g, b) {
+      return "#" + r + r + g + g + b + b;
+    });
+    return result;
+  }
+  // 不是缩写形式，直接输出原值
+  return hexColor;
+}
+
+// 测试
+// const color1 = "#f00"; // 缩写形式，将被转换为 "#ff0000"
+// const color2 = "#369"; // 缩写形式，将被转换为 "#336699"
+// const color3 = "#AABBCC"; // 非缩写形式，原值不变
+
+// console.log(expandHexColor(color1)); // 输出 "#ff0000"
+// console.log(expandHexColor(color2)); // 输出 "#336699"
+// console.log(expandHexColor(color3)); // 输出 "#AABBCC"
+
+
 function getHexOpacityColor(color, percent) {
-  const colorUpperCase = color.toUpperCase();
+  const nonAbbreviationHexColor = expandHexColor(color);
+  const colorUpperCase = nonAbbreviationHexColor.toUpperCase();
   let opacity = parseInt(255 * percent, 10)
     .toString(16)
     .toUpperCase(); // 转出的十六进制默认小写,转为大写
@@ -43,3 +69,7 @@ console.log('getHexOpacityColor 0.05->', getHexOpacityColor(testColor, 0.05));
 // getHexOpacityColor-> #1BFFCD02
 console.log('getHexOpacityColor 0->', resByTest4);
 // getHexOpacityColor-> #1BFFCD00
+
+
+const resByTest5 = getHexOpacityColor("#AAA", 0.5);
+console.log('getHexOpacityColor 0->', resByTest5);

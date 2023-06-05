@@ -7,6 +7,7 @@ function deepClone(obj) {
 
   for (let key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      // 当 obj 对象被篡改过并且重写了 hasOwnProperty() 方法，那么使用 obj.hasOwnProperty(key) 就无法保证返回正确的结果。因此使用 Object.prototype.hasOwnProperty.call(obj, key) 来保证获取正确的结果。
       clone[key] = deepClone(obj[key]);
     }
   }

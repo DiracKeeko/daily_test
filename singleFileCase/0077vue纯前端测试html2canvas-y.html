@@ -53,19 +53,31 @@
         <div v-for="(item, index) in itemList" :key="item" class="container">
           {{ item }}
           <div v-if="index===0">
-            (offset) y = 500 * i 情况如下
+            展示y变动对html2canvas的影响。
+            下图pre的代码的每个数字都表示一个高度为500px, 宽度为300px的方块
             <pre>
-                  1
-                1 2
+                1
+                2
             ---------------------
-              1 2 3
-              2 3 4
-              3 4 5
-              4 5 6
+                3
+                4
             ---------------------
-              5 6 7
-              6 7 
+              1 5
+              2 6
+            ---------------------
+              3 7
+              4
+            ---------------------
+              5
+              6
+            ---------------------
               7
+
+            我们要放入canvas的输入是一整个html(想象一下不包含上面图示虚线的完整的dom部分)
+            要把整个html按照不同的起点(y值)切分, 分别放进不同的canvas画布中
+
+            (offset) y = 500 * i 情况如下
+            
 
 canvas 每次都把虚线间的html保存为图片
   因此我们要做的是通过调整offset的值
@@ -174,6 +186,7 @@ canvas 每次都把虚线间的html保存为图片
                 console.log("y->", y);
                 // 大部分情况下scrollY没有用 (在没有position: fixed的时候没有用)
                 const scrollY = 0;
+                // 下面的代码，会将1234, 2345, 3456, ... 分别放入每一张canvas画图中
                 canvasPromiseArr.push(
                   html2canvas(element, {
                     ...html2canvasDefaultOption,

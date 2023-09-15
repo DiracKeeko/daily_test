@@ -1,0 +1,77 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0084vue纯前端执行先后关系</title>
+    <script src="./lib/vue2.6.12.min.js"></script>
+    <script src="./lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="./lib/element-ui2.14.1.css" />
+    <link rel="stylesheet" href="./lib/pretty-checkbox.css" />
+
+    <style>
+      #iframe-container {
+        width: 90vw;
+        height: 90vh;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>test</div>
+      <div>{{msg}}</div>
+      <div>{{msgComputed}}</div>
+      <div>{{msg1Computed}}</div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        created() {
+          console.log('created');
+          // this.msg = "-hello-created";
+        },
+        beforeMount() {
+          console.log('beforeMount');
+          this.msg = '-hello-beforeMount';
+        },
+        mounted() {
+          console.log('mounted');
+          // this.msg = "-hello-mounted"
+        },
+        data() {
+          return {
+            msg: 'hello',
+            msg1: 'welcome'
+          };
+        },
+        computed: {
+          msgComputed() {
+            console.log('msgComputed');
+            return this.msg + '-computed';
+          },
+          msg1Computed() {
+            console.log('msg1Computed');
+            return this.msg1 + '-computed';
+          }
+        },
+        watch: {
+          msg(val) {
+            console.log('msg-watch->', val);
+          },
+          msg1: {
+            handler(val) {
+              console.log('msg1-watch->', val);
+            },
+            immediate: true
+          },
+          msg1Computed: {
+            handler(val) {
+              console.log('msg1Computed-watch->', val);
+            },
+            immediate: true
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

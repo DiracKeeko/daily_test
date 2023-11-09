@@ -1,0 +1,107 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0205flex+nowrap宽度异常</title>
+    <script></script>
+    <style>
+      body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+    th, td {
+        /* table elements 表格元素 */
+        margin: 0;
+        padding: 0;
+      }
+
+      #div-normal {
+        margin: 20px 0 0;
+        border: 1px solid #0000ff;
+      }
+
+      .div-abnormal {
+        margin: 20px 0 0;
+        border: 1px solid #ff0000;
+      }
+
+      .container {
+        display: flex;
+        width: 60%;
+        height: 200px;
+      }
+
+      .left {
+        width: 200px;
+        min-width: 200px;
+        border: 1px solid black;
+      }
+
+      .mid {
+        flex-grow: 1;
+        background-color: #cccccc;
+      }
+
+      .right {
+        width: 200px;
+        min-width: 200px;
+        border: 1px solid black;
+      }
+
+      .text-overflow {
+        /* min-width: 0; */
+        white-space: nowrap;
+      }
+
+      .text-overflow-1 {
+        /* overflow: hidden; */
+        /* text-overflow: ellipsis; */
+        min-width: 0;
+        /*  */
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="div-normal" class="container">
+      <div class="left">left fixed width</div>
+      <div class="mid">
+        normal flex width <br />
+        text overflow normal text overflow normal text overflow normal text overflow normal text
+        overflow normal
+      </div>
+      <div class="right">right fixed width</div>
+    </div>
+
+    <div class="div-abnormal container">
+      <div class="left">left fixed width</div>
+      <div class="mid text-overflow">
+        <!-- <p>
+          当采用flex布局后，如果不设置宽度或者高度，父元素将会以子元素的宽度和高度来自适应，那么子元素的宽度就会直接撑大整个父元素。
+        </p> -->
+        add "white-space: nowrap"
+        <br />
+        <br />
+        text overflow width abnormal text overflow width abnormal text overflow width abnormal text
+        overflow width abnormal
+      </div>
+      <div class="right">right fixed width</div>
+    </div>
+
+    <div class="div-abnormal container">
+      <div class="left">left fixed width</div>
+      <div class="mid text-overflow-1">
+        add "white-space: nowrap"
+        <br />
+        add "min-width: 0"
+        <br />
+        <br />
+        <p>
+          text overflow normal text overflow normal text overflow normal text overflow normal text
+          overflow normal
+        </p>
+      </div>
+      <div class="right">right fixed width</div>
+    </div>
+  </body>
+</html>

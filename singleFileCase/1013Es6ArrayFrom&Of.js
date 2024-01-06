@@ -26,6 +26,10 @@ const arrFromSet = Array.from(set); // 将 Set 转为数组 [4, 5, 6]
 const str = "hello";
 const arrFromStr = Array.from(str); // 将字符串转为数组 ['h', 'e', 'l', 'l', 'o']
 
+/* 
+  注意: Array.from()还可以接受第二个参数，用来对每个元素进行处理，将处理后的值放入返回的数组
+*/
+Array.from([1, 2, 3], (n) => n ** 2) // // [1, 4, 9]
 
 // Array.of()
 Array.of(3, 11, 8); // [3, 11, 8]

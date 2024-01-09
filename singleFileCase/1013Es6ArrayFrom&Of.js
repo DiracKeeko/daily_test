@@ -1,6 +1,6 @@
 // Es6 数组新增的特性
 /*  
-  构造函数 Array 新增方法
+  构造函数 Array 新增方法 (新增的 静态方法)
     - Array.from() 
     - Array.of()
 */

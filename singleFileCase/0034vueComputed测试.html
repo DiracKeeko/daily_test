@@ -1,0 +1,54 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0034</title>
+  <script src="./lib/vue2.6.12.min.js"></script>
+  <script src="./lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="./lib/element-ui2.14.1.css">
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <input v-model="inputText1"></input>
+      <input v-model="inputText2"></input>
+      <div>computedWithArgs: {{ textWithArgs }}</div>
+      <div>computedWithoutArgs: {{ textWithoutArgs }}</div>
+    
+    </div>
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        inputText1: "1",
+        inputText2: ""
+      },
+      methods: {
+        concatTextWithArgs(str1, str2) {
+          return str1 + str2;
+        },
+        concatTextWithoutArgs() {
+          const { inputText1, inputText2 } = this;
+          return inputText1 + inputText2;
+        }
+      },
+      computed: {
+        textWithArgs() {
+          const { inputText1, inputText2, concatTextWithArgs } = this;
+          return concatTextWithArgs(inputText1, inputText2);
+        },
+        textWithoutArgs() {
+          return this.concatTextWithoutArgs();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

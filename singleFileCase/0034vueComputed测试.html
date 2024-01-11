@@ -40,10 +40,12 @@
       },
       computed: {
         textWithArgs() {
+          // 两种都可以响应式变更
           const { inputText1, inputText2, concatTextWithArgs } = this;
           return concatTextWithArgs(inputText1, inputText2);
         },
         textWithoutArgs() {
+          // 两种都可以响应式变更
           return this.concatTextWithoutArgs();
         }
       }

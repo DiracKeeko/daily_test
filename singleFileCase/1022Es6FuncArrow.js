@@ -40,6 +40,8 @@ const getTempItem = (id) => ({ id, name: 'Temp' });
     1.函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象
     2.不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误
     3.箭头函数自身没有arguments对象，该对象在函数体内不存在。 它的arguments对象是从外层函数中继承而来的。
+
+    4. 箭头函数不能用作 Generator 函数 (不可以使用yield命令)
 */
 
 // 解释1. 箭头函数没有自己的 this 绑定，它会捕获所在上下文的 this 值，即在定义时的外层作用域的 this。
@@ -92,3 +94,22 @@ regularFunction(5, 6); // [Arguments] { '0': 5, '1': 6 }
 
 arrowFunctionOuter(); // [Arguments] {}
 arrowFunctionOuter(7, 8); // [Arguments] { '0': 7, '1': 8 } 注意，不是{3, 4}
+
+
+// 4. 箭头函数不能用作 Generator 函数 (不可以使用yield命令)
+
+// 可以用作Generator函数的样子
+function* foo(index) {
+  while (index < 2) {
+    yield index;
+    index++;
+  }
+}
+
+const iterator = foo(0);
+
+console.log(iterator.next().value);
+// Expected output: 0
+
+console.log(iterator.next().value);
+// Expected output: 1

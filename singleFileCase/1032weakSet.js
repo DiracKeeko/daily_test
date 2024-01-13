@@ -6,7 +6,7 @@
   3、没有遍历操作的API (WeakSet 不是可迭代的，不能直接遍历其中的值)
   4、WeakSet里面的引用只要在外部消失，它在 WeakSet里面的引用就会自动消失 
 */
-// weakSet没有遍历的场景，如果需要遍历weakSet，那么需要用数组或者其他数据结构，记录key，value 
+// weakSet没有遍历的场景，如果需要遍历weakSet，那么需要用数组或者其他数据结构，记录key，value 再用ws.get(key)获取值
 // 这种做法会影响对象的垃圾回收行为，因为对象会一直存在于数组 itemsArray 中
 
 const a = [[1, 2], [3, 4]];

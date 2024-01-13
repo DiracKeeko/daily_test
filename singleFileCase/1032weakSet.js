@@ -3,9 +3,11 @@
   WeakSet 相较于Set
   1、WeakSet只能成员只能是引用类型数据，而不能是基本数据类型
   2、没有size属性
-  3、没有遍历操作的API
-  4、WeakSet里面的引用只要在外部消失，它在 WeakSet里面的引用就会自动消失
+  3、没有遍历操作的API (WeakSet 不是可迭代的，不能直接遍历其中的值)
+  4、WeakSet里面的引用只要在外部消失，它在 WeakSet里面的引用就会自动消失 
 */
+// weakSet没有遍历的场景，如果需要遍历weakSet，那么需要用数组或者其他数据结构，记录key，value 
+// 这种做法会影响对象的垃圾回收行为，因为对象会一直存在于数组 itemsArray 中
 
 const a = [[1, 2], [3, 4]];
 const weakSet = new WeakSet(a);

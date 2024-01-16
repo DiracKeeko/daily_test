@@ -15,3 +15,21 @@
     已拒绝（rejected）：意味着操作失败。
 */
 
+
+/* 
+  一个promise实例上有下面的方法 (Promise.prototype.function)
+    1. then()
+    2. catch()
+    3. finally()
+
+    1. then是实例状态发生改变时的回调函数，第一个参数是resolved状态的回调函数，第二个参数是rejected状态的回调函数
+        then方法返回的是一个 promise 实例，也就是promise能链式书写的原因
+
+    2. catch, Promise 实例的 catch() 方法用于注册一个在 promise 被拒绝时调用的函数。
+        catch方法返回一个 promise 实例，这可以允许你链式调用其他 promise 的方法。
+        
+        catch方法是 Promise.prototype.then(undefined, onRejected) 的一种简写形式
+    
+    3. finally, Promise 实例的 finally() 方法用于注册一个在 promise 敲定（兑现或拒绝）时调用的函数。
+        finally() 会返回一个 promise 实例，这可以允许你链式调用其他 promise 方法。
+*/

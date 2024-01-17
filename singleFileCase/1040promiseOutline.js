@@ -15,6 +15,34 @@
     已拒绝（rejected）：意味着操作失败。
 */
 
+/* 
+  用 new Promise(function(resolve, reject) {} 创建promise实例
+    参数：
+    resolve: 表示操作成功，将结果传递给then方法，将promise实例变更为fulfilled状态
+    reject: 表示操作失败，将错误信息传递给catch方法，将promise实例变更为rejected状态
+
+    改变promise实例的状态：
+    1、resolve() 可以改变状态 (变为fulfilled)  
+        如果在resolve([someMessage]) 传递一些信息，这些信息可以被后面的 .then((someMessage) => {}) 接收到。
+    2、reject() 可以改变状态  (变为rejected)
+        如果在reject([someError]) 传递一个错误信息，这个错误信息可以被后面的 .catch((someError) => {}) 接收到。
+    3、throw "an error"; 抛出错误的方式也可以改变状态。 (变为rejected)
+        throw出来的"an error" 也可以被.catch((someError) => {}) 接收到。
+*/
+
+async function axiosLike(isSuccess, info = {}) {
+  return new Promise((resolve, reject) => {
+    if (isSuccess) {
+      if (info.code === "0") {
+        resolve(info.data);
+      } else {
+        reject(info.msg);
+      }
+    } else {
+      new Error("serve err");
+    }
+  });
+}
 
 /* 
   一个promise实例上有下面的方法 (Promise.prototype.function)

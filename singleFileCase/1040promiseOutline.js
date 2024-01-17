@@ -16,10 +16,10 @@
 */
 
 /* 
-  用 new Promise(function(resolve, reject) {} 创建promise实例
+  用 new Promise(function(resolve, reject) { resolve() || reject() } 创建promise实例
     参数：
-    resolve: 表示操作成功，将结果传递给then方法，将promise实例变更为fulfilled状态
-    reject: 表示操作失败，将错误信息传递给catch方法，将promise实例变更为rejected状态
+    resolve是一个function，调用resolve()，将promise实例变更为fulfilled状态。可以在调用resolve的时候传递参数给then方法。
+    reject也是一个function，调用reject()，将promise实例变更为rejected状态。可以在调用reject()的时候传递参数给catch方法。
 
     改变promise实例的状态：
     1、resolve() 可以改变状态 (变为fulfilled)  
@@ -61,3 +61,15 @@ async function axiosLike(isSuccess, info = {}) {
     3. finally, Promise 实例的 finally() 方法用于注册一个在 promise 敲定（兑现或拒绝）时调用的函数。
         finally() 会返回一个 promise 实例，这可以允许你链式调用其他 promise 方法。
 */
+
+/* 
+  Promise构造函数方法 (静态方法)  (Promise.function)
+
+  Promise构造函数存在以下方法：
+    all()
+    allSettled()
+    race()
+    resolve()
+    reject()
+    try()
+ */

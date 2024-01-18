@@ -69,7 +69,7 @@ async function axiosLike(isSuccess, info = {}) {
     all()
     allSettled()
     race()
+    any()
     resolve()
     reject()
-    try()
  */

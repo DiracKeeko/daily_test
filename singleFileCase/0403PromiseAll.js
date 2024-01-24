@@ -1,23 +1,23 @@
 async function promiseTest() {
   const promise1 = new Promise((resolve, reject) => {
-    const time = Math.floor(Math.random(100) * 100) + 100;
+    const time = Math.floor(Math.random() * 100) + 100;
     setTimeout(resolve, time, `one-${time}`);
   });
 
   const promise2 = new Promise((resolve, reject) => {
-    const time = Math.floor(Math.random(100) * 100) + 100;
+    const time = Math.floor(Math.random() * 100) + 100;
     setTimeout(resolve, time, `two-${time}`);
   });
 
   const res12 = Promise.race([promise1, promise2]);
 
   const promise3 = new Promise((resolve, reject) => {
-    const time = Math.floor(Math.random(100) * 100) + 100;
+    const time = Math.floor(Math.random() * 100) + 100;
     setTimeout(resolve, time, `three-${time}`);
   });
 
   const promise4 = new Promise((resolve, reject) => {
-    const time = Math.floor(Math.random(100) * 100) + 100;
+    const time = Math.floor(Math.random() * 100) + 100;
     setTimeout(resolve, time, `four-${time}`);
   });
 

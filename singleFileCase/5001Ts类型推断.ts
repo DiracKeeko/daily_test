@@ -69,3 +69,49 @@ const storageSerializers: Record<
     write: (value: any) => value.toISOString()
   }
 };
+
+export const useLocalStorage = (key: string, defaultValue: any) => {
+  let localStorage: {
+    getItem: (key: string) => string | null;
+    setItem: (key: string, value: string) => void;
+  };
+
+  if (typeof window !== 'undefined') {
+    // 在浏览器环境中
+    localStorage = window.localStorage;
+  } else {
+    // 不在浏览器环境，使用一个简化版的对象
+    const storage: Record<string, string> = {};
+    localStorage = {
+      getItem: (key: string) => storage[key] || null,
+      setItem: (key: string, value: string) => {
+        storage[key] = value;
+      }
+    };
+  }
+
+  // 判断类型
+  const type = guessInputType(defaultValue);
+  const serializer = storageSerializers[type];
+
+  // 读取
+  const read = () => {
+    const value = localStorage.getItem(key);
+    return value ? serializer.read(value) : defaultValue;
+  }
+
+  // 写入
+  const write = (val: any) => {
+    localStorage.setItem(key, serializer.write(val));
+  }
+
+  return {
+    read,
+    write
+  }
+};
+
+const { read, write } = useLocalStorage("user", {});
+
+write({ name: "hei", age: 20});
+console.log("read->", read());

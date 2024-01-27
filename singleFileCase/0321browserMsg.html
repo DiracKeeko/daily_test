@@ -1,0 +1,48 @@
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0321browserMsg</title>
+  <script>
+    function getBrowserInfo() {
+      let browserInfo = {};
+      let ua = window.navigator.userAgent.toLowerCase();
+      let reg =/(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+      let m = ua.match(reg);
+      console.log("ua->", ua);
+      console.log("m=>", m);
+      browserInfo.browser = m[1].replace(/version/, "safari");
+      browserInfo.ver = m[2];
+      return browserInfo;
+    }
+
+    //获取当前的浏览器信息
+    let browserInfo = getBrowserInfo();
+    //sys.browser得到浏览器的类型，sys.ver得到浏览器的版本
+    console.log(browserInfo.browser + "的版本是：" + browserInfo.ver);
+
+    
+  </script>
+  <style>
+    .container {
+      width: 200px;
+      height: 100px;
+      background-color: #bfa;
+      margin: 0 auto;
+    }
+    .container img {
+      width: 40px;
+      vertical-align: middle;
+    }
+    .container span{
+      font: 20px/40px "microsoft Yahei";
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>

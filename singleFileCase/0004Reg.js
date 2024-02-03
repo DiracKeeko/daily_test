@@ -19,3 +19,8 @@ console.log(regStartWithAt.test("@utils")); // false
 console.log(regStartWithAt.test("@/utils")); // true
 console.log(regStartWithAt.test("@/components/common")); // true
 console.log(regStartWithAt.test("@/")); // true
+
+console.log("=============css===========");
+const styleRegLessAndCss = /^.+\.?(less|css)$/;
+console.log(styleRegLessAndCss.test("styles.css")); // true
+console.log(styleRegLessAndCss.test("./test.less")); // true

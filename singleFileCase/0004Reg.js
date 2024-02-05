@@ -38,6 +38,19 @@ console.log("highLevelFolderReg->", highLevelFolderReg.test("../folder/folder1/f
 console.log("highLevelFolderReg->", highLevelFolderReg.test("../folder/folder1/012file")); // true
 console.log("highLevelFolderReg->", highLevelFolderReg.test("../folder/folder1/012file.js")); // false
 
+console.log("=============上一级文件 单个(../)开头 尾缀不能带.js .ts等 ===========");
+const superLevelFolderReg = /^\.\.\/\w+(\/\w+)*$/;
+console.log("superLevelFolderReg->", superLevelFolderReg.test("file")); // false
+console.log("superLevelFolderReg->", superLevelFolderReg.test("../file")); // true
+console.log("superLevelFolderReg->", superLevelFolderReg.test("../../folder/file")); // false
+console.log("superLevelFolderReg->", superLevelFolderReg.test("../folder/folder1/file")); // true
+
+console.log("=============至少上2级文件 单个(../)开头 尾缀不能带.js .ts等 ===========");
+const upperAtLeast2LevelFolderReg = /^(\.\.\/){2,}\w+(\/\w+)*$/;
+console.log("upperAtLeast2LevelFolderReg->", upperAtLeast2LevelFolderReg.test("file")); // false
+console.log("upperAtLeast2LevelFolderReg->", upperAtLeast2LevelFolderReg.test("../file")); // false
+console.log("upperAtLeast2LevelFolderReg->", upperAtLeast2LevelFolderReg.test("../../folder/file")); // false
+
 console.log("=============css===========");
 const styleRegLessAndCss = /^\.?\.\/\w+(\/\w+)*(\.(less|css))$/;
 console.log("styleRegLessAndCss->", styleRegLessAndCss.test("styles.css")); // false;

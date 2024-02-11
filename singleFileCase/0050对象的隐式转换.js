@@ -12,3 +12,16 @@ let myObj = {
 // 优先调用 valueOf() 方法
 console.log(myObj == '2'); // false
 console.log(myObj == 1); // true
+
+myObj = {
+  valueOf() {
+    return {};
+  },
+  toString() {
+    return '2';
+  }
+};
+
+// 如果valueOf()返回的不是基本数据类型，则再调用toString()方法
+console.log(myObj == '2'); // true
+console.log(myObj == 1); // false

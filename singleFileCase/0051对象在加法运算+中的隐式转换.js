@@ -1,4 +1,4 @@
-// 在进行 a + b 比较的时候，如果a或者b是对象，则会调用 valueOf() > toString() 方法进行隐式转换
+// 在进行 a + b 运算的时候，如果a或者b是对象，则会调用 valueOf() > toString() 方法进行隐式转换
 
 let myObj = {
   valueOf() {

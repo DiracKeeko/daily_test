@@ -42,6 +42,7 @@ console.log("arr[functionString]->", arr[functionString]); // "an function eleme
 const symbolKey = Symbol("index");
 arr[symbolKey] = "an symbol element";
 const symbolKeyStr = symbolKey.toString();
+console.log("symbolKeyStr->", symbolKeyStr); // Symbol(index)
 console.log("arr[symbolKeyStr] ->", arr[symbolKeyStr]); // undefined
 console.log("arr[symbolKey] ->", arr[symbolKey]); // "an symbol element"
 

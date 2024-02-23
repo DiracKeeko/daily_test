@@ -17,16 +17,30 @@ const originObj1 = {
 }
 
 // 深拷贝的实现
-function cloneDeep(source) {
+function deepClone(source) {
   if (typeof source !== "object" || source === null) {
     return source;
   }
-  const target = Array.isArray(source) ? [] : {};
-  for (const key in source) {
-    target[key] = cloneDeep(source[key]);
+
+  let target;
+  if (source instanceof Date) {
+    target = new Date(source);
+  } else if (source instanceof Array) {
+    target = [];
+  } else {
+    target = {};
+  }
+
+  const allKeyArr = [...Object.keys(source)];
+  for (const key of allKeyArr) {
+    if (typeof source[key] === "object" && source[key] !== null) {
+      target[key] = deepClone(source[key]);
+    } else {
+      target[key] = source[key];
+    }
   }
   return target;
 }
 
-const res = cloneDeep(originObj1);
+const res = deepClone(originObj1);
 console.log("res->", res);

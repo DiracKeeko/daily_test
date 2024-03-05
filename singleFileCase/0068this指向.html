@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0068</title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script>
+      var name = '全局';
+      var person = {
+        name: 'person',
+        sayName() {
+          console.log(this.name);
+        }
+      };
+
+      function sayName() {
+        var func = person.sayName;
+        func(); // 全局
+        person.sayName(); // "person"
+      }
+
+      sayName();
+    </script>
+  </body>
+</html>

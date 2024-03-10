@@ -52,11 +52,13 @@ async function showPromise() {
   const res = await Promise.all([p1, p2, p3]);
   console.log('res->', res); // res-> [ 3, 1337, 'foo' ]
 
-  Promise.all([p1, p2, p4])
+  await Promise.all([p1, p2, p4])
     .then((resGood) => {
+      console.log("fulfilled->");
       console.log('resGood->', resGood);
     })
     .catch((resBad) => {
+      console.log("rejected->");
       console.log('resBad->', resBad); // resBad-> bar 注意这里的返回结果不是一个p1,p2,p4的结果数组，仅仅是p4的结果
     });
 

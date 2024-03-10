@@ -9,7 +9,7 @@ let promise = new Promise((resolve, reject) => {
   setTimeout(() => {
     reject('错了');
     console.log('05');
-    throw new Error("洗洗睡吧");
+    // throw new Error("洗洗睡吧");
   }, 200);
   // reject("下次一定");
   // throw new Error("洗洗睡吧");
@@ -35,13 +35,16 @@ promise
       console.log(result);
     },
     (res) => {
-      console.log('进入reject');
+      console.log('进入reject1');
       console.log(res);
     }
   )
   .catch((err) => {
-    console.log('进入catch');
+    console.log('进入进入reject2');
     console.log(err);
+  })
+  .finally(() => {
+    console.log('finally');
   });
 
 console.log('03');

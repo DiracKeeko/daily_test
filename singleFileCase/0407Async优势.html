@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getJson() {
+        const jsonString = '{invalid json}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject('网络异常');
+          }, 500);
+        });
+      }
+
+      function makeRequest1() {
+        try {
+          getJson().then((res) => {
+            const data = JSON.parse(res);
+            console.log(data);
+          });
+        } catch (err) {
+          console.log('第2个catch');
+          console.log(err);
+        }
+      }
+
+      // makeRequest1();
+      // 报错 Uncaught (in promise) 网络异常，没有进入"第2个catch"
+
+      function makeRequest2() {
+        try {
+          getJson()
+            .then((res) => {
+              const data = JSON.parse(res);
+              console.log(data);
+            })
+            .catch((err) => {
+              console.log("第1个catch");
+              console.log(err);
+            });
+          // ddd; // 加上这一行后，报错会被第2个catch捕获
+        } catch (err) {
+          console.log('第2个catch');
+          console.log(err);
+        }
+      }
+      makeRequest2(); // "第1个catch" "网络异常"
+      
+      /* 
+        开启ddd后，依次输出
+        第2个catch
+        ReferenceError: ddd is not defined
+        第1个catch
+        网络异常
+      */
+
+      /*
+        总结：
+        为了捕获promise内部的错误，需要在.then()之后多一个catch()
+        而try...catch捕获错误, 用于捕获try{}中的错误
+      */
+
+      
+      
+    </script>
+  </body>
+</html>

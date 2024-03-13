@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getJson() {
+        const jsonString = '{invalid json}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject('网络异常');
+          }, 500);
+        });
+      }
+
+      async function makeRequest3() {
+        try {
+          console.log(ddd);
+          const res = await getJson();
+          // console.log(ddd);
+        } catch(err) {
+          console.log("进入catch");
+          console.log("err->", err);
+        }
+      }
+
+      makeRequest3();
+
+      /* 
+        ddd在前: "进入catch", "err-> ReferenceError: ddd is not defined"
+        
+        await getJson()在前: "进入catch", "err-> 网络异常"
+
+        catch 对两种异常都可以捕获 (而且捕获异常之后就会终止后面的代码运行)
+      */
+      
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getJson1() {
+        const jsonString = '{json: 1}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(jsonString);
+          }, 500);
+        });
+      }
+
+      function getJson2() {
+        const jsonString = '{json: 2}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject('网络异常');
+          }, 500);
+        });
+      }
+
+      
+      async function makeRequest1() {
+        await getJson1();
+        await getJson1();
+        await getJson2(); // 断点调试到这里，就抛出异常了 (符合预期)
+        await getJson1();
+        await getJson1();
+        await getJson1();
+      }
+
+      makeRequest1().catch((err) => {
+        console.log("出现错误, 进入catch");
+        console.log(err);
+      })
+      
+    
+    </script>
+  </body>
+</html>

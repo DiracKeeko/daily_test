@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getJson1() {
+        const jsonString = '{json: 1}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(jsonString);
+          }, 500);
+        });
+      }
+
+      function getJson2() {
+        const jsonString = '{json: 2}';
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject('网络异常');
+          }, 500);
+        });
+      }
+
+      
+      function makeRequest1() {
+        return getJson1()
+          .then(getJson1())
+          .then(getJson2()) // 这里出现错误，但是运行到这里，断点并没有停下来(不符合我们的预期)
+          .then(getJson1())
+          .then(getJson1())
+          .then(getJson1())
+      }
+
+      makeRequest1().catch((err) => {
+        console.log("出现错误, 进入catch");
+        console.log(err);
+      })
+
+      /* 
+        浏览器调试，给[34, 38]行每一行都加上断点
+        会发现断点一直执行(即使我们知道35行reject)，直到最后进入catch才会抛出错误
+      */
+      
+    </script>
+  </body>
+</html>

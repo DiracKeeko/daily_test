@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0098</title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script>
+      let handler = {
+        id: "123",
+        fn(type) {
+          console.log("当前this指向->", this);
+          console.log(this.id, type);
+        },
+        init() {
+          console.log("this in init->", this); // 对象属性中的this 指向对象本身
+          document.addEventListener("click", (event) => this.fn(event.type), false); // 正常，不报错
+          // document.addEventListener("click", function (event) { this.fn(event.type) }, false); // 报错: Uncaught TypeError: this.fn is not a function  (用普通函数的话，this绑定到了document)
+        }
+      }
+      handler.init();
+    </script>
+  </body>
+</html>

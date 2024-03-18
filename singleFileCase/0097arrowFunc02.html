@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0097</title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script>
+      var name = 'gg';
+      let func1 = () => {
+        console.log('this.name->', this.name);
+      };
+
+      func1(); // "gg"
+      func1.call({ name: 'hh' }); // "gg"
+      func1.apply({ name: 'hh' }); // "gg"
+      func1.bind({ name: 'hh' })(); // "gg"
+    </script>
+  </body>
+</html>

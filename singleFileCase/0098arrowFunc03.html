@@ -16,7 +16,7 @@
           console.log(this.id, type);
         },
         init() {
-          console.log("this in init->", this); // 对象属性中的this 指向对象本身
+          console.log("this in init->", this); // 对象属性为函数 (想想这里this的指向是怎么来的 handler.init() )
           document.addEventListener("click", (event) => this.fn(event.type), false); // 正常，不报错
           // document.addEventListener("click", function (event) { this.fn(event.type) }, false); // 报错: Uncaught TypeError: this.fn is not a function  (用普通函数的话，this绑定到了document)
         }

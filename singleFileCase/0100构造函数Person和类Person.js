@@ -53,3 +53,15 @@ for (let prop in personES6) {
   console.log(prop); // name, age
 }
 
+
+function isConstructable(fn) {
+  try {
+    Reflect.construct(Object, [], fn);
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+console.log("personES5 ->", isConstructable(personES5.sayName)); // personES5 -> true
+console.log("personES6 ->", isConstructable(personES6.sayName)); // personES6 -> false

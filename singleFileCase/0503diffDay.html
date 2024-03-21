@@ -1,0 +1,43 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0503</title>
+  <script src="./lib/dayjs1.11.10.min.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <script>
+    // 用时间戳计算
+    const startStr = "2023-05-02 08:10:10";
+    const endStr1 = "2023-05-10 08:10:11";
+
+    const endStr2 = "2023-05-10 08:10:09";
+
+    const diffTimeByTimestamp1 = (dayjs(endStr1).valueOf() - dayjs(startStr).valueOf()) / 1000 / 60 / 60 / 24;
+    const diffTimeByDayjs1 = dayjs(endStr1).diff(dayjs(startStr), "day");
+    
+    console.log("diffTimeByTimeStamp1->", diffTimeByTimestamp1); // 8.000011574074074
+    console.log("diffTimeByDayjs1->", diffTimeByDayjs1); // 8
+
+    const diffTimeByTimestamp2 = (dayjs(endStr2).valueOf() - dayjs(startStr).valueOf()) / 1000 / 60 / 60 / 24;
+    const diffTimeByDayjs2 = dayjs(endStr2).diff(dayjs(startStr), "day");
+    console.log("diffTimeByTimeStamp2->", diffTimeByTimestamp2); // 7.999988425925927
+    console.log("diffTimeByDayjs2->", diffTimeByDayjs2); // 7
+
+    // 用dayjs计算diffDay，对不满整天的天数(如7.9天)会向下取整(变为7天)
+    /*
+      在判定过期时间的阈值的时候，应该用timestamp方式计算
+
+        举例: 
+          超过30天，判定过期。 if (day > 30) { // expire }
+          如果timestamp的结果是 30.8 就判定过期了
+          而对应的dayjs结果是 30 就判定是不过期
+    */
+
+  </script>
+</body>
+
+</html>

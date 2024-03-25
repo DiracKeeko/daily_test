@@ -1,12 +1,13 @@
 function all(promiseArr) {
+  const size = promiseArr.length;
   return new Promise((resolve, reject) => {
-    const fulfilledArr = [];
+    const fulfilledArr = Array(size);
     let fulfilledCount = 0;
-    promiseArr.forEach((promiseItem) => {
+    promiseArr.forEach((promiseItem, index) => {
       Promise.resolve(promiseItem)
         .then((val) => {
           fulfilledCount += 1;
-          fulfilledArr.push(val);
+          fulfilledArr[index] = val;
           if (fulfilledCount === promiseArr.length) {
             resolve(fulfilledArr);
           }
@@ -20,7 +21,7 @@ function all(promiseArr) {
 
 const promise1 = new Promise((resolve, reject) => {
   const time = Math.floor(Math.random() * 100) + 100;
-  if (time < 150) {
+  if (time < 180) {
     setTimeout(resolve, time, `one-${time}`);
   } else {
     setTimeout(reject, time, `error-one-${time}`);
@@ -29,7 +30,7 @@ const promise1 = new Promise((resolve, reject) => {
 
 const promise2 = new Promise((resolve, reject) => {
   const time = Math.floor(Math.random() * 100) + 100;
-  if (time < 150) {
+  if (time < 180) {
     setTimeout(resolve, time, `two-${time}`);
   } else {
     setTimeout(reject, time, `error-two-${time}`);

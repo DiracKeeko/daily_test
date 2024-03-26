@@ -46,30 +46,30 @@
         },
         computed: {
           msgComputed() {
-            console.log('msgComputed');
+            console.log('computed action: msgComputed');
             return this.msg + '-computed';
           },
           msg1Computed() {
-            console.log('msg1Computed');
+            console.log('computed action: msg1Computed');
             return this.msg1 + '-computed';
           }
         },
         watch: {
           msg(val) {
-            console.log('msg-watch->', val);
+            console.log('watch action: msg-watch->', val);
           },
           msg1: {
             handler(val) {
-              console.log('msg1-watch->', val);
+              console.log('watch action(immediate): msg1-watch->', val);
             },
             immediate: true
           },
           msg1Computed: {
             handler(val) {
-              console.log('msg1Computed-watch->', val);
+              console.log('watch action: msg1Computed->', val);
             },
             immediate: true
-          }
+          },
         }
       });
     </script>

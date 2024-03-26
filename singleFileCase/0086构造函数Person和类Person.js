@@ -24,6 +24,9 @@ for (let prop in personES5) {
   console.log(prop); // name, age, sayName
 }
 
+// 注意：对ES5 构造函数Person来说, 上下两种遍历方式的结果不同
+console.log("keys in personES5 ->", Object.keys(personES5)); // [ 'name', 'age' ]
+
 console.log("===================");
 
 // 转为class
@@ -53,6 +56,7 @@ for (let prop in personES6) {
   console.log(prop); // name, age
 }
 
+console.log("keys in personES6", Object.keys(personES6)); // [ 'name', 'age' ]
 
 function isConstructable(fn) {
   try {

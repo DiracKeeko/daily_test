@@ -1,0 +1,45 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0602</title>
+    <style></style>
+  </head>
+
+  <body>
+    <!-- 02通过html dom绑定 -->
+    <button id="btn2">btn2</button>
+    <script>
+      let btn2 = document.getElementById('btn2');
+      btn2.onclick = function () {
+        console.log('btn2 01');
+      };
+      btn2.onclick = function () {
+        console.log('btn2 02');
+      };
+
+      // 解除绑定
+      btn2.onclick = null;
+    </script>
+
+    <!-- 03事件监听器 -->
+    <button id="btn3">btn3</button>
+    <script>
+      let btn3 = document.getElementById('btn3');
+      
+      // 匿名函数无法解除绑定
+      btn3.addEventListener('click', function () {
+        console.log("btn3 01");
+      })
+
+      function myFunc() {
+        console.log("点击");
+      }
+
+      btn3.addEventListener('click', myFunc)
+
+      // 解除绑定
+      btn3.removeEventListener('click', myFunc)
+      
+    </script>
+  </body>
+</html>

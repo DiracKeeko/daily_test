@@ -52,7 +52,7 @@
       // 兼容低版本IE
       if (btn3.addEventListener) {
         // 支持addEventListener的浏览器
-        btn3.attachEvent('onclick', myFunc, false);
+        btn3.addEventListener('onclick', myFunc, false);
       } else if (btn.attachEvent) {
         // 支持attachEvent的浏览器 (老版本IE)
         btn3.attachEvent('onclick', myFunc);

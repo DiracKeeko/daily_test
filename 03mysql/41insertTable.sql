@@ -9,7 +9,7 @@ INSERT INTO `user_info_d` (`unique_id`, `name`, `age`) VALUES ('001', 'Alice', 2
 -- 而primary key 又是自增的id, 所以不会报错。 这就会导致数据库中插入了两条同样的数据 unique_id相同，但是id不同
 -- 改变sql语句
 
--- 形式1 有重复的unique_id 001 -> 插入失败
+-- 形式1 有重复的unique_id 001 -> 插入失败，不报错，变更行数为0
 INSERT INTO `user_info_d` (`unique_id`, `name`, `age`)
 SELECT * FROM (
   SELECT '001', 'Alice', 25
@@ -19,7 +19,7 @@ WHERE NOT EXISTS (
 ) LIMIT 1;
 
 
--- 形式1 没有重复的unique_id 006 -> 插入成功
+-- 形式1 没有重复的unique_id 006 -> 插入成功，变更行数为1
 INSERT INTO `user_info_d` (`unique_id`, `name`, `age`)
 SELECT * FROM (
   SELECT '006', '006Test', 26
@@ -44,7 +44,7 @@ WHERE NOT EXISTS (
   在上面的查询中，FROM DUAL用于从DUAL表中选择一个虚拟行。因为DUAL表只有一行，所以这个查询实际上只是从DUAL表中选择了一个虚拟行，然后根据WHERE子句检查是否需要执行插入操作。
  */
 
--- 下面这段语句是错误的
+-- 下面这段语句是错误的 (INSERT语句不支持WHERE子句)
 /* 
 INSERT INTO `user_info_d` (`unique_id`, `name`, `age`)
 VALUES ('006', '006Test', 25)

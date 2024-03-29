@@ -1,2 +1,2 @@
--- 删除system_notice中的is_published字段
-ALTER TABLE system_notice DROP COLUMN is_published;
+-- 删除数据库daily_test 中的user_info表
+DROP TABLE IF EXISTS daily_test.user_info_d;

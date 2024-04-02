@@ -12,3 +12,25 @@ console.log(Object.getOwnPropertyDescriptor(obj, "age").value); // 18
 
 obj.age = 28;
 console.log("change->", obj.age);
+
+
+let obj2 = {};
+Object.defineProperty(obj2, "age", { 
+  // value: 18,
+  // writable: true,
+  get() { 
+    return this.value; 
+  },
+  set(val) {
+    this.value = val;
+  }
+});
+console.log(Object.getOwnPropertyDescriptor(obj2, "age"));
+/* 
+{
+  get: [Function: get],
+  set: [Function: set],
+  enumerable: false,
+  configurable: false
+}
+*/

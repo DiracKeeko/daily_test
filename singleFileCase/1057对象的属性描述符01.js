@@ -34,3 +34,10 @@ console.log(Object.getOwnPropertyDescriptor(obj2, "age"));
   configurable: false
 }
 */
+
+// 使用对象字面量创建对象，对象属性的writable默认为true
+let obj3 = {
+  age: 15
+}
+console.log("obj3->", Object.getOwnPropertyDescriptor(obj3, "age"));
+// obj3-> { value: 15, writable: true, enumerable: true, configurable: true }

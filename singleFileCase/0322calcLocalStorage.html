@@ -1,0 +1,52 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0322</title>
+    <script>
+      let str10kb = '0123456789';
+      let temp = '';
+      // 先做一个 10KB 的字符串
+      while (str10kb.length !== 10240) {
+        str10kb += '0123456789';
+      }
+
+      // 先清空
+      localStorage.clear();
+
+      const computedTotal = () => {
+        return new Promise((resolve) => {
+          // 不断往 LocalStorage 中累积存储 10KB
+          const timer = setInterval(() => {
+            try {
+              console.log("doing");
+              localStorage.setItem('temp', temp);
+            } catch(err) {
+              console.log("err->", err); 
+              // err-> DOMException: Failed to execute 'setItem' on 'Storage': Setting the value of 'temp' exceeded the quota
+              // 报错说明超出最大存储
+              const maxKb = temp.length / 1024 - 10;
+              resolve(maxKb);
+              clearInterval(timer);
+              // 统计完记得清空
+              localStorage.clear();
+            }
+            temp += str10kb;
+          }, 0);
+        });
+      };
+
+      console.log("start");
+      (async () => {
+        const total = await computedTotal();
+        console.log(`最大容量${total}KB`);
+      })();
+      
+      // 这里会不断的 console.log("doing") 
+      // 最终输出 最大容量5110KB
+      
+    </script>
+    <style></style>
+  </head>
+
+  <body></body>
+</html>

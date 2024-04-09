@@ -1,0 +1,37 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0323</title>
+    <script>
+      // 计算 LocalStorage 已使用的空间
+      function computedUse() {
+        let cacheStringLength = 0;
+        const keyArr = Object.keys(localStorage);
+        for (const key of keyArr) {
+          cacheStringLength += localStorage.getItem(key).length;
+        }
+        const usedKB = (cacheStringLength / 1024).toFixed(2);
+        return usedKB;
+      }
+
+      const useCache = computedUse();
+      console.log(`已使用${useCache}KB`)
+      console.log("done");
+
+      console.log("once more");
+      // 手动写入
+      let temp = "0"
+      for (let i = 0; i < 20; i++) {
+        temp += temp;
+      }
+      localStorage.setItem('key1', temp);
+      const useCache2 = computedUse();
+      console.log(`useCache2 -> 已使用${useCache2}KB`) // 1024KB
+
+      localStorage.clear();
+    </script>
+    <style></style>
+  </head>
+
+  <body></body>
+</html>

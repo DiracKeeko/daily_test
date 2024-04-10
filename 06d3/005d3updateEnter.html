@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>005</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <h3></h3>
+    <h3></h3>
+    <h3></h3>
+    <h3></h3>
+  </body>
+
+  <script>
+    // data()：绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定
+
+    var lyrics = [
+      '0我不是你们想的如此完美',
+      '1我承认有时也会辨不清真伪',
+      '2并非我不愿意走出迷堆 只是这一次',
+      '3这次是自己(而)不是谁',
+      '4要我用谁的心去体会 真真切切地感受周围',
+      '5就算痛苦 就算是泪 也是属于我的伤悲',
+      '6我还能用谁的心去体会 真真切切地感受周围',
+      '7就算疲倦 就算是累 也只能执迷(而)不悔'
+    ];
+    var h3 = d3.select('body').selectAll('h3');
+    // var h3 = d3.selectAll('h3');
+    // 后面需要追加h3元素，所以这里不能直接selectAll，要先选中父元素，然后再selectAll()
+    // 选中父元素再selectAll() 则在追加h3的时候会直接追加到父元素中
+
+    var updateCb = h3.data(lyrics);
+    console.log('updateCb->', updateCb);
+    var enter = updateCb.enter(); // 这里的入口是 h3的父元素 (也就是body)
+    console.log('enter->', enter);
+
+    // updateCb.text(function (v, i) {
+    //   return v;
+    // });
+
+    var addH3 = enter.append('h3'); //注意 这里是往enter中插入h3
+    console.log('enter after append->', enter); //
+    addH3.text(function (v, i) {
+      // 给新添加的h3标签 绑定数据 (注意，不是所有的8个h3，是enter中新增的后面4个h3)
+      return v;
+    });
+  </script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>006</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+    <h3>这是一个h3标签</h3>
+  </body>
+
+  <script>
+    var lyrics = ['我不是你们想的如此完美', '我承认有时也会辨不清真伪'];
+    var h3 = d3.select('body').selectAll('h3');
+
+    var updateCb = h3.data(lyrics);
+    console.log('updateCb->', updateCb);
+    var exit = updateCb.exit();
+    console.log('exit->', exit);
+
+    updateCb.text(function (v, i) {
+      return v;
+    });
+
+    //    执行到这里 界面显示的内容
+
+    //    我不是你们想的如此完美
+    //    我承认有时也会辨不清真伪
+    //    这是一个h3标签
+    //    这是一个h3标签
+    //    这是一个h3标签
+    //    这是一个h3标签
+    //    这是一个h3标签
+
+    // exit.remove(); //删除多余的h3元素
+    exit.text(function (v, i) {
+      return '我不删了，我就留着';
+    });
+
+    //    执行到这里 界面显示的内容
+    //
+    //    我不是你们想的如此完美
+    //    我承认有时也会辨不清真伪
+    //    我不删了，我就留着
+    //    我不删了，我就留着
+    //    我不删了，我就留着
+    //    我不删了，我就留着
+    //    我不删了，我就留着
+
+    // https://www.cnblogs.com/zhinian-/p/12580184.html
+  </script>
+</html>

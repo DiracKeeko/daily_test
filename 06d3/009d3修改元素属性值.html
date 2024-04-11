@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>009</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>第一个</h3>
+    <p title="23℃">第二个</p>
+  </body>
+
+  <script>
+    /* 
+      元素操作：
+        2、修改元素属性值
+          selection.attr(name[, value]);
+          selection.property(name[, value]);
+
+          这两个方法是修改 对应属性name的属性值value的；
+
+          如果没有属性值value参数，则是获取属性名为name的属性值；
+
+        3、修改元素的style值
+          selection.style(name[, value[, priority]]);　　
+
+        4、添加、移除元素 class方法
+          selection.classed(name[, value]);
+
+          names:class
+          value: true（添加class）/ false（移除class） 
+
+          如果不传第二个value参数, 那么是取class名为name的属性值（有此class就是true; 没有此class就是false）
+    */
+
+    var h3 = d3.select('h3');
+    var p = d3.select('p');
+    h3.attr('title', '我是一个h3标签'); //页面中鼠标滑过 显示 '我是一个h3标签'
+    console.log(p.attr('title')); //控制台输出 23℃
+
+    /* 
+      selection.style(name[, value[, priority]]);　　
+        这个方法可以返回或修改style，priority默认为null，你可以在这个地方写“important”。
+    */
+
+    // p.style('font-size','26px', "important");
+    p.style('font-size', '36px');
+
+    console.log("h3.classed('red')", h3.classed('red')); // 输出结果 false
+    h3.classed('red', true);
+    console.log("h3.classed('red') 1", h3.classed('red')); // 输出结果 true
+
+    h3.classed('red', false); //这里移除 red
+    console.log("h3.classed('red') 2", h3.classed('red')); // 输出结果 false
+  </script>
+</html>

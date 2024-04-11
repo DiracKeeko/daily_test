@@ -36,10 +36,11 @@
 
 
     let div = d3.select('div')
-    div.html(`<h3>${solidText} div to h<h3>`); // 很奇怪，多创建出了一个空h3
-    
+    // div.html(`<h3>${solidText} div to h<h3>`); // 很奇怪，多创建出了一个空h3  -> 找到原因了，因为后面的h3标签没闭合
+
+    div.html(`<h3>${solidText} div to h3</h3>`);
     // 上下两行等价
-    // div.datum(solidText).html((val, i) => `<h3>${solidText} div to h3<h3>`); // 也会多创建出了一个空h3
+    // div.datum(solidText).html((val, i) => `<h3>${solidText} div to h3</h3>`);
     
   </script>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>008</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+  </head>
+  <body>
+    <h3><span>第1个</span></h3>
+    <div>第二个</div>
+    <h3>第三个</h3>
+    <h3>第四个</h3>
+    <h3>第五个</h3>
+  </body>
+
+  <script>
+    /* 
+      元素操作：
+        1、修改元素内容
+          selection.text([value]);
+          selection.html([value]);
+
+          selection表示与选择器匹配的选择集。
+          value表示可选参数。如果value存在，则修改其值，如果不存在，则返回已经存在的内容，如下。
+    */
+
+    var h3 = d3.select('h3')
+    var text = h3.text();
+    var html = h3.html();
+    console.log(text); // 第1个
+    console.log(html); // <span>第1个</span>
+    
+    const solidText = "测试修改"
+    h3.text(`<p>${solidText}<p>`);
+
+
+    let div = d3.select('div')
+    div.html(`<h3>${solidText} div to h<h3>`); // 很奇怪，多创建出了一个空h3
+    
+    // 上下两行等价
+    // div.datum(solidText).html((val, i) => `<h3>${solidText} div to h3<h3>`); // 也会多创建出了一个空h3
+    
+  </script>
+</html>

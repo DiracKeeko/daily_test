@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>007</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <h3>第一个</h3>
+    <h3>第二个</h3>
+    <h3>第三个</h3>
+    <h3>第四个</h3>
+    <h3>第五个</h3>
+  </body>
+
+  <script>
+    /* 
+      d3.selectAll() 选择的是所有匹配到的元素; 
+        返回值是一个集合(Selection$1)，集合中_groups数组中的array 第一项为一个nodeList，nodeList中有多个元素节点。
+
+      d3.select('#id')、d3.select('.class')、d3.select('div')、d3.select('[name="zh"]') 等 都是选择匹配到的第一个元素;
+        返回值也是一个集合(Selection$1)，但是集合中_groups数组中的array 只有一个 元素节点。
+    */
+
+    var h3 = d3.select('h3');
+    h3.datum('我把内容改了看看').text((val, i) => val);
+
+    // 上下两行代码是等价的
+    // h3.text('我把内容改了看看');
+
+    console.log(h3);
+    // 输出结果
+    // 我把内容改了看看
+    // 第二个
+    // 第三个
+    // 第四个
+    // 第五个
+    
+    var h3All = d3.selectAll('h3');
+    console.log("h3All->", h3All);
+  </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>010</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <p>原有的p标签</p>
+  </body>
+
+  <script>
+    /* 
+      元素操作：
+        5、增加元素
+          append()：在选择集尾部插入元素
+          insert()：在选择集前面插入元素
+
+        6、元素删除
+          d3.select('h3').remove();  删除匹配的第一个h3元素。
+    */
+
+    var bd = d3.select('body');
+    bd.append('div').text('我是在body标签内部, 最后append追加的div元素');
+    bd.insert('h3', 'p').text('我是在body内部 & p标签前边, insert插入的h3元素 1');
+    bd.insert('h3', 'p').text('我是在body内部 & p标签前边, insert插入的h3元素 2');
+
+    d3.select('h3').remove(); // 删除了 h3元素 1
+  </script>
+</html>

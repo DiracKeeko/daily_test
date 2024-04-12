@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>013</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <svg width="100%" height="800"></svg>
+  </body>
+
+  <script>
+    /* 
+      比例尺是什么？
+        比例尺能将“一个区间”的数据映射到“另一个区间”。
+          例如 [0, 1]对应到[0, 300]，当输入0.5时，输出150。
+          或者 [0, 1, 2]对应到["red", "green", "blue"]，当输入2时，输出blue。
+
+        上述示例中的[0, 1]和[0, 1, 2]称为定义域，
+          [0, 300]和["red", "green", "blue"]称为值域。
+          定义域和值域之间的映射方法称为对应法则。
+
+　　    要理解比例尺，就先需要理解定义域(domain)、值域(range)和对应法则这三个概念。
+    */
+
+    var linerExample = d3.scaleLinear().domain([0, 3]).range([0, 300]);
+
+    console.log(linerExample(0)); // 输出 0
+    console.log(linerExample(1)); // 输出 100
+    console.log(linerExample(2)); // 输出 200
+    console.log(linerExample(3)); // 输出 300
+
+    console.log('linerExample.invert()->', linerExample.invert(150)); // 1.5
+
+    console.log('override domain:', linerExample(-1)); // -100
+    console.log('override domain:', linerExample(4)); // 400
+
+    linerExample.clamp(true); // 开启截断
+    console.log('override domain:', linerExample(-1)); // 0
+    console.log('override domain:', linerExample(4)); // 300
+
+    // 创建一个线性分位数颜色比例尺，传入比例尺函数的值为0.5时，返回的值是在 白色和绿色之间的插值
+    let xScale2 = d3.scaleLinear().domain([-1, 0, 1]).range(['red', 'white', 'green']);
+    console.log("xScale2->", xScale2(0.5)); // rgb(128, 192, 128)
+
+    // 通过ticks、tickFormat来个性化制定比例尺定义域值的表现形式
+    let xScale3 = d3.scaleLinear().domain([-1, 1]).range([0, 960]);
+    let ticks = xScale3.ticks(5);
+    console.log("ticks->", ticks); // 返回一个近似的用来表示比例尺定义域的数组：[-1, -0.5, -0, 0.5, 1]
+  </script>
+</html>

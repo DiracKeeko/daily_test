@@ -6,7 +6,6 @@
     <script src="../common/lib/d3_7.9.0.js"></script>
   </head>
   <body>
-    <svg width="100%" height="800"></svg>
   </body>
 
   <script>
@@ -23,6 +22,9 @@
 　　    要理解比例尺，就先需要理解定义域(domain)、值域(range)和对应法则这三个概念。
     */
 
+    /* 
+      1、线性比例尺
+    */
     var linerExample = d3.scaleLinear().domain([0, 3]).range([0, 300]);
 
     console.log(linerExample(0)); // 输出 0
@@ -47,5 +49,11 @@
     let xScale3 = d3.scaleLinear().domain([-1, 1]).range([0, 960]);
     let ticks = xScale3.ticks(5);
     console.log("ticks->", ticks); // 返回一个近似的用来表示比例尺定义域的数组：[-1, -0.5, -0, 0.5, 1]
+
+    // D3比例尺初步
+    // https://www.cnblogs.com/zhinian-/p/12602084.html
+
+    // 《D3比例尺与坐标轴》
+    // https://blog.csdn.net/qq_34832846/article/details/90510150
   </script>
 </html>

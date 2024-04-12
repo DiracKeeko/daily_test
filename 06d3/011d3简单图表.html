@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>011</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <svg width="100%" height="300"></svg>
+  </body>
+
+  <script>
+    // 绘制一个 简单图表
+    var data = [730, 530, 330, 230, 130];
+    var g = d3
+      .select('svg') // 获取svg
+      .append('g') // 创建分组
+      .attr('transform', 'translate(30, 30)'); // 图表距离视口的左、上距离
+
+    var rectHeight = 25; // 设定矩形的高 25px
+    var rectPadding = 5; // 设置矩形之间的间距 5px
+
+    g.selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect') // 利用enter 创建与数据个数一样的rect矩形
+      .attr('x', 0) // 这里设定矩形左上顶点的x值
+      .attr('y', function (d, i) {
+        return (rectHeight + rectPadding) * i; // 这里设定矩形左上顶点的Y值
+      })
+      .attr('width', function (d, i) {
+        return d; // 矩形宽度
+      })
+      .attr('height', rectHeight) // 这里矩形实际的高度就是25
+      .style('fill', 'pink'); // 填充色
+  </script>
+</html>

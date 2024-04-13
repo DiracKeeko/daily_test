@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>016</title>
+    <script src="../common/lib/d3_7.9.0.js"></script>
+  </head>
+  <body>
+    <svg width="100%" height="300"></svg>
+  </body>
+
+  <script>
+    // 绘制一个 简单图表
+    // var data = [730, 530, 330, 230, 130];
+    var data = [7.3, 5.3, 3.3, 2.3, 1.3];
+
+    var linerExample = d3
+      .scaleLinear()
+      // .domain([0, d3.max(data)]) // 不用这个，换用 max = 8
+      .domain([0, 8])
+      .range([0, 800]);
+
+    var g = d3
+      .select('svg') // 获取svg
+      .append('g') // 创建分组
+      .attr('transform', 'translate(30, 30)'); // 图表距离视口的左、上距离
+
+    var rectHeight = 25; // 设定矩形的高 25px
+    var rectPadding = 5; // 设置矩形之间的间距 5px
+
+    g.selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect') // 利用enter 创建与数据个数一样的rect矩形
+      .attr('x', 0) // 这里设定矩形左上顶点的x值
+      .attr('y', function (d, i) {
+        return (rectHeight + rectPadding) * i; // 这里设定矩形左上顶点的Y值
+      })
+      .attr('width', function (d, i) {
+        return linerExample(d);
+      })
+      .attr('height', rectHeight) // 这里矩形实际的高度就是25
+      .style('fill', 'pink');
+
+    // 定义一个x坐标轴   坐标轴的比例尺 我们跟图表的用一个
+    // var axisX = d3.axisBottom(linerExample); // ticks 用来设置刻度间隔, 默认刻度为 1
+    var axisX = d3.axisBottom(linerExample).ticks(20); // ticks 用来设置刻度间隔  (ticks越大越密集)
+    // 其实就是把data数据 根据参数20  重新调整一下
+
+    g.append('g') //在原有分g矩形分组里 再加一个x轴分组
+      .attr('transform', 'translate(0,' + data.length * (rectHeight + rectPadding) + ')')
+      .call(axisX);
+  </script>
+</html>

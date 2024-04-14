@@ -21,6 +21,9 @@
     */
 
     var color = ['blue', 'red', 'green', 'pink'];
+    // var scaleOrdinal = d3.scaleOrdinal().domain(d3.range(3)).range(color);
+    // console.log("d3.range(3)->", d3.range(3)); // [0, 1, 2]
+
     var scaleOrdinal = d3.scaleOrdinal().domain([0, 1, 2, 3]).range(color);
 
     for (var i = 0; i < color.length; i++) {

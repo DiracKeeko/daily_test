@@ -16,6 +16,17 @@
       transition.duration()  指定每个元素的持续时间（以毫秒为单位）。
 
       transition.delay()  指定每个元素的延迟时间（以毫秒为单位)
+
+      使用：
+
+      设置渐变前属性
+      .transition() // 添加过渡
+      .duration(2000) // 动画的持续时间  毫秒
+      .delay(function (d, i) {
+        return i * 300; //每个柱子逐渐开始的效果
+      })
+      .设置渐变后属性
+
     */
 
     var data = [90, 75, 12, 36, 54, 88, 24, 66];
@@ -48,10 +59,10 @@
     g.append('g').attr('transform', 'translate(0,0)').call(axisY);
 
     // 创建矩形分组
+    var rectP = 30; //柱状图间距
     var gs = g.selectAll('rect').data(data).enter().append('g');
 
     // 绘制柱子 + 过渡效果
-    var rectP = 30; //柱状图间距
     gs.append('rect')
       .attr('x', function (d, i) {
         return scaleX(i) + rectP / 2;
@@ -59,8 +70,9 @@
       .attr('y', function (d, i) {
         //  return scaleY(d);
         //  return 0; // 动画的初始状态为0  如果是这样的话  就像下雨的效果  柱状图从上往下生长
-        var min = scaleY.domain()[0]; //[0,90]
-        console.log(min); //  输出 0
+        var min = scaleY.domain()[0]; // domain: [0, 90]; min = 0;  这里的返回值是动画开始的起点
+        // var min = d3.min(data); // min: 12 
+        console.log("i->", i, ",", min); //  输出 0
         return scaleY(min); // scaleY(0) y轴比例尺 映射出来的是最大值；   这个效果 等同于return height - 2*margin;的效果
       })
       .attr('width', function (d, i) {
@@ -92,12 +104,6 @@
       .attr('y', function (d, i) {
         // return scaleY(d);
         return height - 2 * margin; //这里的初始化效果 同上面的矩形初始化效果一样
-      })
-      .attr('dx', function (d, i) {
-        return -2;
-      })
-      .attr('dy', function (d, i) {
-        return 20;
       })
       .text(function (d, i) {
         return d;

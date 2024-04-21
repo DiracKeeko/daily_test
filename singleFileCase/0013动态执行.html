@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0013</title>
+  </head>
+  <body>
+    <script>
+      const x = 1;
+      const codeStr = 'console.log(x)';
+
+      // ## 动态执行第一种方式: eval(string);
+      // eval(codeStr);
+
+      // ## 动态执行第二种方式：setTimeout(string, time);
+      // setTimeout(codeStr, 0); // 正常输出1
+
+      // 注意：setTimeout动态执行在Node环境不行，会直接报错
+      // TypeError [ERR_INVALID_CALLBACK]: Callback must be a function. Received 'console.log(x)'
+
+      // ## 动态执行第三种方式：添加<script>标签
+      const scriptTag = document.createElement("script");
+      scriptTag.textContent = codeStr;
+      document.body.appendChild(scriptTag);
+
+      // 注意动态执行的作用域。
+      /* 
+      function fun() {
+        const x = 2;
+        // setTimeout(codeStr, 0); // 1 -> 全局作用域
+        eval(codeStr); // 2 -> 当前作用域
+      }
+      fun(); 
+      */
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0206</title>
+    <style></style>
+  </head>
+
+  <body>
+    <div>
+      <button id="btn1">btn1</button>
+      <button id="btn2">btn2</button>
+    </div>
+  </body>
+
+  <script>
+    // 静态属性和动态属性
+    const obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    };
+
+    const btn1 = document.getElementById('btn1');
+    btn1.addEventListener('click', function () {
+      console.log('btn1->', obj.a); // 静态属性, 用"."访问，a就是a，不会变
+    });
+
+    // 动态属性
+    let prop = "b";
+    setTimeout(() => {
+      prop = "c";
+      console.log("change prop");
+    }, 2000);
+    const btn2 = document.getElementById('btn2');
+    btn2.addEventListener('click', function () {
+      console.log('btn2->', obj[prop]);
+    });
+  </script>
+</html>

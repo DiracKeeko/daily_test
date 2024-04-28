@@ -1,0 +1,37 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0208</title>
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+    <style></style>
+  </head>
+  
+  <body>
+    <div id="app">
+      <button @click="addElement">点击添加元素</button>
+      <div>数组的长度是 {{ res.length }}</div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          res: []
+        },
+        methods: {
+          addElement() {
+            const temp = [];
+            for (let i = 0; i < 999999; i++) {
+              temp.push({
+                name: "hello"
+              })
+            }
+            // 冻结对象
+            this.res = Object.freeze(temp);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

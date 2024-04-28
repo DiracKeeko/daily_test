@@ -1,0 +1,36 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0207</title>
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+    <style></style>
+  </head>
+  <!-- 基本功 077 -->
+  <!-- 用浏览器的Performance来查看性能开销 -->
+  
+  <body>
+    <div id="app">
+      <button @click="addElement">点击添加元素</button>
+      <div>数组的长度是 {{ res.length }}</div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          res: []
+        },
+        methods: {
+          addElement() {
+            for (let i = 0; i < 999999; i++) {
+              this.res.push({
+                name: "hello"
+              })
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

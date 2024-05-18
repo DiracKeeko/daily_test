@@ -1,0 +1,58 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0210</title>
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <ul v-if="isUlShow">
+        <li v-for="(item, i) in itemArr" :key="i">{{ item }}</li>
+      </ul>
+      <button @click="cutArr">修改数组长度</button>
+      <button @click="updateItem">更新b元素</button>
+      <button @click="newArr">变更数组变量的内存地址</button>
+      <button @click="changeWithIf">用v-if实现视图更新</button>
+      <button @click="forceUpdateItem">强制视图更新</button>
+      <button @click="show">打印</button>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          itemArr: ['a', 'b', 'c'],
+          isUlShow: true
+        },
+        methods: {
+          cutArr() {
+            // this.itemArr.length = 1;
+            this.itemArr.splice(1);
+          },
+          updateItem() {
+            // this.itemArr[1] = "bb";
+            this.$set(this.itemArr, 1, 'bb');
+          },
+          newArr() {
+            this.itemArr = [...this.itemArr, 'dd', 'ee'];
+          },
+          changeWithIf() {
+            this.isUlShow = false;
+            this.itemArr[1] = 'v-if';
+            this.isUlShow = true;
+          },
+          forceUpdateItem() {
+            this.itemArr[1] = "force update";
+            this.$forceUpdate();
+          },
+          show() {
+            console.log(this.itemArr);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

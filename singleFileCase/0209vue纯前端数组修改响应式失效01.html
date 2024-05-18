@@ -1,0 +1,40 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0209</title>
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+    <style></style>
+  </head>
+  
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(item, i) in itemArr" :key="i">{{ item }}</li>
+      </ul>
+      <button @click="updateItem">更新b元素</button>
+      <button @click="cutArr">修改数组长度</button>
+      <button @click="show">打印</button>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          itemArr: ["a", "b", "c"]
+        },
+        methods: {
+          updateItem() {
+            this.itemArr[1] = "bb";
+          },
+          cutArr() {
+            this.itemArr.length = 1;
+          },
+          show() {
+            console.log(this.itemArr);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0211</title>
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>计算属性: {{ fullNameComputed }}</div>
+      <div>计算属性: {{ fullNameComputed }}</div>
+      <br/>
+      <div>方法: {{ fullNameMethod() }}</div>
+      <div>方法: {{ fullNameMethod() }}</div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          firstName: 'Tom',
+          lastName: 'Msk'
+        },
+        computed: {
+          fullNameComputed() {
+            console.log('计算属性');
+            return this.firstName + this.lastName;
+          }
+        },
+        methods: {
+          fullNameMethod() {
+            console.log('执行method');
+            return this.firstName + this.lastName;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

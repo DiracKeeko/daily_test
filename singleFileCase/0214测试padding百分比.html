@@ -1,0 +1,49 @@
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0214</title>
+  <script>
+    
+  </script>
+  <style>
+    body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+    th, td { /* table elements 表格元素 */
+        margin: 0;
+        padding: 0;
+    }
+
+    #outer {
+      width: 500px;
+      height: 300px;
+      border: 1px solid black;
+    }
+
+    #inner {
+      border: 1px solid red;
+      width: 200px;
+      height: 100px;
+      padding-top: 10%; /* 浏览器查看padding-top的值是50px，500px * 10% = 50px; 用的是父元素width的10% */
+      padding-bottom: 15%; /* 浏览器查看padding-top的值是75px，500px * 15% = 75px; 用的是父元素width的15% */
+    }
+    .container {
+      width: 20px;
+      height: 20px;
+      background-color: #eea;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="outer">
+    <div id="inner">
+      <div class="container"></div>
+    </div>
+</body>
+
+</html>

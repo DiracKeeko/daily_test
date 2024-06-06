@@ -30,16 +30,16 @@ setTimeout(() => {
 
 
 // for循环中的setTimeout (for循环 + setTimeout)
-for (let i = 0; i < 3; i++) {
+/* for (let i = 0; i < 3; i++) {
   setTimeout(() => {
     console.log(i); // i === 3?
     console.log(0);
   }, 100)
   console.log(5);
-}
+} */
 
 /* 
-  执行顺序从前到后
+  ↑ 上面代码块的 执行顺序 从前到后
   5
   5
   5
@@ -50,3 +50,31 @@ for (let i = 0; i < 3; i++) {
   2
   0
 */
+
+class Animal {
+  constructor() {
+    this.type = "animal";
+  }
+
+  say(val) {
+    console.log(`${this.type} says ${val}`);
+  }
+
+  delaySay(val) {
+    setTimeout(() => {
+      console.log(`${this.type} says ${val}`);
+    }, 100);
+  }
+
+  delaySay1(val) {
+    setTimeout(() => {
+      console.log(`${this.animal} says ${val}`);
+    }, 100);
+  }
+
+}
+
+const animal = new Animal();
+animal.say("hi"); // animal says hi
+animal.delaySay("hi"); // animal says hi
+animal.delaySay1("hi"); // undefined says hi

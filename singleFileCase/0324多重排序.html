@@ -1,0 +1,203 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0324</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css">
+
+  <script src="../common/mockData/testData.js"></script>
+  <style>
+    .container {
+      width: 200px;
+      height: 100px;
+      background-color: #bfa;
+      margin: 0 auto;
+    }
+
+    .container img {
+      width: 40px;
+      vertical-align: middle;
+    }
+
+    .container span {
+      font: 20px/40px "microsoft Yahei";
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-select v-model="sortKey[0]" placeholder="请选择">
+      <el-option
+        v-for="item in sortKeyOptions" 
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-select v-model="sortKey[1]" placeholder="请选择">
+      <el-option
+        v-for="item in sortKeyOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-select v-model="sortKey[2]" placeholder="请选择">
+      <el-option
+        v-for="item in sortKeyOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-table :data="tableData" row-key="name" style="width: 100%">
+      <el-table-column v-for="col in tableTitle" :prop="col.prop" :label="col.label" :width="col.width">
+      </el-table-column>
+    </el-table>
+  </div>
+  <script>
+    function swap(A, i, j){
+      let t = A[i];
+      A[i] = A[j];
+      A[j] = t;
+    }
+    function partition(A, sortKey, lo, hi){
+      let pivot = A[hi-1][sortKey];
+      let i = lo, j = hi - 1;
+      while(i !== j){
+        if(A[i][sortKey] >= pivot){
+          i++;
+        } else{
+          swap(A, i, --j);
+        }
+      }
+      swap(A, j, hi-1);
+      return j;
+    }
+    function qsort(A, sortKey, lo = 0, hi = A.length){
+      if((hi-lo) <= 1){
+        return;
+      }
+      let p = partition(A, sortKey, lo, hi);
+      qsort(A, sortKey, lo, p);
+      qsort(A, sortKey, p+1, hi);
+    }
+    function differentPlace(arr, key) {
+      let result = [0];
+      for (let i = 1; i < arr.length; i++) {
+        if(arr[i][key] !== arr[i-1][key]){
+          result.push(i)
+        }
+      }
+      result.push(arr.length);
+      return result;
+    }
+    function makeNeedSortArr (arr1, arr2) {
+      let result = [];
+      let flag = false;
+      arr1.forEach((item, index) => {
+        if(flag) {
+          result.push(true);
+        } else if (item === arr2[index]) {
+          result.push(false);
+        } else {
+          result.push(true);
+          flag = true;
+        }
+      })
+      return result;
+    }
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        sortKey: ["", "", ""],
+        lastSortKey: ["", "", ""],
+        needSort: [true, true, true],
+        sortKeyOptions:[
+          {
+            value: 'age',
+            label: '年龄'
+          }, {
+            value: 'math',
+            label: '数学'
+          }, {
+            value: 'chinese',
+            label: '语文'
+          }, {
+            value: 'english',
+            label: '英语'
+          }, {
+            value: 'star',
+            label: '星级'
+          }
+        ],
+        tableData: testArray,
+        tableTitle: [
+          {
+            label: "姓名",
+            prop: "name",
+            width: "150"
+          },
+          {
+            label: "年龄",
+            prop: "age",
+            width: "120"
+          },
+          {
+            label: "数学",
+            prop: "math",
+            width: "120",
+          },
+          {
+            label: "语文",
+            prop: "chinese",
+            width: "120"
+          }, {
+            label: "英语",
+            prop: "english",
+            width: "120",
+          }, {
+            label: "星级",
+            prop: "star",
+            width: "120"
+          }
+        ]
+      },
+      methods: {
+      },
+      watch:{
+        sortKey: {
+          handler(val){
+            this.needSort = makeNeedSortArr(this.sortKey, this.lastSortKey);
+            // console.log(this.sortKey);
+            // console.log(this.lastSortKey);
+            // console.log("needSort->", this.needSort);
+            for( let i = 0; i < val.length; i++) {
+              if((i === 0) && this.needSort[i]) {
+                qsort(this.tableData, val[0]);
+              } else if((val[i] !== "") && this.needSort[i]){
+                let diffIndexArr = differentPlace(this.tableData, val[i-1]);
+                for( let j = 1; j < diffIndexArr.length; j++) {
+                  if(diffIndexArr[j] - diffIndexArr[j-1] > 1) {
+                    qsort(this.tableData, val[i], diffIndexArr[j-1], diffIndexArr[j])
+                  }
+                }
+              }
+            }
+            // console.log(this.tableData);
+            this.tableData = this.tableData.slice(0);
+            this.lastSortKey = this.sortKey.slice(0);
+          },
+          deep: true
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

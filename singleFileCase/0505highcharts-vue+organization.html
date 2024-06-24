@@ -1,9 +1,10 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <title>0501highcharts-area-linearGradient</title>
+    <title>0505</title>
     <script src="../common/lib/vue2.6.12.min.js"></script>
     <script src="../common/lib/highcharts.js"></script>
+    <script src="../common/lib/highchartsModules/sankey.js"></script>
     <script src="../common/lib/highchartsModules/organization.js"></script>
     <script src="../common/lib/highchartsModules/accessibility.js"></script>
     <script src="../common/lib/highchartsModules/exporting.js"></script>
@@ -34,9 +35,6 @@
           };
           let title = {
             text: '上下游调用关系'
-          };
-          let subtitle = {
-            text: 'Tracing the Evolutionary Relationship of Carnivores'
           };
           let plotOptions = {
             series: {
@@ -283,7 +281,6 @@
             chartOptions: {
               chart,
               title,
-              subtitle,
               plotOptions,
               accessibility,
               tooltip,

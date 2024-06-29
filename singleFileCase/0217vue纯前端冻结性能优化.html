@@ -1,0 +1,54 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0217</title>
+    <!-- 深度选择器调整el-input的高度 -->
+    <script src="../common/lib/vue2.6.12.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .container {
+        width: 200px;
+        height: 100px;
+        margin: 0 auto;
+      }
+
+      .container container-input {
+        height: 50px;
+        width: 20px;
+      }
+
+      /* Vue2的深度选择器 */
+      /* 
+        语法可以是
+        >>> .class
+        ::v-deep .class
+        
+        必须在编译环境使用
+      */
+
+      /* 没有编译环境 下面的语句不会生效 */
+      >>> el-input__inner {
+        height: 50px;
+        width: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container">
+        <el-input class="container-input"></el-input>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        watch: {}
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0216 修饰符 test</title>
+  <script src="../common/lib/vue2.6.12.js"></script>
+  
+  <style>
+    .container {
+      width: 200px;
+      height: 100px;
+      background-color: #bfa;
+      margin: 0 auto;
+    }
+
+    .container img {
+      width: 40px;
+      vertical-align: middle;
+    }
+
+    .container span {
+      font: 20px/40px "microsoft Yahei";
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    
+    input1 
+    <input 
+      v-model="input1" 
+      @click.right="handleClick" 
+      placeholder="请输入内容">
+    </input>
+
+    typeof input1-> {{ typeof(input1) }}
+    <hr><br>
+
+    input2
+    <input 
+      v-model.number="input2" 
+      @keyup.ctrl.right="handleKey" 
+      placeholder="请输入内容">
+    </input>
+
+    typeof input2-> {{ typeof(input2) }}
+    <hr><br>
+
+    input3
+    <input 
+      v-model.number="input3" 
+      @click.ctrl.enter.right="handleKey" 
+      placeholder="请输入内容">
+    </input>
+    typeof input3-> {{ typeof(input3) }}
+    <hr><br>
+
+
+    
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        input1: "1",
+        input2: "2",
+        input3: "3",
+      },
+      methods: {
+        handleClick() {
+          console.log("click");
+        },
+        handleKey() {
+          console.log("keyChange");
+        }
+      },
+      watch: {
+      },
+      computed: {
+        
+      }
+    });
+  </script>
+</body>
+
+</html>

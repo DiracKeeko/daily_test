@@ -2,7 +2,11 @@ type MyPick<T, K extends keyof T> = {
   [key in K]: T[key];
 }
 
-// 一个很好的中文解析
+/* 
+  extends 在这里的作用其实是限制泛型。
+*/
+
+// 一个很好的中文解析讨论
 // https://github.com/type-challenges/type-challenges/issues/13427
 
 // keyof: 取interface的键后保存为联合类型

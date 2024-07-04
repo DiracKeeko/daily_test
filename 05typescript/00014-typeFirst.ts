@@ -1,5 +1,14 @@
 type First<T extends any[]> = T extends [] ? never : T[0];
 
+// https://github.com/type-challenges/type-challenges/issues/16315
+/* 
+  //answer2
+  type First<T extends any[]> = T['length'] extends 0 ? never : T[0]
+
+  //answer3
+  type First<T extends any[]> = T extends [infer A, ...infer rest] ? A : never
+*/
+
 /* 
   Q: Hey guys, can I ask why T extends [] works?
 

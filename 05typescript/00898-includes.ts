@@ -24,6 +24,15 @@ IsEqual<Value[0], Item> extends true
     : false;
 
 /* 
+  type Includes<T extends readonly any[], U> = 
+    IsEqual<T[0], U> extends true
+    ? true
+    : T extends [T[0], ...infer rest]
+      ? Includes<rest, U>
+      : false;
+*/
+
+/* 
 type Includes<T extends readonly any[], U> = T extends [infer P, ...infer rest] 
   ? IsEqual<P, U> extends true 
     ? true

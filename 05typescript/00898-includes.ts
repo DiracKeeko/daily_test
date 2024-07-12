@@ -16,21 +16,13 @@ type IsEqual<T, U> =
     : false;
 
 
-type Includes<Value extends any[], Item> =
-IsEqual<Value[0], Item> extends true
+type Includes<T extends readonly any[], U> = 
+  IsEqual<T[0], U> extends true
   ? true
-  : Value extends [Value[0], ...infer rest]
-    ? Includes<rest, Item>
-    : false;
+  : T extends [T[0], ...infer rest] // 如果 T[0] 不等于 U，则检查是否可以将数组 T 分解为 [T[0], ...infer rest] 的形式。
+    ? Includes<rest, U> // 如果可以成功分解，递归地调用 Includes<rest, U>，继续在剩余的数组中查找类型 U。
+    : false; // 如果无法成功分解（即数组 T 的长度为 0），则返回 false，表示数组 T 不包含类型 U。
 
-/* 
-  type Includes<T extends readonly any[], U> = 
-    IsEqual<T[0], U> extends true
-    ? true
-    : T extends [T[0], ...infer rest]
-      ? Includes<rest, U>
-      : false;
-*/
 
 /* 
 type Includes<T extends readonly any[], U> = T extends [infer P, ...infer rest] 
@@ -39,3 +31,6 @@ type Includes<T extends readonly any[], U> = T extends [infer P, ...infer rest]
     : Includes<rest, U>
   : false;
 */
+
+type IncludesRes1 = Includes<[boolean, 2, 3, 5, 6, 7], false>;
+type IncludesRes2 = Includes<[false, 2, 3, 5, 6, 7], false>;

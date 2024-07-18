@@ -21,37 +21,44 @@
 // v1 很巧妙 ${infer F}${infer R} 等价于 F + rest
 // type MyCapitalize<S extends string> = S extends `${infer F}${infer R}` ? `${Uppercase<F>}${R}` : S;
 
-// v2 
+// v2
 type ToUpperCase = {
-  a: "A"
-  b: "B"
-  c: "C"
-  d: "D"
-  e: "E"
-  f: "F"
-  g: "G"
-  h: "H"
-  i: "I"
-  j: "J"
-  k: "K"
-  l: "L"
-  m: "M"
-  n: "N"
-  o: "O"
-  p: "P"
-  q: "Q"
-  r: "R"
-  s: "S"
-  t: "T"
-  u: "U"
-  v: "V"
-  w: "W"
-  x: "X"
-  y: "Y"
-  z: "Z"
-}
+  a: 'A';
+  b: 'B';
+  c: 'C';
+  d: 'D';
+  e: 'E';
+  f: 'F';
+  g: 'G';
+  h: 'H';
+  i: 'I';
+  j: 'J';
+  k: 'K';
+  l: 'L';
+  m: 'M';
+  n: 'N';
+  o: 'O';
+  p: 'P';
+  q: 'Q';
+  r: 'R';
+  s: 'S';
+  t: 'T';
+  u: 'U';
+  v: 'V';
+  w: 'W';
+  x: 'X';
+  y: 'Y';
+  z: 'Z';
+};
 
-type MyCapitalize<S extends string> = S extends `${infer F}${infer L}` ? F extends keyof ToUpperCase ? `${ToUpperCase[F]}${L}` : S : S
+type MyCapitalize<S extends string> = S extends `${infer F}${infer R}`
+  ? F extends keyof ToUpperCase
+    ? `${ToUpperCase[F]}${R}`
+    : S
+  : S;
+
+type MyCapitalizeRes = MyCapitalize<'foo bar'>; // "Foo bar"
+
 /* 
   总结：
     内置的 Uppercase<T> 可以把所有的字符变为大写

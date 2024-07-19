@@ -32,3 +32,6 @@ type ReplaceAll<S extends string, From extends string, To extends string> = From
   : S extends `${infer L}${From}${infer R}`
   ? `${L}${To}${ReplaceAll<R, From, To>}` // 这一行的实现
   : S;
+
+
+type ReplaceAllRes = ReplaceAll<'foobarfoobar', 'ob', 'b'>; // "fobarfobar"

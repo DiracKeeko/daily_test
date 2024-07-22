@@ -29,3 +29,18 @@
 type AppendToObject<T, U extends PropertyKey, V> = {
   [K in keyof T | U]: K extends keyof T ? T[K] : V
 }
+
+type test3 = {
+  key: 'cow'
+  value: 'yellow'
+  sun: false
+}
+
+type testExpect3 = {
+  key: 'cow'
+  value: 'yellow'
+  sun: false
+  moon: false | undefined
+}
+
+type AppendToObjectRes = AppendToObject<test3, 'moon', false | undefined>; // testExpect3

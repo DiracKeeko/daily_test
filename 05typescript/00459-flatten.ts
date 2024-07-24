@@ -23,7 +23,7 @@ type Flatten<T extends unknown[]> = T extends [infer F, ...infer R]
 type FlattenRes = Flatten<[1, 2, [3, 4], [[[5]]]]>; // [1, 2, 3, 4, 5]
 
 
-// 理解infer
+// 理解infer 对元组的拆分 关联00612
 type T1 = [1, 2, 3, 4] extends [infer F, infer R] ? R : never  // T = never
 type T2 = [1, 2] extends [infer F, infer R] ? R : never  // T = 2
 

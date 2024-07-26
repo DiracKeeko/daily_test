@@ -9,7 +9,7 @@ type MyExclude<T, U> = T extends U ? never : T
 // https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
 
 /* 
-  分配条件类型
+  分配条件类型 (Distributive)  
   还是先来看示例
 
   type A1 = 'x' extends 'x' ? string : number; // string
@@ -19,7 +19,6 @@ type MyExclude<T, U> = T extends U ? never : T
   type A3 = P<'x' | 'y'> // ?
 
   答案：
-  type P<T> = T extends 'x' ? string : number;
   type A3 = P<'x' | 'y'>  // A3的类型是 string | number
 
   这个反直觉结果的原因就是所谓的分配条件类型（Distributive Conditional Types）

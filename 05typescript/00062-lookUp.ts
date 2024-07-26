@@ -45,7 +45,7 @@ type LookUp<U, T> = U extends { type: T } ? U : never;
   总结:
   不可以用 U.type  但是可以用 { type: T };
 
-  前置知识是 联合类型T extends U 的结果
+  前置知识是 联合类型T extends U 的结果 (00043 分配条件类型 (Distributive) )
 */
 
 interface Cat {

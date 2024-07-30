@@ -35,6 +35,7 @@ type T6 = '' extends `${infer F}${infer R}` ? R : never; // T6 = never
 type T7 = 'A' extends `${infer F}${infer R}` ? R : never; // T7 = ""
 type T8 = 'AB' extends `${infer F}${infer R}` ? R : never; // T8 = "B"
 type T9 = 'ABC' extends `${infer F}${infer R}` ? R : never; // T9 = "BC"
+type T91 = 'ABC' extends `${infer F}${infer R}` ? F : never; // T91 = "A"
 
 type T6R = '' extends `${infer F}${infer R}` ? true : false; // T6R = false
 type T7R = 'A' extends `${infer F}${infer R}` ? true : false; // T7R = true

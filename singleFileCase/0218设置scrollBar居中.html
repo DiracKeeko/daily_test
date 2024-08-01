@@ -1,0 +1,54 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0218</title>
+    <script></script>
+    <style>
+      body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+    th, td {
+        /* table elements 表格元素 */
+        margin: 0;
+        padding: 0;
+      }
+
+      .scroll-container {
+        width: 600px; /* 容器宽度 */
+        height: 400px; /* 容器高度 */
+        margin: 50px auto 0;
+        overflow: auto; /* 使其具有滚动条 */
+        position: relative; /* 为了相对定位 */
+      }
+
+      .content {
+        width: 1800px; /* 内容宽度，比容器宽度大，产生水平滚动 */
+        height: 1000px; /* 内容高度，比容器高度大，产生垂直滚动 */
+        background: linear-gradient(to bottom right, #3B5FC5, #FBC33D); /* 背景颜色便于查看 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scroll-container">
+      <div class="content">
+        <!-- 在这里添加内容，足够大以产生滚动条 -->
+      </div>
+    </div>
+  </body>
+  <script>
+    const scrollContainer = document.querySelector('.scroll-container');
+    const content = document.querySelector('.content');
+
+    // 计算水平和垂直居中的滚动位置
+    const scrollLeft = (content.scrollWidth - scrollContainer.clientWidth) / 2;
+    const scrollTop = (content.scrollHeight - scrollContainer.clientHeight) / 2;
+
+    console.log({ scrollLeft, scrollTop });
+
+    // 通过 element.scrollLeft 设置 x scroll bar滚动条所在的位置，通过
+    scrollContainer.scrollLeft = scrollLeft;
+    scrollContainer.scrollTop = scrollTop;
+  </script>
+</html>

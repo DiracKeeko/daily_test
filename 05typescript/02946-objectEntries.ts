@@ -88,9 +88,13 @@ type ModelEntries = ['name', string] | ['age', number] | ['locations', string[] 
 
 /* 
   总结:
-    联合类型的产生 有两种方式, 分别是v1x  和 v2x的思路
-    1. T extends something ? firstCase : secondCase
-    2. Obj T  ->  {}[keyof T]
-
-    3. 要知道 Partial<T> 在case2情况下的结果 (多出一个undefined)
+    联合类型的产生 (转为联合类型  toUnion) 有3种方式
+    
+    (第1,2种 分别是v1x  和 v2x的思路)
+    1. 分配条件类型 (Distributive)  T extends something ? firstCase : secondCase
+    2. 对象 Obj T  ->  {}[keyof T]
+    3. 数组 T[number]
+    
+    此外 4. 要知道 Partial<T> 在case2情况下的结果 (多出一个undefined)
+    
 */

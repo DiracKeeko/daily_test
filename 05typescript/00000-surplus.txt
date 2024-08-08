@@ -1,3 +1,5 @@
 00296 - Permutation  (did not do)
 
 01097 - IsUnion (review)
+
+04260 - AllCombinations (review)

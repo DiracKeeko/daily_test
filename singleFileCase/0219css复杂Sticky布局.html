@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0219</title>
+    <style>
+      .title-container {
+        height: 100px;
+        border: 1px solid black;
+      }
+
+      .left-right-container {
+        display: flex;
+      }
+      .left {
+        width: 50%;
+      }
+      .right {
+        width: 50%;
+        height: 100%;
+      }
+      .content-container {
+        height: 400px;
+        overflow: auto;
+      }
+      .meeting-text {
+        height: 50px;
+        border: 1px solid lightblue;
+      }
+
+      .sticky-item {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+      }
+      .title {
+        background-color: #efa;
+      }
+      .sticky-container {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+        background-color: #eee;
+      }
+      .container-lv1 {
+        height: 100vh;
+      }
+      .outer {
+        width: 95vw;
+        height: 90vh;
+        margin: 3vh auto;
+        overflow: auto;
+        background-color: #ddd;
+        border: 1px solid blue;
+      }
+      li {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="container-lv1">
+        <div class="title-container">
+          <div>易方达蓝筹 触底？ 未必</div>
+          <div>2023-12-09</div>
+        </div>
+        <div class="sticky-container">
+          <div class="left-right-container">
+            <div class="left">
+              <div class="sticky-item title">
+                <div>AI摘要</div>
+                <div>
+                  <span>会议要点</span>
+                  <span>分段摘要</span>
+                </div>
+              </div>
+              <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+              </ul>
+            </div>
+            <div class="right sticky-item">
+              <div class="meeting-text">会议原文</div>
+              <div class="content-container">
+                <ul>
+                  <li>1</li>
+                  <li>2</li>
+                  <li>3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                  <li>1</li>
+                  <li>2</li>
+                  <li>3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                  <li>1</li>
+                  <li>2</li>
+                  <li>3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                  <li>1</li>
+                  <li>2</li>
+                  <li>3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

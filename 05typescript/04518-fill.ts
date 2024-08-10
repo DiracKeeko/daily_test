@@ -20,6 +20,7 @@
 /* _____________ 你的代码 _____________ */
 
 // v1 最佳实现 (晦涩)
+
 type Fill<
   T extends unknown[],
   N,
@@ -29,9 +30,34 @@ type Fill<
 > = 
   T extends [infer F, ...infer R]
     ? [...L, 0][Start] extends undefined
-      ? Fill<R, N, Start, End, [...L, F]>
+      ? Fill<R, N, Start, End, [...L, F]> // path1
       : [...L, 0][End] extends undefined
-        ? Fill<R, N, Start, End, [...L, N]>
-        : Fill<R, N, Start, End, [...L, F]>
-    : L
+        ? Fill<R, N, Start, End, [...L, N]> // path2
+        : Fill<R, N, Start, End, [...L, F]> // path3 (逻辑等价于path1)
+    : L // path4
 
+
+/* 
+v1 解析
+Fill<[0, 1, 2, 3], 5, 1, 3> // 把 index = [1, 3) 位置填充为 5
+
+// path1  Fill<R, N, Start, End, [...L, F]>
+Fill<[1, 2, 3], 5, 1, 3, [0]>
+
+// path2  Fill<R, N, Start, End, [...L, N]>
+Fill<[2, 3], 5, 1, 3, [0, 5]>
+
+// path2  Fill<R, N, Start, End, [...L, N]>
+Fill<[3], 5, 1, 3, [0, 5, 5]>
+
+// path3  Fill<R, N, Start, End, [...L, F]>
+Fill<[], 5, 1, 3, [0, 5, 5, 3]>
+
+// path4
+[0, 5, 5, 3]
+*/
+
+type FillResCase = Fill<[0, 1, 2, 3], 5, 1, 3>; // [0, 5, 5, 3]
+type FillRes = Fill<[1, 2, 3], true, 0, 1>; // [true, 2, 3]
+
+// v2 实现 截取start之前，截取end之后 将中间的填充为N

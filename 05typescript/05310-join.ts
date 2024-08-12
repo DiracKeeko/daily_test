@@ -39,6 +39,14 @@ type Join<T extends any[], U extends string | number = ","> = T extends [infer F
 : '';
 */
 
+// v21 对v2的改进 (F为string的判定) 这个优化同样可以应用于v1
+/* 
+type Join<T extends any[], U extends string | number = ","> = T extends [infer F extends string, ...infer R]
+? R extends []
+  ? `${F}`
+  : `${F}${U}${Join<R, U>}`
+: '';
+*/
 
 type JoinRes = Join<['2', '2', '2'], 1>; // '21212'
 type JoinRes1 = Join<['o'], 'u'>; // 'o'
@@ -46,6 +54,5 @@ type JoinRes2 = Join<[], 'u'>; // ''
 
 /* 
   总结:
-    1. `${F&string}`的使用 限定F的类型
-    2. 
+    1. `${F&string}`的使用 限定F的类型 (以及另外一种 [通过 extends] 限定F类型的方式)
 */

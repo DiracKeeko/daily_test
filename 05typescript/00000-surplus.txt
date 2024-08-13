@@ -3,3 +3,7 @@
 01097 - IsUnion (review)
 
 04260 - AllCombinations (review)
+
+05310 - join
+
+05821 - mapTypes

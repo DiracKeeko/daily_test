@@ -7,3 +7,6 @@
 05310 - join
 
 05821 - mapTypes
+
+09286 - FirstUniqueCharIndex  (考察综合能力)
+

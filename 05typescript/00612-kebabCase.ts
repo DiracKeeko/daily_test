@@ -30,7 +30,7 @@ type KebabCase<S extends string> = S extends `${infer F}${infer R}`
     : `${Uncapitalize<F>}-${KebabCase<R>}`
   : S; // 只有空串会走到这个逻辑分支
 
-// 理解infer 对字符串的拆分 关联00459
+// 理解infer 对字符串的拆分 关联00459 (字符串拆分的结果)
 type T6 = '' extends `${infer F}${infer R}` ? R : never; // T6 = never
 type T7 = 'A' extends `${infer F}${infer R}` ? R : never; // T7 = ""
 type T8 = 'AB' extends `${infer F}${infer R}` ? R : never; // T8 = "B"

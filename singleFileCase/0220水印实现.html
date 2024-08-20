@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <style>
+    .main-container {
+      width: 800px;
+      height: 600px;
+      margin: 50px;
+      position: relative;
+    }
+    #info {
+      width: 800px;
+      height: 600px;
+    }
+  </style>
+  <body>
+    <div class="main-container">
+      <div class="__wm"></div>
+      <div id="info">
+        中证网讯（记者李嫒嫒）
+        8月20日，特步国际披露的2024年半年报显示，上半年，公司收入同比增长10.4%至72.03亿元。其中，特步主品牌收入同比增长6.6%至57.89亿元。公司毛利率同比提升3.1个百分点至46.0%。净利润同比增长13.0%至7.52亿元。
+        　　公司董事局主席兼CEO丁水波表示，“得益于国家促进体育发展的政策，我们对公司的前景充满信心，未来将集中资源发展高利润的品牌，以增强协同效应并加速增长。此外，集团的MSCI
+        ESG评级于7月提升至‘A’级，彰显了我们在ESG实践上的卓越成就。展望未来，我们将采取稳健的营运方针，以保持优良的营运、稳健的现金流及高水平的治理，并促进有机增长。”
+        　　据介绍，未来公司将持续聚焦跑步，特步主品牌面向大众市场；索康尼服务于高端且成熟的顾客群；迈乐专注于越野跑和户外活动，品牌之间的协同效应将进一步增强。
+        　　其中，特步赞助的中国运动员共获得408项马拉松冠军，展现了特步在产品研发和性能方面的卓越表现。顶尖运动员对特步的认可，强化了品牌与其跑步专业性的联系，从而成功提升了特步大众跑鞋的受欢迎程度，并巩固了特步位列中国马拉松穿着率榜首的市场地位。
+        　　特步推出旗舰冠军版跑鞋家族，包括 “160X 5.0 PRO” “160X 5.0” “260X”
+        “360X”及“騛速5.0”，以满足从大众跑者到专业和精英跑者不同层次的需求。此系列搭载“XTEP
+        ACE”中底科技、碳纤板及TPU板，提供卓越的回弹力、推进力及缓震性能，助力跑者提升成绩并支持他们的训练。据悉，搭载业界首创科技的第六代160X系列将于本月底上市，在巴黎奥运会男子马拉松比赛中，中国选手吴向东穿着160X6.0
+        PRO以2小时12分34秒创造了中国男选手在奥运会马拉松的最快完赛成绩。
+        　　此外，特步持续扩大产品矩阵和价格带，为大众市场消费者提供高性价比的专业体育产品。全新推出的“行云”跑鞋获得顾客的好评。该系列采用轻量透气的飞梭针织布料鞋面，用料柔软且适合各种场景，提供全天候的舒适感。
+      </div>
+    </div>
+    <script>
+      (function () {
+        function __canvasWM({
+          container = document.body,
+          width = '300px',
+          height = '200px',
+          textAlign = 'center',
+          textBaseline = 'middle',
+          font = '20px Microsoft Yahei',
+          fillStyle = 'rgba(184, 184, 184, 0.6)',
+          rotate = '45',
+          content = '水印',
+          zIndex = 10000
+        } = {}) {
+          const args = arguments[0];
+          const canvas = document.createElement('canvas');
+
+          canvas.setAttribute('width', width);
+          canvas.setAttribute('height', height);
+          const ctx = canvas.getContext('2d');
+
+          ctx.textAlign = textAlign;
+          ctx.textBaseline = textBaseline;
+          ctx.font = font;
+          ctx.fillStyle = fillStyle;
+          ctx.rotate((Math.PI / 180) * rotate);
+          ctx.fillText(content, parseFloat(width) / 2, parseFloat(height) / 2);
+
+          const base64Url = canvas.toDataURL();
+
+          const __wm = document.querySelector('.__wm');
+          const watermarkDiv = __wm || document.createElement('div');
+          // fixed元素的width: 100%; height: 100%; 是相对于浏览器窗口计算的
+          const styleStr = `
+                  position: fixed;
+                  width: 100%;
+                  height: 100%;
+                  top:0;
+                  left:0;
+                  bottom:0;
+                  right:0;
+                  z-index:${zIndex};
+                  pointer-events:none;
+                  background-repeat:repeat;
+                  background-image:url('${base64Url}')`;
+
+          watermarkDiv.setAttribute('style', styleStr);
+          watermarkDiv.classList.add('__wm');
+
+          if (!__wm) {
+            container.style.position = 'relative';
+            container.insertBefore(watermarkDiv, container.firstChild);
+          }
+
+          const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+          if (MutationObserver) {
+            let mo = new MutationObserver(function () {
+              const __wm = document.querySelector('.__wm');
+              // 只在__wm元素变动才重新调用 __canvasWM
+              if ((__wm && __wm.getAttribute('style') !== styleStr) || !__wm) {
+                // 避免一直触发
+                mo.disconnect();
+                mo = null;
+                __canvasWM(JSON.parse(JSON.stringify(args)));
+              }
+            });
+
+            mo.observe(container, {
+              attributes: true,
+              subtree: true,
+              childList: true
+            });
+          }
+        }
+
+        if (typeof module != 'undefined' && module.exports) {
+          //CMD
+          module.exports = __canvasWM;
+        } else if (typeof define == 'function' && define.amd) {
+          // AMD
+          define(function () {
+            return __canvasWM;
+          });
+        } else {
+          window.__canvasWM = __canvasWM;
+        }
+      })();
+
+      // 调用
+      __canvasWM({
+        content: '水印123'
+      });
+    </script>
+  </body>
+</html>

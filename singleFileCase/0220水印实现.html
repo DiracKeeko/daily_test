@@ -80,9 +80,9 @@
                   background-image:url('${base64Url}')`;
 
           watermarkDiv.setAttribute('style', styleStr);
-          watermarkDiv.classList.add('__wm');
-
+          
           if (!__wm) {
+            watermarkDiv.classList.add('__wm');
             container.style.position = 'relative';
             container.insertBefore(watermarkDiv, container.firstChild);
           }

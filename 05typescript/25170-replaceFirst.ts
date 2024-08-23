@@ -12,9 +12,18 @@
 
 /* _____________ 你的代码 _____________ */
 
-type ReplaceFirst<T extends readonly unknown[], S, P, U extends any[] = []> = U['length'] extends T['length']
-? U
-: T extends [infer F, ...infer R]
+// v1
+// type ReplaceFirst<T extends readonly unknown[], S, P, U extends any[] = []> = U['length'] extends T['length']
+// ? U
+// : T extends [infer F, ...infer R]
+//   ? F extends S
+//     ? [...U, P, ...R]
+//     : ReplaceFirst<R, S, P, [...U, F]>
+//   : U;
+
+// v2 简化
+type ReplaceFirst<T extends readonly unknown[], S, P, U extends any[] = []> = 
+T extends [infer F, ...infer R]
   ? F extends S
     ? [...U, P, ...R]
     : ReplaceFirst<R, S, P, [...U, F]>

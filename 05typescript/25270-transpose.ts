@@ -19,6 +19,7 @@
 /* _____________ 你的代码 _____________ */
 
 // v1 我的实现
+/* 
 type ShiftFirst<M extends number[][]> = M extends [infer F, ...infer R extends number[][]]
 ? F extends [infer _, ...infer FR]
   ? [FR, ...ShiftFirst<R>]
@@ -40,17 +41,6 @@ type Transpose<M extends number[][], P = Reduce<M>> = P extends [...infer F, []]
 ? F
 : P;
 
-/* 
-type cases = [
-  Expect<Equal<Transpose<[]>, []>>,
-  Expect<Equal<Transpose<[[1]]>, [[1]]>>,
-  Expect<Equal<Transpose<[[1, 2]]>, [[1], [2]]>>,
-  Expect<Equal<Transpose<[[1, 2], [3, 4]]>, [[1, 3], [2, 4]]>>,
-  Expect<Equal<Transpose<[[1, 2, 3], [4, 5, 6]]>, [[1, 4], [2, 5], [3, 6]]>>,
-  Expect<Equal<Transpose<[[1, 4], [2, 5], [3, 6]]>, [[1, 2, 3], [4, 5, 6]]>>,
-  Expect<Equal<Transpose<[[1, 2, 3], [4, 5, 6], [7, 8, 9]]>, [[1, 4, 7], [2, 5, 8], [3, 6, 9]]>>,
-]
-*/
 
 // 测试案例
 type ShiftFirstRes = ShiftFirst<[[1, 2, 3], [4, 5, 6]]>;
@@ -66,3 +56,43 @@ type CollectFirstRes3 = CollectFirst<[[1]]>; // [1]
 type CollectFirstRes4 = CollectFirst<[[]]>; // []
 
 type ReduceRes = Reduce<[[1, 2]]>; // ReduceRes = [[1], [2], []]
+
+ */
+
+
+// v2 by jiangshanmeta
+type Transpose<M extends number[][], R = M['length'] extends 0 ? [] : M[0]> = {
+  [X in keyof R]: {
+    [Y in keyof M]: X extends keyof M[Y]
+      ? M[Y][X]
+      : never
+  }
+}
+
+// 测试v2的实现
+type reduceArray<T extends any[]> = {
+  [X in keyof T]: X
+}
+
+type reduceArrayRes = reduceArray<[0, 1, 2]> // ["0", "1", "2"]
+
+/* 
+  总结: 
+    1. v2是一种巧妙的方法，[X in keyof R] R是一个数组，此时X在迭代时，它的值是字符串类型的Index  (参见reduceArrayRes的结果)
+    2. 虽然是用对象形式的迭代实现，但是最终ts推断的结果是一个数组。
+
+    3. 数组的对象形式迭代
+*/
+
+/* 
+type cases = [
+  Expect<Equal<Transpose<[]>, []>>,
+  Expect<Equal<Transpose<[[1]]>, [[1]]>>,
+  Expect<Equal<Transpose<[[1, 2]]>, [[1], [2]]>>,
+  Expect<Equal<Transpose<[[1, 2], [3, 4]]>, [[1, 3], [2, 4]]>>,
+  Expect<Equal<Transpose<[[1, 2, 3], [4, 5, 6]]>, [[1, 4], [2, 5], [3, 6]]>>,
+  Expect<Equal<Transpose<[[1, 4], [2, 5], [3, 6]]>, [[1, 2, 3], [4, 5, 6]]>>,
+  Expect<Equal<Transpose<[[1, 2, 3], [4, 5, 6], [7, 8, 9]]>, [[1, 4, 7], [2, 5, 8], [3, 6, 9]]>>,
+]
+*/
+

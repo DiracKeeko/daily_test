@@ -47,5 +47,4 @@ where
 order by i.InfoPublDate desc, i.InfoPublTime desc
 limit 5 offset 0;
 
-先分析一下我的这段sql，我后面有需求，等我提问
 -- 从secumain表中查询出stockInnerId ，再将stockInnerId 作为t.DataCode 查询结果

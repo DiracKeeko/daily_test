@@ -23,9 +23,15 @@
 
 /* _____________ 你的代码 _____________ */
 
+// v1
 type OmitByType<T extends Record<string, any>, U> = {
-  [K in keyof T as T[K] extends U ? never : K]: T[K]
+  [K in keyof T as K]: T[K] extends U ? never : U;
 }
+
+// v2
+// type OmitByType<T extends Record<string, any>, U> = {
+//   [K in keyof T as T[K] extends U ? never : K]: T[K]
+// }
 
 interface Model {
   name: string

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="flag">
+      <div class="sfb"></div>
+
+      <div class="sfs one"></div>
+
+      <div class="sfs two"></div>
+
+      <div class="sfs three"></div>
+
+      <div class="sfs four"></div>
+    </div>
+    <style>
+      * {
+        border-width: 0;
+      }
+
+      :root {
+        --width: 500px;
+        --grid: calc(var(--height) / 2 / 10);
+        --radius: calc(var(--grid) * 3);
+        --sin18: 0.3090169943749474;
+        --cos18: 0.9510565162951535;
+        --tan36: 0.7265425280053608;
+        --height: calc(var(--width) * 2 / 3);
+        --bg-color: #f40002;
+        --star-color: #faf408;
+        --OL: calc(var(--radius) * var(--sin18));
+        --EL: calc(var(--radius) * var(--cos18));
+        --GL: calc(var(--EL) * var(--tan36));
+      }
+
+      .flag {
+        position: relative;
+        width: var(--width);
+        height: var(--height);
+        background: var(--bg-color);
+        margin: 0 auto;
+      }
+
+      .sfb {
+        position: absolute;
+        top: calc(5 * var(--grid) - var(--OL));
+        left: calc(5 * var(--grid) - var(--EL));
+        border-color: var(--star-color) transparent transparent;
+        border-width: var(--GL) var(--EL);
+        border-style: solid;
+        width: 0;
+        height: 0;
+      }
+
+      .sfb::before {
+        position: absolute;
+        top: calc(var(--GL) * -1);
+        left: calc(var(--EL) * -1);
+        border-color: var(--star-color) transparent transparent;
+        border-width: var(--GL) var(--EL);
+        border-style: solid;
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        transform: rotate(72deg);
+        transform-origin: var(--EL) var(--OL);
+      }
+
+      .sfb::after {
+        position: absolute;
+        top: calc(var(--GL) * -1);
+        left: calc(var(--EL) * -1);
+        border-color: var(--star-color) transparent transparent;
+        border-width: var(--GL) var(--EL);
+        border-style: solid;
+        transform: rotate(-72deg);
+        transform-origin: var(--EL) var(--OL);
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+      }
+
+      .sfs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        transform-origin: calc(var(--EL) / 3) calc(var(--OL) / 3);
+        border-color: var(--star-color) transparent transparent;
+        border-width: calc(var(--GL) / 3) calc(var(--EL) / 3);
+        border-style: solid;
+      }
+
+      .sfs::before {
+        position: absolute;
+        top: calc(var(--GL) * -1 / 3);
+        left: calc(var(--EL) * -1 / 3);
+        border-color: var(--star-color) transparent transparent;
+        border-width: calc(var(--GL) / 3) calc(var(--EL) / 3);
+        border-style: solid;
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        transform: rotate(72deg);
+        transform-origin: calc(var(--EL) / 3) calc(var(--OL) / 3);
+      }
+
+      .sfs::after {
+        position: absolute;
+        top: calc(var(--GL) * -1 / 3);
+        left: calc(var(--EL) * -1 / 3);
+        height: 0;
+        border-color: var(--star-color) transparent transparent;
+        border-width: calc(var(--GL) / 3) calc(var(--EL) / 3);
+        border-style: solid;
+        content: '';
+        display: block;
+        width: 0;
+        transform: rotate(-72deg);
+        transform-origin: calc(var(--EL) / 3) calc(var(--OL) / 3);
+      }
+
+      .one {
+        top: calc(2 * var(--grid) - var(--OL) / 3);
+        left: calc(10 * var(--grid) - var(--EL) / 3);
+        transform: rotate(-48.96deg);
+      }
+
+      .two {
+        top: calc(4 * var(--grid) - var(--OL) / 3);
+        left: calc(12 * var(--grid) - var(--EL) / 3);
+        transform: rotate(-26.13deg);
+      }
+
+      .three {
+        top: calc(7 * var(--grid) - var(--OL) / 3);
+        left: calc(12 * var(--grid) - var(--EL) / 3);
+        transform: rotate(-2.06deg);
+      }
+
+      .four {
+        top: calc(9 * var(--grid) - var(--OL) / 3);
+        left: calc(10 * var(--grid) - var(--EL) / 3);
+        transform: rotate(20.66deg);
+      }
+    </style>
+  </body>
+</html>

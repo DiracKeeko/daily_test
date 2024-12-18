@@ -1,3 +1,34 @@
+/*
+  4 - 实现 Pick
+  -------
+  by Anthony Fu (@antfu) #简单 #union #built-in
+
+  ### 题目
+
+  不使用 `Pick<T, K>` ，实现 TS 内置的 `Pick<T, K>` 的功能。
+
+  **从类型 `T` 中选出符合 `K` 的属性，构造一个新的类型**。
+
+  例如：
+
+  ```ts
+  interface Todo {
+    title: string
+    description: string
+    completed: boolean
+  }
+
+  type TodoPreview = MyPick<Todo, 'title' | 'completed'>
+
+  const todo: TodoPreview = {
+      title: 'Clean room',
+      completed: false,
+  }
+  ```
+
+  > 在 Github 上查看：https://tsch.js.org/4/zh-CN
+*/
+
 type MyPick<T, K extends keyof T> = {
   [key in K]: T[key];
 }

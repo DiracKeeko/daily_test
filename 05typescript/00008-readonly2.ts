@@ -36,6 +36,7 @@
   解释：
     因为第二个泛型可能为空，所以需要通过 = 来赋默认值
 */
+
 // type MyReadonly2<T, K extends keyof T = keyof T> = Omit<T, K> & Readonly<Pick<T, K>>;
 
 type MyReadonly2<T, K extends keyof T = keyof T> = Omit<T, K> & { readonly [key in K]: T[key] };

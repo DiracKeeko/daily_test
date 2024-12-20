@@ -36,7 +36,9 @@
 
 /* 
 // v1 不能实现全部的case 
-// 主要问题有两个 1. 没有处理Function 2. extends object不是一个好的写法，要用Record<any, any>
+// 主要问题有两个 
+  // 1. 没有处理Function 
+  // 2. "extends object"中 object不是一个好的写法，要用Record<any, any>
 type DeepReadonly<T extends object> = {
   readonly [K in keyof T]: T[K] extends object 
     ? DeepReadonly<T[K]> 

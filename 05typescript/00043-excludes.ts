@@ -1,4 +1,24 @@
-// extends can be used in two ways
+/*
+  43 - 实现 Exclude
+  -------
+  by Zheeeng (@zheeeng) #简单 #built-in #union
+
+  ### 题目
+
+  实现内置的 `Exclude<T, U>` 类型，但不能直接使用它本身。
+
+  > 从联合类型 `T` 中排除 `U` 中的类型，来构造一个新的类型。
+
+  例如：
+
+  ```ts
+  type Result = MyExclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
+  ```
+
+  > 在 Github 上查看：https://tsch.js.org/43/zh-CN
+*/
+
+// "extends" can be used in two ways
 // one is a real extends
 // another is like a ternary expression with the traverse of T, called Distributive Conditional Types
 // second one can be used in a fun way, like Flatten

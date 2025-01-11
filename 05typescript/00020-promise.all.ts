@@ -26,6 +26,7 @@
 type PromiseFlat<T> = T extends Promise<infer R> ? PromiseFlat<R> : T;
 
 declare function PromiseAll<T extends any[]>(
+  // values: readonly T // 'readonly' type modifier is only permitted on array and tuple literal types.
   values: readonly [...T]
 ): Promise<
   {
@@ -36,3 +37,5 @@ declare function PromiseAll<T extends any[]>(
 const promiseAllTest1 = PromiseAll([1, 2, 3] as const); // Promise<[1, 2, 3]>
 const promiseAllTest2 = PromiseAll([1, 2, Promise.resolve(3)] as const); // Promise<[1, 2, number]>
 const promiseAllTest3 = PromiseAll([1, 2, Promise.resolve(3)]); // Promise<[number, number, number]>
+
+type PromiseFl<T> = T extends Promise<infer R> ? PromiseFl<R> : T;

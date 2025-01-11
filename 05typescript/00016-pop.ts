@@ -25,8 +25,10 @@
 */
 
 /* _____________ 你的代码 _____________ */
+// v1
 type Pop<T extends any[]> = T extends [...infer Pre, infer _] ? Pre : [];
 
+// v2 这个也行 不如上面的表述直接
 // type Pop<T extends any[]> = T extends [...infer Pre, infer _] ? Pre : T;
 
 type PopRes = Pop<[3, 2, 1]>; // [3, 2];

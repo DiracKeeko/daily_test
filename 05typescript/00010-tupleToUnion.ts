@@ -23,6 +23,8 @@
 type TupleToUnion<T extends any[]> = T[number];
 
 // v2 通过 infer来实现  可读性不如v1
-// type TupleToUnion<T> = T extends Array<infer ITEMS> ? ITEMS : never
+// type TupleToUnion<T> = T extends Array<infer items> ? items : never
 
 type tupleToUnionRes = TupleToUnion<[123, '456', true]>; // 123 | '456' | true
+type tupleToUnionRes1 = TupleToUnion<[123]>; // 123
+type tupleToUnionRes2 = TupleToUnion<[]>; // never

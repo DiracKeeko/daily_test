@@ -33,10 +33,10 @@
 // type LookUp<U, T> = U.type extends T ? U : never; 
 
 // v2 还是不行
+// type LookUp<T extends { type: string }, U extends string> = T['type'] extends U ? T : never
 /* 
   Because T['type'] is not a naked type and thus doesn't get distributed. And "dog" | "cat" doesn't extend neither "dog" nor "cat".
 */
-// type LookUp<T extends { type: string }, U extends string> = T['type'] extends U ? T : never
 
 // v3
 type LookUp<U, T> = U extends { type: T } ? U : never;

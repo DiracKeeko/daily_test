@@ -25,21 +25,19 @@
 /* _____________ 你的代码 _____________ */
 
 // v1 用pre会被ts提示 'pre' is declared but its value is never read
-// type Last<T extends any[]> = T extends [...infer pre, infer L] ? L : never;
+// type Last<T extends any[]> = T extends [...infer pre, infer R] ? R : never;
 
 // v2 将pre 改为 '_'
-// type Last<T extends any[]> = T extends [...infer _, infer L] ? L : never;
+type Last<T extends any[]> = T extends [...infer _, infer R] ? R : never;
 
 // v3 在前面补一个，再取length
-type Last<T extends any[]> = [any, ...T][T['length']];
+// type Last<T extends any[]> = [any, ...T][T['length']];
 
 /* 
   总结:
     1. 在ts类型推断的时候 '...' 可以放在前面
     2. 可以用 T['length'] 来取一个数组的length 
 */
-
-
 
 type arr1 = ['a', 'b', 'c']
 type LastRes1 = Last<arr1>; // "c"

@@ -51,11 +51,27 @@ function mount(vNode, container) {
   container.appendChild(el);
 }
 
-
+/* 
+  子元素: 真实的html元素
+*/
 function patch(oldVNode, newVNode) {
-  const container = oldVNode.el.parentNode;
-  removeAllChildren(container);
-  mount(newVNode, container);
+  if (oldVNode.sel !== newVNode.sel) {
+    console.log("000");
+    // 1. 新旧vNode的类型不同(如 ul -> div)，删掉旧html的全部子元素，根据新vNode创建新子元素
+    const container = oldVNode.el.parentNode;
+    removeAllChildren(container);
+    mount(newVNode, container);
+  } else {
+    // 2. 新旧vNode的类型相同(如都是ul)
+    if (typeof newVNode.children === 'string') {
+      // 2.1 新vNode的children是 string
+      oldVNode.el.innerHtml = newVNode.children;
+    } else if (typeof oldVNode.children === 'string') {
+      // 2.2 新vNode的children不是string, 且旧vNode的children是string
+      oldVNode.el.innerHtml = '';
+      newVNode.children.forEach((item) => mount(item, oldVNode.el));
+    }
+  }
 }
 
 function removeAllChildren(container) {

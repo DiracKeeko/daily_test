@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <div id="app"></div>
+    <button onClick="updateVNode()">更新列表</button>
+
+    <script src="./render.js"></script>
+    <script>
+      let vNode = h('ul', {}, [h('li', {}, 'a'), h('li', {}, 'b')]);
+
+      mount(vNode, '#app');
+
+      function updateVNode() {
+        const newVNode = h('ul', {}, [h('li', {}, 'a'), h('li', {}, 'c'), h('li', {}, 'b')]);
+
+        patch(vNode, newVNode);
+
+        vNode = newVNode;
+      }
+
+    </script>
+  </body>
+</html>

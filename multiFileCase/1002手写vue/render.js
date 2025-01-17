@@ -50,3 +50,16 @@ function mount(vNode, container) {
   // 2 挂载到container中去
   container.appendChild(el);
 }
+
+
+function patch(oldVNode, newVNode) {
+  const container = oldVNode.el.parentNode;
+  removeAllChildren(container);
+  mount(newVNode, container);
+}
+
+function removeAllChildren(container) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}

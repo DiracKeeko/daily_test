@@ -12,13 +12,16 @@
       mount(vNode, '#app');
 
       function updateVNode() {
-        const newVNode = h('ul', {}, [h('li', {}, 'a'), h('li', {}, 'c'), h('li', {}, 'b')]);
+        // newLength > oldLength
+        // const newVNode = h('ul', {}, [h('li', {}, 'c'), h('li', {}, 'd'), h('li', {}, 'e')]);
+
+        // newLength < oldLength
+        const newVNode = h('ul', {}, [h('li', {}, 'c')]);
 
         patch(vNode, newVNode);
 
         vNode = newVNode;
       }
-
     </script>
   </body>
 </html>

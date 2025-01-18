@@ -28,7 +28,7 @@ function mount(vNode, container) {
       }
     }
   }
-  
+
   // 3 挂载vNode中的children  递归操作
   /*
   if (vNode.children) {
@@ -62,14 +62,41 @@ function patch(oldVNode, newVNode) {
     removeAllChildren(container);
     mount(newVNode, container);
   } else {
-    // 2. 新旧vNode的类型相同(如都是ul)
+    console.log("001");
+    // 2. 新旧vNode的类型相同(如都是ul) 进入2.x 开始比较vNode.children
     if (typeof newVNode.children === 'string') {
       // 2.1 新vNode的children是 string
-      oldVNode.el.innerHtml = newVNode.children;
+      oldVNode.el.innerHTML = newVNode.children; // 这里innerHTML 和 innerText的效果一样
+      console.log("0011");
     } else if (typeof oldVNode.children === 'string') {
       // 2.2 新vNode的children不是string, 且旧vNode的children是string
-      oldVNode.el.innerHtml = '';
+      // oldVNode.el.innerHTML = '';
       newVNode.children.forEach((item) => mount(item, oldVNode.el));
+      console.log("0012");
+    } else {
+      // 2.3 新旧 vNode.children 都是array
+      const containerEl = oldVNode.el;
+      console.log("0013");
+
+      const oldLength = oldVNode.children.length;
+      const newLength = newVNode.children.length;
+      const commonLength = Math.min(oldLength, newLength);
+
+      for (let i = 0; i < commonLength; i++) {
+        patch(oldVNode.children[i], newVNode.children[i]);
+      }
+
+      if (newLength > commonLength) {
+        // newLength > oldLength
+        for (let i = commonLength; i < newLength; i++) {
+          mount(newLength.children[i], containerEl);
+        }
+      } else {
+        // newLength < oldLength
+        for (let i = commonLength; i < oldLength; i++) {
+          containerEl.removeChild(oldLength.children[i]);
+        }
+      }
     }
   }
 }

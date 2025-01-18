@@ -56,27 +56,22 @@ function mount(vNode, container) {
 */
 function patch(oldVNode, newVNode) {
   if (oldVNode.sel !== newVNode.sel) {
-    console.log("000");
     // 1. 新旧vNode的类型不同(如 ul -> div)，删掉旧html的全部子元素，根据新vNode创建新子元素
     const container = oldVNode.el.parentNode;
     removeAllChildren(container);
     mount(newVNode, container);
   } else {
-    console.log("001");
     // 2. 新旧vNode的类型相同(如都是ul) 进入2.x 开始比较vNode.children
     if (typeof newVNode.children === 'string') {
       // 2.1 新vNode的children是 string
       oldVNode.el.innerHTML = newVNode.children; // 这里innerHTML 和 innerText的效果一样
-      console.log("0011");
     } else if (typeof oldVNode.children === 'string') {
       // 2.2 新vNode的children不是string, 且旧vNode的children是string
       // oldVNode.el.innerHTML = '';
       newVNode.children.forEach((item) => mount(item, oldVNode.el));
-      console.log("0012");
     } else {
       // 2.3 新旧 vNode.children 都是array
       const containerEl = oldVNode.el;
-      console.log("0013");
 
       const oldLength = oldVNode.children.length;
       const newLength = newVNode.children.length;
@@ -86,15 +81,13 @@ function patch(oldVNode, newVNode) {
         patch(oldVNode.children[i], newVNode.children[i]);
       }
 
-      if (newLength > commonLength) {
-        // newLength > oldLength
-        for (let i = commonLength; i < newLength; i++) {
-          mount(newLength.children[i], containerEl);
+      if (newLength > oldLength) {
+        for (let i = oldLength; i < newLength; i++) {
+          mount(newVNode.children[i], containerEl);
         }
-      } else {
-        // newLength < oldLength
-        for (let i = commonLength; i < oldLength; i++) {
-          containerEl.removeChild(oldLength.children[i]);
+      } else if (newLength < oldLength) {
+        for (let i = newLength; i < oldLength; i++) {
+          containerEl.removeChild(oldVNode.children[i].el);
         }
       }
     }

@@ -61,6 +61,33 @@ function patch(oldVNode, newVNode) {
     removeAllChildren(container);
     mount(newVNode, container);
   } else {
+    // 更新属性attrs
+    const containerEl = oldVNode.el;
+    const oldAttrs = oldVNode.attrs || {};
+    const newAttrs = newVNode.attrs || {};
+
+    // 移除旧属性
+    for (const key in oldAttrs) {
+      if (key.startsWith('on') && typeof oldAttrs[key] === 'function') {
+        const eventType = key.slice(2).toLowerCase();
+        containerEl.removeEventListener(eventType, oldAttrs[key]);
+      } else {
+        containerEl.removeAttribute(key);
+      }
+    }
+
+    // 添加新属性
+    for (const key in newAttrs) {
+      if (key.startsWith('on') && typeof newAttrs[key] === 'function') {
+        const eventType = key.slice(2).toLowerCase();
+        containerEl.addEventListener(eventType, newAttrs[key]);
+      } else {
+        containerEl.setAttribute(key, newAttrs[key]);
+      }
+    }
+    
+  
+    // 更新children
     // 2. 新旧vNode的类型相同(如都是ul) 进入2.x 开始比较vNode.children
     if (typeof newVNode.children === 'string') {
       // 2.1 新vNode的children是 string
@@ -71,8 +98,6 @@ function patch(oldVNode, newVNode) {
       newVNode.children.forEach((item) => mount(item, oldVNode.el));
     } else {
       // 2.3 新旧 vNode.children 都是array
-      const containerEl = oldVNode.el;
-
       const oldLength = oldVNode.children.length;
       const newLength = newVNode.children.length;
       const commonLength = Math.min(oldLength, newLength);

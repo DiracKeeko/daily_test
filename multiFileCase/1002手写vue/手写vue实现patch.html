@@ -7,7 +7,7 @@
 
     <script src="./render.js"></script>
     <script>
-      let vNode = h('ul', {}, [h('li', {}, 'a'), h('li', {}, 'b')]);
+      let vNode = h('ul', {}, [h('li', { title: 'hey', onClick: () => console.log("点击事件1") }, 'a'), h('li', {}, 'b')]);
 
       mount(vNode, '#app');
 
@@ -16,7 +16,10 @@
         // const newVNode = h('ul', {}, [h('li', {}, 'c'), h('li', {}, 'd'), h('li', {}, 'e')]);
 
         // newLength < oldLength
-        const newVNode = h('ul', {}, [h('li', {}, 'c')]);
+        // const newVNode = h('ul', {}, [h('li', {}, 'c')]);
+
+        // 有属性
+        const newVNode = h('ul', {}, [h('li', { id: 888, onClick: () => console.log("点击事件2") }, 'c')]);
 
         patch(vNode, newVNode);
 

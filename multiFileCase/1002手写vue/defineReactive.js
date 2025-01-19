@@ -1,4 +1,7 @@
-let obj = {};
+let obj = {
+  name: 'Tom',
+  age: 18
+};
 
 function defineReactive(obj, key, val) {
   // val 就是一个闭包
@@ -16,7 +19,14 @@ function defineReactive(obj, key, val) {
   });
 }
 
-defineReactive(obj, 'age', 18);
-console.log(obj.age);
+function observe(obj) {
+  if (!obj || typeof obj !== 'object') {
+    return;
+  }
+  Object.keys(obj).forEach((key) => defineReactive(obj, key, obj[key]));
+}
+
+
+observe(obj);
+obj.age;
 obj.age = 19;
-console.log(obj.age);

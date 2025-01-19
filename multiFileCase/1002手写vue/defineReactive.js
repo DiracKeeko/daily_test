@@ -1,9 +1,13 @@
 let obj = {
   name: 'Tom',
-  age: 18
+  age: 18,
+  job: {
+    company: 'CMBNT'
+  }
 };
 
 function defineReactive(obj, key, val) {
+  observe(val); // 递归处理val为对象的情况
   // val 就是一个闭包
   Object.defineProperty(obj, key, {
     get() {
@@ -28,5 +32,7 @@ function observe(obj) {
 
 
 observe(obj);
-obj.age;
-obj.age = 19;
+
+console.log(obj.name);
+
+console.log(obj.job.company); // 预期 do get, key-> job;  do get, key-> company

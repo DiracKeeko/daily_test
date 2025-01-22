@@ -5,6 +5,11 @@ class Event {
   // 订阅事件
   on(event, callback) {
     this.events[event] = callback;
+    /* 
+    如果用数组来处理，在发布订阅模式中也可以做到一对多的依赖关系
+    this.events[event] = this.events[event] || [];
+    this.events[event].push(callback);
+    */
   }
   // 发布事件
   emit(event, args) {

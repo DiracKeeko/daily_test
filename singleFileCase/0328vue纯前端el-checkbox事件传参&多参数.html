@@ -1,0 +1,41 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0328</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 默认传入checked -->
+      <el-checkbox v-model="isSelected" @change="handleSwitch"></el-checkbox>
+
+      <!-- 多参数状态，增加参数"rank" 则需要使用类似于柯里化的方式 -->
+      <el-checkbox
+        v-model="isSelected2"
+        @change="(checked)=>handleSwitchWithSymbol(checked, 'rank')"
+      ></el-checkbox>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          isSelected: true,
+          isSelected2: false
+        },
+        methods: {
+          handleSwitch(value) {
+            console.log('value', value);
+          },
+          handleSwitchWithSymbol(value, symbol) {
+            console.log('value', value);
+            console.log('symbol', symbol);
+          }
+        },
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

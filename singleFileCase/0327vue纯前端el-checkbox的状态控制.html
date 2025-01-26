@@ -1,0 +1,74 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0327</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css">
+
+</head>
+
+<body>
+  <div id="app">
+    
+    <div class="pretty p-default">
+      <input type="checkbox" />
+      <div class="state p-success">
+        <label>checkbox case</label>
+      </div>
+    </div>
+    <br>
+    
+    <div>
+      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" >
+        全选
+      </el-checkbox>
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+      <br>
+      <span>Checked names: {{ checkedNames }}</span>
+      <br>
+      <el-button type="primary" @click="selectAll">全选</el-button>
+      <el-button type="primary" @click="changeIndeterminate">切换indeterminate</el-button>
+      <br>
+      <div> indeterminate - 不确定状态 </div>
+      <div> 全选, 一个都没选  这两种状态是确定状态 </div>
+      <div> 在显示上，不确定状态的优先级高于 确定状态， 复杂的选中逻辑需要开发者手动判定并控制不确定状态</div>
+    </div>
+
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        checkedNames: [],
+        checkAll: false,
+        isIndeterminate: true
+      },
+      methods: {
+        selectAll(){
+          if(this.checkedNames.length !== 3) {
+            this.checkedNames =  [ "Jack", "John", "Mike" ];
+            this.checkAll = true;
+          } else {
+            this.checkedNames = [];
+            this.checkAll = false;
+          }
+        },
+        changeIndeterminate() {
+          this.isIndeterminate = !this.isIndeterminate;
+        }
+      },
+      watch:{
+      }
+    });
+  </script>
+</body>
+
+</html>

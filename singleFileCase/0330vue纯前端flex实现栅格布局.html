@@ -1,0 +1,78 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0330</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .row > div {
+        height: 100px;
+        background-color: skyblue;
+        border: 1px solid #f00;
+        box-sizing: border-box;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      .row .col {
+        flex: 1;
+      }
+
+      .row .col-12 {
+        flex: 0 0 100%;
+      }
+
+      .row .col-6 {
+        flex: 0 0 50%;
+      }
+
+      .row .col-4 {
+        flex: 0 0 33.33333%;
+      }
+
+      .row .col-3 {
+        flex: 0 0 25%;
+      }
+
+      .row-wrap {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="row row-wrap">
+        <div v-for="(item, index) in itemListCol6" :key="index" class="col-6">
+          <el-button type="primary" @click="handleClickAAA">clickAAA</el-button>
+        </div>
+        <div v-for="(item, index) in itemListCol3" :key="index" class="col-3">
+          <el-button type="primary" @click="handleClickBBB">clickBBB</el-button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          itemListCol6: ['aaa', 'ddd'],
+          itemListCol3: ['3', '3', '3', '3']
+        },
+        methods: {
+          handleClickAAA() {
+            this.itemListCol6.push('AAA');
+          },
+          handleClickBBB() {
+            this.itemListCol3.push('BBB');
+          }
+        },
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

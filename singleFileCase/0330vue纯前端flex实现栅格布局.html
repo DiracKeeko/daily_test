@@ -18,6 +18,17 @@
         display: flex;
       }
 
+      /* 
+        flex属性是 flex-grow, flex-shrink, flex-basis的缩写
+
+          flex-grow  这个属性规定了 flex-grow 项在 flex 容器中分配剩余空间的相对比例； 默认值为 0
+          flex-shrink  这个属性指定了 flex 元素的收缩规则。flex 元素仅在默认宽度之和大于容器的时候才会发生收缩；默认值为1
+            flex-shrink性使用一个非负数值来控制缩小比例，数值越大，元素被压缩的程度就越高；反之，数值越小，元素则越不容易缩小。0 表示不允许缩小。
+            当容器的宽度不足以容纳所有子元素的原始大小时，Flexbox 会根据每个子元素的 flex-shrink 值来分配缩小的比例。
+            元素之间的缩小比例，由其 flex-shrink 值相对于其他元素的 flex-shrink 值来决定。
+
+          flex-basis  这个属性指定了 flex 元素在主轴方向上的初始大小。在content-box中这个属性就指定了 flex 元素的width
+      */
       .row .col {
         flex: 1;
       }

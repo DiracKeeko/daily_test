@@ -1,0 +1,121 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0331</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+  
+  <style>
+    #wordTagsContainer {
+			display:flex;
+			flex-direction:row;
+			align-items:center;
+			width:500px;
+			height:30px;
+			border:1px solid #ddd;
+			padding:10px;
+			margin:100px auto 0;
+		}
+		#wordTags {
+      width: 100%;
+			display:flex;
+      flex-wrap:nowrap;
+      /* justify-content: center; */
+    }
+    .tagCheckedName {
+      display:inline-block;
+      position:relative;
+      height: 24px;
+      border-radius: 1px;
+      color:#4abee0;
+      font-size:12px;
+      line-height:24px;
+      padding:0 20px 0 8px;
+      background-color: #f7fdff;
+      border: solid 1px #4abee0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right:5px;
+    }
+    .tagCheckedName:first-of-type {
+      margin-left: 0px;
+    }
+    .plusSign {
+      /* font: 30px/33.6px "microsoft Yahei"; */
+      font-size: 30px;
+      width: 100%;
+      text-align: center;
+    }
+    .flexContent {
+      display: flex;
+      margin: 10px 0 0;
+      align-items: center;
+      justify-content: center;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="wordTagsContainer" @click="handleMinus">
+      <div id="wordTags">
+        <div class="tagCheckedName" v-for="(item, index) in checkedItemList" :key="index">{{item}}</div>
+        <div v-if="checkedItemList.length==0" class="plusSign">+</div>
+      </div>
+    </div>
+    <div class="flexContent">
+      <el-button type="primary" @click="handleAddAAA">addAAA</el-button>
+      <el-button type="primary" @click="handleAddBBB">addBBB</el-button>
+    </div>
+    <div class="flexContent">
+      <el-input v-model="inputContent" style="width: 200px; margin: 0 10px 0 0;"></el-input>
+      <el-button type="primary" @click="handleAddInput">addInput</el-button>
+    </div>
+    <div class="flexContent">
+      <el-button type="primary" @click="handleMinus">minus</el-button>
+    </div>
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        checkedItemList:["aaa", "ddd"],
+        inputContent: ''
+      },
+      methods: {
+        handleAddAAA() {
+          this.checkedItemList.push("AAA");
+        },
+        handleAddBBB() {
+          this.checkedItemList.push("BBB");
+        },
+        handleAddInput() {
+          this.checkedItemList.push(this.inputContent);
+          this.inputContent = '';
+        },
+        handleMinus() {
+          this.checkedItemList.pop();
+        }
+      },
+      computed: {
+        fullName: {
+          get() {
+            console.log("get");
+            return this.firstName + this.lastName;
+          },
+          set(value) {
+            this.firstName = value;
+            console.log("set->", value);
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

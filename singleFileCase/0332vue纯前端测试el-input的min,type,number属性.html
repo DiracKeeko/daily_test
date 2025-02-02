@@ -1,0 +1,142 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0332</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+  
+  <style>
+    .container {
+      width: 200px;
+      height: 100px;
+      background-color: #bfa;
+      margin: 0 auto;
+    }
+
+    .container img {
+      width: 40px;
+      vertical-align: middle;
+    }
+
+    .container span {
+      font: 20px/40px "microsoft Yahei";
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    
+    input1 <el-input v-model="input1" placeholder="请输入内容"></el-input>
+    typeof input1-> {{ typeof(input1) }}
+    <hr><br>
+
+    input2 v-model.number
+    <el-input v-model.number="input2" placeholder="请输入内容"></el-input>
+    typeof input2-> {{ typeof(input2) }}
+    <hr><br>
+
+    input3 type="number"
+    <el-input v-model="input3" placeholder="请输入内容" 
+      type="number" min="0" max="20">
+    </el-input>
+    typeof input3-> {{ typeof(input3) }}
+
+    <hr><br>
+    input4 正则去小数
+    <el-input v-model="input4" @change="validateCycle"></el-input>
+
+    <hr><br>
+    input5 正则去小数
+    <el-input v-model="input.input5" @change.native="validateInput($event, input.input5)"></el-input>
+
+    <hr><br>
+    input6 正则去小数  传基本数据类型，不生效
+    <el-input v-model="input.input6" type="number" @change="validateInput6($event)"></el-input>
+
+    <hr><br>
+    input7 正则去小数  需要传入引用数据类型
+    <el-input v-model="input.input7" type="number" @change.native="validateInput7(input)"></el-input>
+
+    
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        input1: "1",
+        input2: "2",          //初始绑定的是字符串"2", 初始typeof -> string
+        input3: "3",
+        input4: 4,
+        input: {
+          input5: "5",
+          input6: "6",
+          input7: "7"
+        }
+      },
+      methods: {
+        validateCycle () {
+          let reg = /^[0-9]+$/
+          if (!reg.test(this.input4)) {
+            this.$message.error('请输入1~100之间的正整数！')
+            this.input4 = parseInt(this.input4)
+          }
+        },
+        validateInput (e, val) {
+          console.log("e->", e);
+          console.log("number->", val);
+          let reg = /^[0-9]+$/
+          if (!reg.test(val)) {
+            this.$message.error('请输入1~100之间的正整数！')
+            val = parseInt(val);
+          }
+        },
+        validateInput6 (number) {
+          let reg = /^[0-9]+$/
+          if (!reg.test(number)) {
+            this.$message.error('请输入1~100之间的正整数！')
+            number = "1";
+            console.log("number->", number);
+          }
+          // ↓ 没什么用，这种方式是通过this调用data
+          // this.$nextTick(() => {
+          //   this.cycle = parseInt(this.cycle)
+          // })
+        },
+        validateInput7 (number) {
+          console.log("number7->", number);
+          let reg = /^[0-9]+$/
+          if (!reg.test(number.input7)) {
+            this.$message.error('请输入1~100之间的正整数！')
+            number.input7 = "1";
+            console.log("number7->", number);
+          }
+        }
+      },
+      watch: {
+        "input.input5": {
+          handler(val) {
+            console.log("val input5->", val);
+          }
+        },
+        "input.input6": {
+          handler(val) {
+            console.log("val input6->", val);
+          }
+        }
+        // input(val) {
+        //   console.log("input4->", val);
+        // }
+      },
+      computed: {
+        
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0334</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+  
+</head>
+
+<body>
+  <div id="app">
+    <form>
+      <input ref="input" v-model="fullName"></input>
+      <br>
+      <el-button type="primary" @click="handleClickAAA">clickAAA</el-button>
+    </form>
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        fullName: "Tom And Jerry",
+        count: 0
+      },
+      methods: {
+        handleClickAAA() {
+          this.count += 1;
+          this.fullName = this.fullName + this.count;
+          console.log(this.$refs.input.value); // Tom And Jerry
+          this.$nextTick(() => {
+            // this.$nextTick 在dom更新后执行
+            console.log(this.$refs.input.value); // Tom And Jerry1
+          })
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

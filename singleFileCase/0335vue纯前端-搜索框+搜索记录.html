@@ -1,0 +1,138 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0335</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/element-ui2.14.1.js"></script>
+  <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+  <style>
+    .basicTabClass {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .activeClass {
+      color: black;
+      font-weight: bold;
+    }
+
+    .vLine {
+      border-left: 2px solid #AAA;
+      height: 20px;
+      vertical-align: middle;
+      display: inline-block;
+      margin: 0 10px 0 10px;
+    }
+
+    .aline {
+      background-color: #AAA;
+      height: 1px;
+    }
+
+    .container {
+      width: 1000px;
+      height: 600px;
+      border: 1px solid black;
+      position: relative;
+    }
+
+    .rankListTitle {
+      position: absolute;
+
+    }
+
+    .timeRangeSelector {
+      position: absolute;
+      right: 10px;
+    }
+
+    .test {
+      width: 300px;
+      height: 100px;
+      border: 1px solid #5e5e5e;
+      margin: 40px 0 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="head_top">
+      <div class="left">
+        <input placeholder="请输入搜索关键字" v-model="inputText" maxlength="50" @click="searchName" />
+      </div>
+      <el-button @click="search">搜索</el-button>
+    </div>
+    <div class="history" v-if="pastHistory"> 
+      <div class="hisText">历史记录</div>
+      <ul>
+        <li v-for="(item, index) in historyList" :key="index">
+          <span @click="clickHistory(item, index)">{{ item }}</span>
+          <span style="cursor: pointer" @click="deleteHis(index)">&#xd7;</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          inputText: "",
+          historyList: [],
+          pastHistory: false,
+          filterData: {}
+        };
+      },
+      methods: {
+        search() { 
+          if (this.inputText.trim() === "") return;
+
+          this.filterData.productTitle = this.inputText;
+          this.historyList.unshift(this.inputText.trim()); // 插入最新值
+          this.historyList = this.unique(this.historyList).slice(0, 10); // 去重并限制最多10条
+
+          localStorage.setItem("historyList", JSON.stringify(this.historyList)); 
+          this.pastHistory = this.historyList.length > 0; // 仅在历史记录不为空时显示
+          this.getProductList();
+        },
+        unique(arr) {
+          return [...new Set(arr)];
+        },
+        searchName() {
+          let storedList = JSON.parse(localStorage.getItem("historyList")) || [];
+          this.historyList = storedList;
+          this.pastHistory = this.historyList.length > 0;
+        },
+        clickHistory(item, index) {
+          this.pastHistory = false;
+          this.inputText = item;
+          this.historyList.splice(index, 1); // 删除原位置
+          this.historyList.unshift(item); // 插入到最前面
+          this.historyList = this.unique(this.historyList).slice(0, 10);
+
+          localStorage.setItem("historyList", JSON.stringify(this.historyList));
+          this.getProductList();
+        },
+        deleteHis(index) {
+          if (index < 0 || index >= this.historyList.length) return;
+          this.historyList.splice(index, 1);
+          localStorage.setItem("historyList", JSON.stringify(this.historyList));
+          this.pastHistory = this.historyList.length > 0;
+        },
+        getProductList() {
+          console.log("搜索:", this.filterData.productTitle);
+        }
+      },
+      mounted() {
+        this.historyList = JSON.parse(localStorage.getItem("historyList")) || [];
+      }
+    });
+  </script>
+</body>
+
+
+</html>

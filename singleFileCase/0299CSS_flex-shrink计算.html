@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0299</title>
+  </head>
+  <body>
+    <div class="outer border-black">
+      <div class="left bg-blue"></div>
+      <div class="right bg-red"></div>
+    </div>
+
+    <style>
+      .outer {
+        display: flex;
+        width: 400px;
+        height: 200px;
+      }
+      .left {
+        flex-grow: 0;
+        flex-shrink: 3;
+        flex-basis: 200px;
+      }
+      .right {
+        flex-grow: 0;
+        flex-shrink: 2;
+        flex-basis: 500px; 
+        /* flex-basis 的优先级高于 width, 高于 height */
+        /* width: 50px; */
+      }
+
+      .border-black {
+        border: 1px solid black;
+      }
+      .bg-blue {
+        background-color: blue;
+      }
+      .bg-red {
+        background-color: red;
+      }
+
+      /* 
+        元素收缩值 = 
+          (元素的 flex-basis × flex-shrink)
+                        ÷
+        ∑(所有元素的 flex-basis×flex-shrink)
+​                        ×
+                 需要收缩的总空间
+
+
+        元素的最终宽度 = 元素的初始宽度 - 元素收缩值
+      */
+      
+      /* 
+        outer的宽度为400px;  left的宽度为200px;  right的宽度为500px;
+        此时 left + right = 700px > outer = 400px; left, right元素需要收缩，flex-shrink生效。
+
+        (以下计算省略单位px)
+
+        需要收缩的总空间 = 700 - 400 = 300;
+
+        all = ∑(所有元素的 flex-basis×flex-shrink) = 200 x 3 + 500 x 2 = 1600;
+
+
+        计算left的收缩值和最终宽度:
+
+          left元素的收缩值
+          = (left元素的 flex-basis × flex-shrink) ÷ all × 需要收缩的总空间
+          = (200 x 3) / 1600 x 300
+          = 112.5
+
+          left元素的最终宽度
+          = left元素的flex-basis - left元素的收缩值
+          = 200 - 112.5
+          = 87.5
+
+        计算right的收缩值和最终宽度:
+
+          right元素的收缩值
+          = (right元素的 flex-basis × flex-shrink) ÷ all × 需要收缩的总空间
+          = (500 x 2) / 1600 x 300
+          = 187.5
+
+          right元素的最终宽度
+          = right元素的flex-basis - right元素的收缩值
+          = 500 - 187.5
+          = 312.5
+       */
+    </style>
+  </body>
+</html>

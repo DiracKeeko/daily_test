@@ -1,0 +1,74 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0336</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .outer {
+        width: 800px;
+        height: 600px;
+        border: 1px solid black;
+      }
+      .base-item {
+        box-sizing: border-box;
+        width: 100px;
+        height: 50px;
+        border: 1px solid blue;
+      }
+      .active {
+        background-color: #fec;
+      }
+      .waring {
+        color: red;
+      }
+
+      .width-50 {
+        width: 50px;
+      }
+      .width-70 {
+        width: 70px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      < class="outer">
+        <!-- case1 动态判定一个 class ('active'), 仅存在 '有', '无' 两种状态, 有两种方案 -->
+        <!-- case1 方案1 使用最基本语法 ↓ -->
+        <div class="base-item" :class="isActive ? 'active' : '' ">case1-01</div>
+        <!-- case1 方案2 使用对象语法 ↓ -->
+        <div class="base-item" :class="{ 'active': isActive }">case1-02</div>
+        <!-- case1 方案3 使用数组语法 ↓ -->
+        <div class="base-item" :class="[isActive ? 'active' : '']">case1-03</div>
+        
+        <br>
+        <!-- case2 动态判定多个 class 是否存在 (以2个class 'active', 'waring') -->
+        <!-- 使用对象语法 ↓ -->
+        <div class="base-item" :class="{ 'active': isActive, 'waring': isWarning }">case2</div>
+        
+        <br>
+        <!-- case3 一个变量的true, false两种状态对应两个不同的class -->
+        <!-- 使用数组语法 ↓ -->
+        <div class="base-item" :class="[size === 'md' ? 'width-50' : 'width-70']">case3</div>
+
+      </div>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            isActive: true,
+            isWarning: true,
+            size: 'md'
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,85 +1,78 @@
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <title>0501_01highcharts-scatter散点图vue版本</title>
-    <script src="../common/lib/vue2.6.12.min.js"></script>
-    <script src="../common/lib/highcharts.js"></script>
-    <script src="../common/lib/highcharts-more.js"></script>
-    <script src="../common/lib/highcharts-vue.js"></script>
-    <script src="../common/lib/element-ui2.14.1.js"></script>
-    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
 
-    <style></style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>0501_02highcharts散点图jquery版本</title>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="../common/lib/highcharts.js"></script>
+  <style>
 
-  <body>
-    <div id="app">
-      <highcharts :options="chartOptions" style="width: 800px; height: 600px; margin: 0 auto"></highcharts>
-    </div>
-    <script>
-      let app = new Vue({
-        el: '#app',
-        components: {
-          highcharts: HighchartsVue.Chart //局部注册
-        },
-        data() {
-          let chart = {
-            type: 'scatter',
-            zoomType: 'xy'
-          };
-          let title = {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-          };
-          let xAxis = {
-            title: {
-              enabled: true,
-              text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-          };
-          let yAxis = {
-            title: {
-              text: 'Weight (kg)'
+  </style>
+</head>
+
+<body>
+  <div id="container" style="width: 800px; height: 600px; margin: 0 auto"></div>
+  <script>
+    $(document).ready(function() {  
+   var chart = {
+      type: 'scatter',
+      zoomType: 'xy'
+   };
+   var title = {
+      text: 'Height Versus Weight of 507 Individuals by Gender'   
+   };
+   var subtitle = {
+      text: 'Source: Heinz  2003'  
+   };
+   var xAxis = {
+      title: {
+      enabled: true,
+         text: 'Height (cm)'
+      },
+      startOnTick: true,
+      endOnTick: true,
+      showLastLabel: true
+   };
+   var yAxis = {
+      title: {
+         text: 'Weight (kg)'
+      }
+   };
+   var legend = {   
+      layout: 'vertical',
+      align: 'left',
+      verticalAlign: 'top',
+      x: 100,
+      y: 70,
+      floating: true,
+      backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+      borderWidth: 1
+   }  
+   var plotOptions = {
+      scatter: {
+         marker: {
+            radius: 5,
+            states: {
+               hover: {
+                  enabled: true,
+                  lineColor: 'rgb(100,100,100)'
+               }
             }
-          };
-          let legend = {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor:
-              (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-          };
-          let plotOptions = {
-            scatter: {
-              marker: {
-                radius: 5,
-                states: {
-                  hover: {
-                    enabled: true,
-                    lineColor: 'rgb(100,100,100)'
-                  }
-                }
-              },
-              states: {
-                hover: {
-                  marker: {
-                    enabled: false
-                  }
-                }
-              },
-              tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x} cm, {point.y} kg'
-              }
+         },
+         states: {
+            hover: {
+               marker: {
+                  enabled: false
+               }
             }
-          };
-          let series= [{
+         },
+         tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x} cm, {point.y} kg'
+         }
+      }
+   };
+   var series = [{
             name: 'Female',
             color: 'rgba(223, 83, 83, .5)',
             data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
@@ -190,28 +183,20 @@
                 [180.3, 83.2], [180.3, 83.2]]      
       }
    ];     
-          return {
-            chartOptions: {
-              chart,
-              title,
-              xAxis,
-              yAxis,
-              series,
-              plotOptions,
-              credits: {
-                enabled: false
-              },
-              legend: {
-                enabled: true
-              }
-            }
-          };
-        },
-        methods: {},
-        watch: {},
-        computed: {},
-        mounted() {}
-      });
-    </script>
-  </body>
+      
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;   
+   json.subtitle = subtitle; 
+   json.legend = legend;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#container').highcharts(json);
+  
+});
+  </script>
+</body>
+
 </html>

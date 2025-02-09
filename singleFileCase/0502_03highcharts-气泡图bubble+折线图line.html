@@ -1,0 +1,235 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>0502_03</title>
+  <script src="../common/lib/vue2.6.12.min.js"></script>
+  <script src="../common/lib/highcharts.js"></script>
+  <script src="../common/lib/highcharts-more.js"></script>
+  <script src="../common/lib/highcharts-vue.js"></script>
+
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <highcharts :options="chartOptions" style="width: 1000px; height: 600px"></highcharts>
+  </div>
+  <script>
+    // Vue.use(HighchartsVue.default); // 全局注册
+    // HighchartsMore(Highcharts); //没法这么写
+    var app = new Vue({
+      el: '#app',
+      components: {
+        highcharts: HighchartsVue.Chart  //局部注册
+      },
+      data() {
+
+        var chart = {
+          type: 'bubble',
+          zoomType: 'xy',
+          // backgroundColor: "#bfa"
+        };
+        var title = {
+          text: '重仓股分析'
+          // text: null // 不显示标题
+        };
+        var xAxis = {
+          title: {
+            enabled: false, // 是否开启x轴title, 如果为true则开启
+            text: 'date'
+          },
+          // min: 10, // 最小值  
+          // max: 30, // 最大值  
+          type: 'datetime',
+          labels: {
+            formatter: function() {
+              // return Highcharts.dateFormat('%Y<br/>%m-%d', this.value);  // highCharts原生
+              let dateObj = new Date(this.value);
+              let minusOneDay = new Date(dateObj.setDate(dateObj.getDate() - 1));
+              let year = minusOneDay.getFullYear();
+              let month = minusOneDay.getMonth() + 1;
+              let date = minusOneDay.getDate();
+              return `${year}<br/>${month < 10 ? '0'+month : month}-${date < 10 ? '0'+date : date}`;
+            }
+          },
+          tickInterval: 1000 * 60 * 60 * 24 * 90, //时间轴上的点间隔
+          // startOnTick: true,  // 坐标轴是否从一个刻度开始，默认是false
+          // endOnTick: true,
+          // showLastLabel: true  // 是否显示最后一个点的label,默认是false 这个属性只在endOnTick: true时有效
+        };
+        var yAxis = {
+          title: {
+            text: '市盈率(%)'
+          }
+        }
+        var plotOptions = {
+          bubble: {
+            minSize: 12,
+            maxSize: 36,
+            // color: "#bfa",  // 可用，设置填充色
+            // marker: {
+            //   fillColor: 'transparent' // 可用 对应的是border的颜色
+            // }
+            // tooltip: {
+            //   enabled: true,
+            //   // headerFormat: '<b>{series.name}</b><br>',
+            //   // pointFormat: '{point.x} cm, {point.y} kg'
+
+            //   formatter: function() {
+            //     console.log(this);
+            //     return "this.x";
+            //   }
+            // }
+          }
+        };
+        var tooltip = {
+          formatter: function() {
+            console.log(this);
+            return `index: ${this.point.index}<br/> stockName: ${this.point.stockName}`;
+          }
+        };
+        var series = [
+          // {
+          //   data: [[97, 36, 79], [94, 74, 60], [68, 76, 58], [64, 87, 56], [68, 27, 73], [74, 99, 42], [7, 93, 87], [51, 69, 40], [38, 23, 33], [57, 86, 31]]
+          // }, 
+          {
+            name: "test1",
+            // ↓ 横坐标是月份(同一个data，坐标一致)，纵坐标是收益率， 第三个坐标是半径（重仓股占比）
+            // sotckNameArr: ["a", "b", "c", "d", "e", "f"], // 无效，加入不在highcharts API中的key无效
+            data: [
+              { x: 1467216000000, y: 10, z: 1.9, stockName: "a" },
+              { x: 1467216000000, y: 20, z: 2, stockName: "b" },
+              { x: 1467216000000, y: 30, z: 3, stockName: "c" },
+              { x: 1467216000000, y: 40, z: 4, stockName: "d" },
+              { x: 1467216000000, y: 50, z: 5, stockName: "e" },
+              { x: 1467216000000, y: 60, z: 6, stockName: "f" }
+
+              // ↓ 备份
+              // {x: 1467216000000, y: 10, z: 1.9, stockName: "a"},
+              // {x: 1475164800000, y: 20, z: 2, stockName: "b"},
+              // {x: 1483113600000, y: 30, z: 3, stockName: "c"},
+              // {x: 1490889600000, y: 40, z: 4, stockName: "d"},
+              // {x: 1498752000000, y: 50, z: 5, stockName: "e"},
+              // {x: 1506700800000, y: 60, z: 6, stockName: "f"}
+
+              //  bubble的data传参有两种方式，上面是对象型，下面是数组形式
+              // [1467216000000, 10, 1.9],
+              // [1475164800000, 20, 2],
+              // [1483113600000, 30, 3],
+              // [1490889600000, 40, 4],
+              // [1498752000000, 50, 5],
+              // [1506700800000, 60, 6]
+              // [15, 70, 7], [15, 80, 10]
+            ]
+          },
+          {
+            name: 'test2',
+            data: [
+              { x: 1475164800000, y: 10, z: 1.9, stockName: "a" },
+              { x: 1475164800000, y: 20, z: 2, stockName: "b" },
+              { x: 1475164800000, y: 30, z: 3, stockName: "c" },
+              { x: 1475164800000, y: 40, z: 4, stockName: "d" },
+              { x: 1475164800000, y: 50, z: 5, stockName: "e" },
+              { x: 1475164800000, y: 60, z: 6, stockName: "f" }
+            ]
+          },
+          {
+            name: 'test3',
+            data: [
+              { x: 1483113600000, y: 10, z: 1.9, stockName: "a" },
+              { x: 1483113600000, y: 20, z: 2, stockName: "b" },
+              { x: 1483113600000, y: 30, z: 3, stockName: "c" },
+              { x: 1483113600000, y: 40, z: 4, stockName: "d" },
+              { x: 1483113600000, y: 50, z: 5, stockName: "e" },
+              { x: 1483113600000, y: 60, z: 6, stockName: "f" }
+            ]
+          },
+          {
+            name: 'test4',
+            data: [
+              { x: 1490889600000, y: 10, z: 1.9, stockName: "a" },
+              { x: 1490889600000, y: 20, z: 2, stockName: "b" },
+              { x: 1490889600000, y: 30, z: 3, stockName: "c" },
+              { x: 1490889600000, y: 40, z: 4, stockName: "d" },
+              { x: 1490889600000, y: 50, z: 5, stockName: "e" },
+              { x: 1490889600000, y: 60, z: 6, stockName: "f" }
+            ]
+          },
+          {
+            name: 'test5',
+            data: [
+              { x: 1498752000000, y: 10, z: 1.9, stockName: "a" },
+              { x: 1498752000000, y: 20, z: 2, stockName: "b" },
+              { x: 1498752000000, y: 30, z: 3, stockName: "c" },
+              { x: 1498752000000, y: 40, z: 4, stockName: "d" },
+              { x: 1498752000000, y: 50, z: 5, stockName: "e" },
+              { x: 1498752000000, y: 60, z: 6, stockName: "f" }
+            ]
+          },
+          {
+
+            name: 'TestLine',
+            type: 'line',
+            // "#8085e9" 紫色, "#7cb5ec" 蓝色, "#f15c80" 红色, "#434348" 灰色, "#f7a35c" 橙色, "#90ed7d" 绿色
+            // color: "#7cb5ec",  // 指定颜色，如果不指定，有默认颜色 
+            // data: [[1467216000000, 10], [1475164800000, 20], [1483113600000, 15]],
+            data: [
+              {x: 1467216000000, y: 10, stockName: "i"}, 
+              {x: 1475164800000, y: 20, stockName: "ii"}, 
+              {x: 1483113600000, y: 15, stockName: "iii"}, 
+              {x: 1490889600000, y: 5, stockName: "iv"}, 
+              {x: 1498752000000, y: 25, stockName: "v"}
+            ],
+            tooltip: {
+              // valueSuffix: '\xB0C',
+              formatter: function() {
+                console.log(this);
+                return `090`;
+              }
+            }
+
+          }
+        ];
+
+
+        return {
+          chartOptions: {
+            chart,
+            title,
+            xAxis,
+            yAxis,
+            tooltip,
+            series,
+            plotOptions,
+            credits: {
+              enabled: false
+            },
+            legend: {
+              enabled: false
+            }
+          }
+        }
+      },
+      methods: {},
+      watch: {
+        // chartOptions: {
+        //   handler(val) {
+        //     console.log("chartOptions->", val);
+        //   },
+        //   immediate: true
+        // }
+      },
+      computed: {
+
+      },
+      mounted() {
+
+      }
+    });
+  </script>
+</body>
+
+</html>

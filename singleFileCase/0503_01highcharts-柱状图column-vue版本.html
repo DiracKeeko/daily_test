@@ -1,0 +1,98 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0503_01</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/highcharts.js"></script>
+    <script src="../common/lib/highcharts-more.js"></script>
+    <script src="../common/lib/highcharts-vue.js"></script>
+
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <highcharts :options="chartOptions" style="width: 1000px; height: 600px"></highcharts>
+    </div>
+    <script>
+      // Vue.use(HighchartsVue.default); // 全局注册
+      // HighchartsMore(Highcharts); //没法这么写
+      var app = new Vue({
+        el: '#app',
+        components: {
+          highcharts: HighchartsVue.Chart //局部注册
+        },
+        data() {
+          var chart = {
+            type: 'column'
+          };
+          var title = {
+            text: '重仓股分析'
+            // text: null // 不显示标题
+          };
+          var xAxis = {
+            categories: [
+              '一月',
+              '二月',
+              '三月',
+              '四月',
+              '五月',
+              '六月',
+              '七月',
+              '八月',
+              '九月',
+              '十月',
+              '十一月',
+              '十二月'
+            ],
+            title: {
+              text: '月份'
+            }
+          };
+          var yAxis = {
+            min: 0,
+            title: {
+              text: '值'
+            }
+          };
+          var plotOptions = {
+            column: {
+              borderWidth: 0,
+              dataLabels: {
+                enabled: true
+              }
+            }
+          };
+          var series = [
+            {
+              name: '类别A',
+              data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54]
+            },
+            {
+              name: '类别B',
+              data: [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 92, 120]
+            }
+          ];
+
+          return {
+            chartOptions: {
+              chart,
+              title,
+              xAxis,
+              yAxis,
+              series,
+              plotOptions,
+              credits: {
+                enabled: false
+              }
+            }
+          };
+        },
+        methods: {},
+        watch: {},
+        computed: {},
+        mounted() {}
+      });
+    </script>
+  </body>
+</html>

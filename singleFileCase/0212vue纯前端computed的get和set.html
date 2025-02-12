@@ -28,7 +28,7 @@
               return this.firstName + ' ' + this.lastName;
             },
             set(val) {
-              console.log("computed set done");
+              console.log("computed set done"); // fullName 先 set，之后再通过get获取结果
               this.temp = val;
             }
           }

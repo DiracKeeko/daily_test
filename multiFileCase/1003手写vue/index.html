@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="./vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      const App = {
+        data: {
+          money: 10
+        },
+        render() {
+          return h('ul', {}, [
+            h('div', {}, `你当前的工资是${this.data.money}`),
+            h(
+              'li',
+              {
+                id: '888',
+                onclick: () => {
+                  this.data.money += 1;
+                }
+              },
+              '点我增加工资'
+            )
+          ]);
+        }
+      };
+
+      createApp(App).mount('#app');
+    </script>
+  </body>
+</html>

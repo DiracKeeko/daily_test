@@ -98,3 +98,6 @@ function addUpdate(cb) {
 
 addUpdate(function1);
 addUpdate(function2);
+
+console.log("Ready go");
+keeko.age++;

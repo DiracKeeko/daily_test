@@ -1,0 +1,44 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0338</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .el-textarea {
+        width: 200px;
+      }
+      .el-textarea__inner {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <div>
+          <textarea v-model="desc"></textarea>
+        </div>
+        <br />
+        <br />
+        <el-input type="textarea" autosize placeholder="请输入内容" v-model="textareaContent">
+        </el-input>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          textareaContent: '',
+          desc: ''
+        },
+        methods: {},
+        watch: {},
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

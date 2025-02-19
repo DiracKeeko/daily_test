@@ -1,0 +1,97 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0339</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .row > div {
+        height: 100px;
+        background-color: skyblue;
+        border: 1px solid #f00;
+        box-sizing: border-box;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      .row .col {
+        flex: 1;
+      }
+
+      .row .col-12 {
+        flex: 0 0 100%;
+      }
+
+      .row .col-6 {
+        flex: 0 0 50%;
+      }
+
+      .row .col-4 {
+        flex: 0 0 33.33333%;
+      }
+
+      .row .col-3 {
+        flex: 0 0 25%;
+      }
+
+      .row-wrap {
+        flex-wrap: wrap;
+      }
+
+      .cus-img {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="row row-wrap">
+        <img src="../common/img/uniapp-logo.png" alt="图片" />
+
+        <div v-for="(item, index) in picArr" :key="index" class="col-3">
+          <img :src="item.src" alt="item.name" class="cus-img"/>
+        </div>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          // 单文件环境无法通过require来实现，因为 require 需要在编译阶段解析。
+          picArr: [
+            {
+              name: 'cat1',
+              // src: require('../common/img/pic2-ikun.jpg')
+              src: '../common/img/pic2-ikun.jpg' // 使用src来替代
+            },
+            {
+              name: 'cat2',
+              // src: require('../common/img/pic3-bili.jpg')
+              src: '../common/img/pic3-bili.jpg'
+            },
+            {
+              name: 'cat3',
+              // src: require('../common/img/home.png')
+              src: '../common/img/home.png'
+            }
+          ]
+        },
+        methods: {
+          handleClickAAA() {
+            this.itemListCol6.push('AAA');
+          },
+          handleClickBBB() {
+            this.itemListCol3.push('BBB');
+          }
+        },
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

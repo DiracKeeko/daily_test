@@ -1,0 +1,79 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0340</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .button-group {
+        border: 1px solid #1b5fc5;
+        border-radius: 5px;
+        display: inline-flex;
+        overflow: hidden;
+      }
+
+      .button-item {
+        padding: 0 12px;
+        font-size: 15px;
+        line-height: 32px;
+        color: #1b5fc5;
+        text-align: center;
+        cursor: pointer;
+        background-color: #f8f8f8;
+        flex: 1;
+      }
+
+      .button-item:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      .button-item:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      .button-item:not(:last-child) {
+        border-right: 1px solid #1b5fc5;
+      }
+
+      .active-class {
+        color: #ffffff;
+        background-color: #1b5fc5 !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="button-group">
+        <span
+          v-for="key in buttonLabelArr"
+          :key="key"
+          class="button-item"
+          :class="{ 'active-class': key === curSelect }"
+          @click="toggle(key)"
+        >
+          {{ key }}
+        </span>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          curSelect: 'aaa',
+          buttonLabelArr: ['aaa', 'bbb', 'ccc']
+        },
+        methods: {
+          toggle(key) {
+            this.curSelect = key;
+          }
+        },
+        computed: {}
+      });
+    </script>
+  </body>
+</html>

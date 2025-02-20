@@ -1,0 +1,109 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0205_02flex+nowrap宽度异常02</title>
+    <script></script>
+    <style>
+      body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+    th, td {
+        /* table elements 表格元素 */
+        margin: 0;
+        padding: 0;
+      }
+
+      #div-normal {
+        margin: 20px 0 0;
+        border: 1px solid #ffbb00;
+      }
+
+      .div-abnormal {
+        margin: 20px 0 0;
+        border: 1px solid #ff0000;
+      }
+
+      .container {
+        display: flex;
+        width: 60%;
+        height: 200px;
+      }
+
+      .left {
+        width: 40%;
+        min-width: 360px;
+        border: 1px solid black;
+      }
+
+      .right {
+        width: 60%;
+        border: 1px solid #bbbbff;
+      }
+
+      .right-inner {
+        flex-grow: 1;
+        background-color: #cccccc;
+      }
+
+      .text-overflow {
+        /* min-width: 0; */
+        white-space: nowrap;
+      }
+
+      .min-width-0 {
+        min-width: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- flex布局 加 white-space: nowrap 的第二种表现 -->
+    <div id="div-normal" class="container">
+      <div class="left">left fixed width</div>
+      <div class="right">
+        right fixed width
+        <div class="right-inner">
+          normal flex width (without "white-space: nowrap")<br />
+          
+          text overflow normal, text overflow normal, text overflow normal, text overflow normal, text
+          overflow normal 
+        </div>
+      </div>
+    </div>
+
+    <div class="div-abnormal container">
+      <div class="left">left fixed width</div>
+      <div class="right">
+        right fixed width
+        <div class="right-inner text-overflow">
+          <!-- <p>
+            当采用flex布局后，如果不设置宽度或者高度，父元素将会以子元素的宽度和高度来自适应，那么子元素的宽度就会直接撑大整个父元素。
+          </p> -->
+          add "white-space: nowrap"
+          <br />
+          <br />
+          text overflow width abnormal, text overflow width abnormal, text overflow width abnormal, text
+          overflow width abnormal
+        </div>
+      </div>
+    </div>
+
+    <div class="div-abnormal container">
+      <div class="left">left fixed width</div>
+      <div class="right min-width-0">
+        right fixed width <br />
+        add min-width: 0
+        <div class="right-inner">
+          add "white-space: nowrap"
+          <br />
+          <br />
+          <p>
+            text overflow normal, text overflow normal, text overflow normal, text overflow normal, text
+            overflow normal
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

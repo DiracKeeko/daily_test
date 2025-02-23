@@ -1,0 +1,208 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0341</title>
+    <script src="../common/lib/vue2.6.12.min.js"></script>
+    <script src="../common/lib/element-ui2.14.1.js"></script>
+    <link rel="stylesheet" href="../common/lib/element-ui2.14.1.css" />
+
+    <style>
+      .basicTabClass {
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .activeClass {
+        color: black;
+        font-weight: bold;
+      }
+
+      .vLine {
+        border-left: 2px solid #aaa;
+        height: 20px;
+        vertical-align: middle;
+        display: inline-block;
+        margin: 0 10px 0 10px;
+      }
+
+      .aline {
+        background-color: #aaa;
+        height: 1px;
+      }
+
+      .container {
+        width: 1000px;
+        height: 600px;
+        border: 1px solid black;
+        position: relative;
+      }
+
+      .rankListTitle {
+        position: absolute;
+      }
+
+      .timeRangeSelector {
+        position: absolute;
+        right: 10px;
+      }
+
+      .test {
+        width: 300px;
+        height: 100px;
+        border: 1px solid #5e5e5e;
+        margin: 40px 0 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container">
+        <span class="rankListTitle">{{ listName }}</span>
+        <span class="timeRangeSelector">
+          <span
+            v-for="(key, index) in tabKeyList"
+            :key="key"
+            class="basicTabClass"
+            :class="{ 'activeClass' : key === curSelectKey }"
+            @click="setSelectKey(key)"
+          >
+            <span>{{ tabLabelList[index] }}</span>
+            <span v-if="index!=tabKeyList.length-1" class="vLine"></span>
+          </span>
+        </span>
+
+        <div class="test"></div>
+
+        <el-table :data="tableData" row-key="name" style="width: 100%">
+          <el-table-column
+            v-for="(item, index) in tableTitle"
+            :key="item.prop"
+            :prop="item.prop"
+            :label="item.label"
+            :width="item.width"
+            :type="item.type"
+          >
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            listName: '基金产品收益TOP10排行榜',
+            curSelectKey: 'm1_return',
+            tabKeyList: ['w1_return', 'm1_return', 'y1_return'],
+            tabLabelList: ['近一周', '近一月', '近一年'],
+            tableData: [
+              // {
+              //   gain: 0.3076,
+              //   netValue: 1.3143,
+              //   orderBookId: "004041.OF",
+              //   rank: 1,
+              //   symbol: "金鹰转型动力A"
+              // },
+              // {
+              //   gain: 0.3076,
+              //   netValue: 1.3143,
+              //   orderBookId: "004042.OF",
+              //   rank: 2,
+              //   symbol: "金鹰转型动力B"
+              // },
+              // {
+              //   gain: 0.3076,
+              //   netValue: 1.3143,
+              //   orderBookId: "004043.OF",
+              //   rank: 3,
+              //   symbol: "金鹰转型动力C"
+              // }
+            ],
+            w1_return_table_data: [],
+            m1_return_table_data: [],
+            y1_return_table_data: []
+          };
+        },
+        methods: {
+          setSelectKey(curSelectKey) {
+            this.curSelectKey = curSelectKey;
+            // 发送请求
+            this.tableData =
+              this[`${curSelectKey}_table_data`].length > 0
+                ? this[`${curSelectKey}_table_data`]
+                : this.getTableData(curSelectKey);
+          },
+          getTableData(curSelectKey) {
+            // let returnData = await xxx;
+            let returnData = [
+              {
+                gain: 0.3076,
+                netValue: 1.1143,
+                orderBookId: '004041.OF',
+                rank: 1,
+                symbol: '金鹰转型动力A'
+              },
+              {
+                gain: 0.3076,
+                netValue: 1.2143,
+                orderBookId: '004042.OF',
+                rank: 2,
+                symbol: '金鹰转型动力B'
+              },
+              {
+                gain: 0.3076,
+                netValue: 1.3143,
+                orderBookId: '004043.OF',
+                rank: 3,
+                symbol: '金鹰转型动力C'
+              }
+            ];
+            let tableDataResult = returnData.map((item) => {
+              return {
+                gain: item.gain,
+                netValue: item.netValue,
+                fundName: item.orderBookId + '/' + item.symbol + '-' + curSelectKey,
+                rank: item.rank
+              };
+            });
+            this[`${curSelectKey}_table_data`] = tableDataResult;
+            return tableDataResult;
+          }
+        },
+        computed: {
+          tableTitle() {
+            let res = [
+              {
+                label: '排名',
+                prop: 'rank',
+                width: '120'
+              },
+              {
+                label: '基金名称',
+                prop: 'fundName',
+                width: '180'
+              },
+              {
+                label: '基金净值',
+                prop: 'netValue',
+                width: '120'
+              },
+              {
+                label: '收益',
+                prop: 'gain',
+                width: '120'
+              }
+            ];
+            this.curSelectKey === 'w1_return' && res.pop();
+            return res;
+          }
+        },
+        mounted() {
+          this.tableData = this.getTableData(this.curSelectKey);
+        },
+        watch: {}
+      });
+    </script>
+  </body>
+</html>

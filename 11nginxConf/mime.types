@@ -1,0 +1,57 @@
+types {
+  # --- 文本类型 ---
+  text/html                        html htm shtml;
+  text/css                         css;
+  text/plain                       txt;
+  text/xml                         xml;
+  text/markdown                    md;
+  application/json                 json;
+  application/javascript           js;
+  application/manifest+json        webmanifest;
+
+  # --- 图片类型 ---
+  image/png                        png;
+  image/jpeg                       jpeg jpg;
+  image/gif                        gif;
+  image/webp                       webp;
+  image/svg+xml                    svg svgz;
+  image/x-icon                     ico;
+  image/avif                       avif;
+
+  # --- 字体 ---
+  font/woff                        woff;
+  font/woff2                       woff2;
+  application/vnd.ms-fontobject    eot;
+  application/x-font-ttf           ttf;
+  application/x-font-otf           otf;
+
+  # --- 文档格式 ---
+  application/pdf                  pdf;
+  application/msword               doc;
+  application/vnd.ms-excel         xls;
+  application/vnd.ms-powerpoint    ppt;
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document docx;
+  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet        xlsx;
+  application/vnd.openxmlformats-officedocument.presentationml.presentation pptx;
+
+  # --- 压缩与安装包 ---
+  application/zip                  zip;
+  application/x-7z-compressed      7z;
+  application/x-rar-compressed     rar;
+  application/x-tar                tar;
+  application/gzip                 gz;
+  application/x-bzip2              bz2;
+
+  # --- 音频视频 ---
+  audio/mpeg                       mp3;
+  audio/ogg                        ogg;
+  audio/webm                       weba;
+  audio/wav                        wav;
+  video/mp4                        mp4;
+  video/webm                       webm;
+  video/quicktime                  mov;
+  video/x-msvideo                  avi;
+
+  # --- WebAssembly ---
+  application/wasm                 wasm;
+}

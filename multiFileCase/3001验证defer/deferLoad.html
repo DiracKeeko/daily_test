@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="./handler.js"></script>
+  <!-- 实测加上 defer 之后; handler.js在 variable.js, func.js 之后加载, 并正常执行 -->
+</head>
+<body>
+  <script src="./variable.js"></script>
+  <script src="./func.js"></script>
+</body>
+</html>

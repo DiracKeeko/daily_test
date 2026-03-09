@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -7,8 +8,6 @@
       body {
         display: flex;
         justify-content: center;
-        align-items: center;
-        height: 100vh;
         margin: 0;
         background-color: #f4f4f4;
       }
@@ -23,7 +22,6 @@
       }
     </style>
   </head>
-
   <body>
     <div>
       <div style="width: 500px; height: 900px; color: '#999'">top</div>
@@ -50,15 +48,15 @@
           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
         },
         yAxis: {},
-        // dataZoom 屏蔽了鼠标滚轮
-        dataZoom: [ 
+        dataZoom: [
           {
             type: 'inside',
             start: 30,
             end: 100,
             moveOnMouseMove: true, // 允许鼠标在图表区域拖拽平移
             zoomOnMouseWheel: false, // 禁用鼠标滚轮缩放
-            moveOnMouseWheel: false // 禁用鼠标滚轮触发的平移
+            moveOnMouseWheel: false, // 禁用鼠标滚轮触发的平移
+            preventDefaultMouseMove: false // 允许滚轮事件冒泡，使页面可滚动
           }
         ],
         series: [
@@ -84,6 +82,25 @@
       // 响应式：监听窗口大小变化，自动调整图表尺寸
       window.addEventListener('resize', function () {
         myChart.resize();
+      });
+
+      // 解决鼠标在图表上时滚轮无法滚动页面的问题
+      var chartDom = document.getElementById('main');
+
+      // 使用捕获阶段拦截滚轮事件，在 ECharts 处理之前执行
+      chartDom.addEventListener(
+        'wheel',
+        function (e) {
+          window.scrollBy(0, e.deltaY);
+        },
+        { passive: true, capture: true }
+      );
+
+      // 监听 dataZoom 事件，每次拖动后重新移除 zrender 的滚轮监听
+      myChart.on('datazoom', function () {
+        var zr = myChart.getZr();
+        zr.off('mousewheel');
+        zr.off('wheel');
       });
     </script>
   </body>

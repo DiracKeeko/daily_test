@@ -1,0 +1,90 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>0555</title>
+    <script src="../common/lib/echarts5.6.0.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      /* 2. 准备一个具备高宽的 DOM 容器 */
+      #main {
+        width: 800px;
+        height: 500px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <div style="width: 500px; height: 900px; color: '#999'">top</div>
+      <div id="main"></div>
+      <div style="width: 500px; height: 900px; color: '#999'">bottom</div>
+    </div>
+    <script type="text/javascript">
+      // 3. 基于准备好的 dom，初始化 echarts 实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 4. 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: '入门柱状图示例',
+          subtext: '数据来自虚构'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['销量', '库存']
+        },
+        xAxis: {
+          data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+        },
+        yAxis: {},
+        // dataZoom 屏蔽了鼠标滚轮
+        dataZoom: [ 
+          {
+            type: 'inside',
+            start: 30,
+            end: 100,
+            moveOnMouseMove: true, // 允许鼠标在图表区域拖拽平移
+            zoomOnMouseWheel: false, // 禁用鼠标滚轮缩放
+            moveOnMouseWheel: false // 禁用鼠标滚轮触发的平移
+          }
+        ],
+        series: [
+          {
+            name: '销量',
+            type: 'bar', // 柱状图
+            data: [5, 20, 36, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+            itemStyle: { color: '#5470c6' }
+          },
+          {
+            name: '库存',
+            type: 'line', // 折线图
+            data: [15, 30, 46, 20, 25, 35, 15, 30, 46, 20, 25, 35],
+            smooth: true,
+            itemStyle: { color: '#91cc75' }
+          }
+        ]
+      };
+
+      // 5. 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      // 响应式：监听窗口大小变化，自动调整图表尺寸
+      window.addEventListener('resize', function () {
+        myChart.resize();
+      });
+    </script>
+  </body>
+</html>
